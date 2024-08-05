@@ -28,6 +28,7 @@ namespace Furniture
         private FurniturePiece _selectedPiece;
         private List<GridCell> _takenCells;
         private Vector3 _previewForward;
+        private bool _isAllowedToPlacePiece;
         private int _lastSelectedPieceIndex = -1;
         private int _selectedPieceIndex;
         private int _orientationIndex;
@@ -146,20 +147,20 @@ namespace Furniture
 
         private void ShowPreview(out List<GridCell> cells, out Vector3 center)
         {
-            bool isInsideGrid = _grid.Value.TryGetInsideCells(out cells, out center);
+            _isAllowedToPlacePiece = _grid.Value.TryGetInsideCells(out cells, out center);
 
             foreach (GridCell cell in cells)
             {
-                if (!isInsideGrid)
+                if (!_isAllowedToPlacePiece)
                     break;
                 
                 if (_takenCells.All(takenCell => takenCell.Column != cell.Column || takenCell.Row != cell.Row))
                     continue;
 
-                isInsideGrid = false;
+                _isAllowedToPlacePiece = false;
             }
             
-            _originalPreviewMaterial.SetColor(PreviewColorId, isInsideGrid ? validSpotColor : invalidSpotColor);
+            _originalPreviewMaterial.SetColor(PreviewColorId, _isAllowedToPlacePiece ? validSpotColor : invalidSpotColor);
         }
 
         private void MovePreview(Vector3 center)
@@ -170,6 +171,9 @@ namespace Furniture
 
         private bool TryPlacingPiece(List<GridCell> cells)
         {
+            if (!_isAllowedToPlacePiece)
+                return false;
+            
             if (!placeInput.action.triggered)
                 return false;
             
