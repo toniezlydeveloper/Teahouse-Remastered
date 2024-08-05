@@ -10,12 +10,13 @@ namespace States
     
     public class BedroomBoostrapState : ABootstrapState<BedroomState>
     {
-        protected override string LevelName => "Bedroom";
+        // todo: change it back to Bedroom when done with Playground
+        protected override string LevelName => "Playground";
     }
     
     public class ShopBootstrapState : ABootstrapState<ShopClosedState>
     {
-        protected override string LevelName => "Playground";
+        protected override string LevelName => "Shop";
     }
 
     public abstract class ABootstrapState<TTargetState> : AState where TTargetState : AState

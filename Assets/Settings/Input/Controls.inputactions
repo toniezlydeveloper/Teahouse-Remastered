@@ -42,9 +42,45 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Pause",
+                    "name": "Select1",
                     "type": "Button",
-                    "id": "bf78f180-7ec0-4040-b6ed-8c09d01e0489",
+                    "id": "61391145-dc2d-46e7-b1fa-520255e15620",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Select2",
+                    "type": "Button",
+                    "id": "a9559418-e494-41d3-8bbc-9af1aafa3858",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Select3",
+                    "type": "Button",
+                    "id": "c00c866f-b0d5-4cdf-9d5a-e75921fd8010",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Select4",
+                    "type": "Button",
+                    "id": "7c67cac7-acce-4a5a-9c4f-b1faa2e41cd2",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Select5",
+                    "type": "Button",
+                    "id": "dd0fbb5b-c6ad-4dc6-8ff0-6836affeeda5",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -120,17 +156,6 @@
                 },
                 {
                     "name": "",
-                    "id": "520c79ad-bb69-4113-ad40-5a50891dd99c",
-                    "path": "<Keyboard>/escape",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Pause",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "579d10fe-077f-4609-8885-1831c7ea47db",
                     "path": "<Keyboard>/q",
                     "interactions": "",
@@ -148,6 +173,61 @@
                     "processors": "",
                     "groups": "",
                     "action": "InteractUp",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "ffcdad6f-fc03-4590-9716-2cffc3cd6b25",
+                    "path": "<Keyboard>/1",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Select1",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "aeb2ebe9-3feb-46f7-af5a-d543a8dcdbec",
+                    "path": "<Keyboard>/2",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Select2",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "026a468e-4df4-4f4f-948c-49d400f60d24",
+                    "path": "<Keyboard>/3",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Select3",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "e8e0a347-7275-4811-8527-bf9ecaabc0b0",
+                    "path": "<Keyboard>/4",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Select4",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "7f25f5c0-0ace-4910-9700-dd70854bb728",
+                    "path": "<Keyboard>/5",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Select5",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

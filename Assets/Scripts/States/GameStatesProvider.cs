@@ -33,14 +33,15 @@ namespace States
             InjectListRecipes();
             GetReferences();
             
-            AddInitialState(new ShopBootstrapState());
+            AddState(new ShopBootstrapState());
             AddState(new ShopOpenedAtDayState(new CustomerSpawner(_timePanel, customerPrefab, data)));
             AddState(new ShopClosedState());
             
             AddState(new GardenBootstrapState());
             AddState(new GardenState());
             
-            AddState(new BedroomBoostrapState());
+            // todo: change it back to Shop after getting done with Playground
+            AddInitialState(new BedroomBoostrapState());
             AddState(new BedroomState());
         }
 

@@ -580,6 +580,69 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 1354961926384454397, guid: f4f594c1726857b458adb176d4035990, type: 3}
   m_PrefabInstance: {fileID: 257162318}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &266313681
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 266313682}
+  - component: {fileID: 266313683}
+  m_Layer: 5
+  m_Name: FurnitureWindow
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &266313682
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 266313681}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2069785510}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 25, y: 15}
+  m_SizeDelta: {x: 300, y: 75}
+  m_Pivot: {x: 0, y: 0}
+--- !u!114 &266313683
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 266313681}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30649d3a9faa99c48a7b1166b86bf2a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Padding:
+    m_Left: 0
+    m_Right: 0
+    m_Top: 0
+    m_Bottom: 0
+  m_ChildAlignment: 6
+  m_Spacing: 10
+  m_ChildForceExpandWidth: 0
+  m_ChildForceExpandHeight: 0
+  m_ChildControlWidth: 0
+  m_ChildControlHeight: 0
+  m_ChildScaleWidth: 0
+  m_ChildScaleHeight: 0
+  m_ReverseArrangement: 0
 --- !u!1 &295153112
 GameObject:
   m_ObjectHideFlags: 0
@@ -1721,7 +1784,7 @@ GameObject:
   - component: {fileID: 1047213573}
   - component: {fileID: 1047213572}
   m_Layer: 5
-  m_Name: CurrencyPanel
+  m_Name: CurrencyWindow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1803,7 +1866,7 @@ GameObject:
   - component: {fileID: 1292491377}
   - component: {fileID: 1292491378}
   m_Layer: 0
-  m_Name: ItemSelector
+  m_Name: FurniturePlacer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1836,14 +1899,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38926e1bfb5a4cc38512956a1ba0d87f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  previousInput: {fileID: 7225357600893054974, guid: 66336f1aba36c584aa036f1400048593, type: 3}
-  nextInput: {fileID: 4019998940808226789, guid: 66336f1aba36c584aa036f1400048593, type: 3}
+  selectionsInput:
+  - {fileID: -1953220745177899111, guid: 66336f1aba36c584aa036f1400048593, type: 3}
+  - {fileID: 7234827205109348895, guid: 66336f1aba36c584aa036f1400048593, type: 3}
+  - {fileID: 5785731430761077657, guid: 66336f1aba36c584aa036f1400048593, type: 3}
+  - {fileID: -4971963938947296417, guid: 66336f1aba36c584aa036f1400048593, type: 3}
+  - {fileID: -8800411836277867182, guid: 66336f1aba36c584aa036f1400048593, type: 3}
+  rotateRightInput: {fileID: 4019998940808226789, guid: 66336f1aba36c584aa036f1400048593, type: 3}
+  rotateLeftInput: {fileID: 7225357600893054974, guid: 66336f1aba36c584aa036f1400048593, type: 3}
   placeInput: {fileID: -688405445266427128, guid: 66336f1aba36c584aa036f1400048593, type: 3}
-  piece:
+  previewMaterial: {fileID: 2100000, guid: 7573bd6ea808d4f47877345acaecefed, type: 2}
+  invalidSpotColor: {r: 1, g: 0.06132078, b: 0.06132078, a: 0.39215687}
+  validSpotColor: {r: 1, g: 1, b: 1, a: 0.39215687}
+  uiParent: {fileID: 1431542015}
+  test:
     <Prefab>k__BackingField: {fileID: 6396824862390078932, guid: 073d1e272ac14714a86f3a2d16a885b0, type: 3}
     <Item>k__BackingField:
       <Height>k__BackingField: 3
       <Width>k__BackingField: 2
+    <Count>k__BackingField: 3
 --- !u!1 &1431542015
 GameObject:
   m_ObjectHideFlags: 0
@@ -2770,7 +2844,7 @@ GameObject:
   - component: {fileID: 1941554713}
   - component: {fileID: 1941554712}
   m_Layer: 5
-  m_Name: TimePanel
+  m_Name: TimeWindow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2945,6 +3019,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 332573728}
+  - {fileID: 266313682}
   m_Father: {fileID: 1431542019}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2966,6 +3041,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isInteractable: 0
+  iconsData:
+  - <Prefab>k__BackingField: {fileID: 6396824862390078932, guid: 073d1e272ac14714a86f3a2d16a885b0, type: 3}
+    <Icon>k__BackingField: {fileID: 21300000, guid: a3dcc8b557b35474a9525a695a91c58c, type: 3}
+  slotPrefab: {fileID: 4601226977300666843, guid: 3739f45485ce3e04e8b63cefef982500, type: 3}
+  slotsParent: {fileID: 266313682}
 --- !u!225 &2069785512
 CanvasGroup:
   m_ObjectHideFlags: 0
