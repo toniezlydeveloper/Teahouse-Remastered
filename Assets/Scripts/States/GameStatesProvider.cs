@@ -9,7 +9,7 @@ using UnityEngine;
 
 namespace States
 {
-    // 1. Dekoracja pokoju
+    // 1. Dekoracja pokoju v
     // 2. Wytwarzanie skladnikow ze skladnikow
     // 3. Inventory do przekladania rzeczy
     // 4. Premie / nocni klienci
@@ -33,15 +33,14 @@ namespace States
             InjectListRecipes();
             GetReferences();
             
-            AddState(new ShopBootstrapState());
+            AddInitialState(new ShopBootstrapState());
             AddState(new ShopOpenedAtDayState(new CustomerSpawner(_timePanel, customerPrefab, data)));
             AddState(new ShopClosedState());
             
             AddState(new GardenBootstrapState());
             AddState(new GardenState());
             
-            // todo: change it back to Shop after getting done with Playground
-            AddInitialState(new BedroomBoostrapState());
+            AddState(new BedroomBoostrapState());
             AddState(new BedroomState());
         }
 
