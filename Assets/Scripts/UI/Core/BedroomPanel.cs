@@ -1,6 +1,4 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using Furniture;
 using Internal.Dependencies.Core;
 using Internal.Flow.UI;
@@ -17,18 +15,9 @@ namespace UI.Core
 
     public class BedroomPanel : AUIPanel, IFurnishingPanel
     {
-        [Serializable]
-        public class FurnitureIconData
-        {
-            [field:SerializeField] public GameObject Prefab { get; set; }
-            [field:SerializeField] public Sprite Icon { get; set; }
-        }
-
-        [SerializeField] private FurnitureIconData[] iconsData;
         [SerializeField] private FurnitureSlot slotPrefab;
         [SerializeField] private Transform slotsParent;
 
-        private Dictionary<GameObject, Sprite> _iconsByPrefab = new();
         private List<FurnitureSlot> _slots = new();
 
         public void Present(List<FurniturePiece> pieces)
@@ -52,8 +41,6 @@ namespace UI.Core
             
             for (int i = 0; i < missingSlotCount; i++)
                 _slots.Add(Instantiate(slotPrefab, slotsParent));
-            
-            _iconsByPrefab = iconsData.ToDictionary(data => data.Prefab, data => data.Icon);
         }
 
         private void SetupSlots(List<FurniturePiece> pieces)
@@ -61,7 +48,7 @@ namespace UI.Core
             for (int i = 0; i < pieces.Count; i++)
             {
                 if (pieces[i] != null)
-                    _slots[i].Present(_iconsByPrefab[pieces[i].Prefab], pieces[i].Count);
+                    _slots[i].Present(pieces[i].Icon, pieces[i].Count);
                 else
                     _slots[i].Present(null, null);
             }

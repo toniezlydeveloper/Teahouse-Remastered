@@ -1917,6 +1917,7 @@ MonoBehaviour:
     <Item>k__BackingField:
       <Height>k__BackingField: 3
       <Width>k__BackingField: 2
+    <Icon>k__BackingField: {fileID: 21300000, guid: a3dcc8b557b35474a9525a695a91c58c, type: 3}
     <Count>k__BackingField: 3
 --- !u!1 &1431542015
 GameObject:
@@ -3041,9 +3042,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isInteractable: 0
-  iconsData:
-  - <Prefab>k__BackingField: {fileID: 6396824862390078932, guid: 073d1e272ac14714a86f3a2d16a885b0, type: 3}
-    <Icon>k__BackingField: {fileID: 21300000, guid: a3dcc8b557b35474a9525a695a91c58c, type: 3}
   slotPrefab: {fileID: 4601226977300666843, guid: 3739f45485ce3e04e8b63cefef982500, type: 3}
   slotsParent: {fileID: 266313682}
 --- !u!225 &2069785512

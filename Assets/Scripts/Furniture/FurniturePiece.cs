@@ -9,6 +9,7 @@ namespace Furniture
     {
         [field:SerializeField] public GameObject Prefab { get; set; }
         [field:SerializeField] public GridItem Item { get; set; }
+        [field:SerializeField] public Sprite Icon { get; set; }
         [field:SerializeField] public int Count { get; set; }
     }
 }
