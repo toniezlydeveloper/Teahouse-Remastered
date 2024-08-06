@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using Furniture;
 using Internal.Dependencies.Core;
 using Internal.Flow.UI;
 using UI.Helpers;
@@ -9,8 +8,14 @@ namespace UI.Core
 {
     public interface IFurnishingPanel : IDependency
     {
-        void Present(List<FurniturePiece> pieces);
+        void Present(List<FurniturePieceData> pieces);
         void Present(int selectedIndex);
+    }
+
+    public class FurniturePieceData
+    {
+        public Sprite Icon { get; set; }
+        public int Count { get; set; }
     }
 
     public class BedroomPanel : AUIPanel, IFurnishingPanel
@@ -20,7 +25,7 @@ namespace UI.Core
 
         private List<FurnitureSlot> _slots = new();
 
-        public void Present(List<FurniturePiece> pieces)
+        public void Present(List<FurniturePieceData> pieces)
         {
             AddMissingSlots(pieces);
             SetupSlots(pieces);
@@ -32,7 +37,7 @@ namespace UI.Core
                 _slots[i].Present(i == selectedIndex);
         }
 
-        private void AddMissingSlots(List<FurniturePiece> pieces)
+        private void AddMissingSlots(List<FurniturePieceData> pieces)
         {
             int missingSlotCount = pieces.Count - _slots.Count;
             
@@ -43,7 +48,7 @@ namespace UI.Core
                 _slots.Add(Instantiate(slotPrefab, slotsParent));
         }
 
-        private void SetupSlots(List<FurniturePiece> pieces)
+        private void SetupSlots(List<FurniturePieceData> pieces)
         {
             for (int i = 0; i < pieces.Count; i++)
             {

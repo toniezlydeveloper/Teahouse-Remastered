@@ -9,7 +9,7 @@ namespace Grids
     public interface IGridItemHolder : IDependency
     {
         public GridItemOrientation Orientation { get; }
-        public GridItem Item { get; }
+        public GridDimensions Dimensions { get; }
     }
     
     public interface IGridPointer : IDependency
@@ -108,8 +108,8 @@ namespace Grids
         
         private Vector3 GetPointerAdjustment()
         {
-            float worldHeight = cellSize * _itemHolder.Value.Item.Height;
-            float worldWidth = cellSize * _itemHolder.Value.Item.Width;
+            float worldHeight = cellSize * _itemHolder.Value.Dimensions.Height;
+            float worldWidth = cellSize * _itemHolder.Value.Dimensions.Width;
             float columnFactor = 0;
             float rowFactor = 0;
 
@@ -167,8 +167,8 @@ namespace Grids
             switch (_itemHolder.Value.Orientation)
             {
                 case GridItemOrientation.ColumnWise:
-                    for (int i = 0; i < _itemHolder.Value.Item.Height; i++)
-                    for (int j = 0; j < _itemHolder.Value.Item.Width; j++)
+                    for (int i = 0; i < _itemHolder.Value.Dimensions.Height; i++)
+                    for (int j = 0; j < _itemHolder.Value.Dimensions.Width; j++)
                         _cells.Add(new GridCell
                         {
                             Column = _adjustedPointerColumn + j,
@@ -176,8 +176,8 @@ namespace Grids
                         });
                     break;
                 case GridItemOrientation.RowWise:
-                    for (int i = 0; i < _itemHolder.Value.Item.Height; i++)
-                    for (int j = 0; j < _itemHolder.Value.Item.Width; j++)
+                    for (int i = 0; i < _itemHolder.Value.Dimensions.Height; i++)
+                    for (int j = 0; j < _itemHolder.Value.Dimensions.Width; j++)
                         _cells.Add(new GridCell
                         {
                             Column = _adjustedPointerColumn + i,

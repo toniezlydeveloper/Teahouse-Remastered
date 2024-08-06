@@ -708,7 +708,7 @@ GameObject:
   - component: {fileID: 1354961926384454393}
   - component: {fileID: 8552520548874474809}
   m_Layer: 5
-  m_Name: P_HintsPanel
+  m_Name: P_HintsWindow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

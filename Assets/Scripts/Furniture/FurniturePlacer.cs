@@ -1,29 +1,30 @@
 using System.Collections.Generic;
 using System.Linq;
 using Grids;
+using Interaction;
 using Internal.Dependencies.Core;
+using Inventory;
+using Player;
 using UI.Core;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 namespace Furniture
 {
-    public class FurniturePlacer : ADependency<IGridItemHolder>, IGridItemHolder
+    public class FurniturePlacer : AInteractionHandler, IGridItemHolder
     {
         [SerializeField] private List<InputActionReference> selectionsInput;
         [SerializeField] private InputActionReference rotateRightInput;
         [SerializeField] private InputActionReference rotateLeftInput;
         [SerializeField] private InputActionReference placeInput;
+        [SerializeField] private PlayerModeProxy playerMode;
         [SerializeField] private Material previewMaterial;
         [SerializeField] private Color invalidSpotColor;
         [SerializeField] private Color validSpotColor;
-        [SerializeField] private GameObject uiParent;
-        
-        [SerializeField] private FurniturePiece test;
 
+        private IFurnishingPanel _furnishingPanel = DependencyInjector.Get<IFurnishingPanel>();
         private DependencyRecipe<IGrid> _grid = DependencyInjector.GetRecipe<IGrid>();
-        private List<FurniturePiece> _furniturePieces;
-        private IFurnishingPanel _furnishingPanel;
+        private IInventory _inventory = DependencyInjector.Get<IInventory>();
         private Material _originalPreviewMaterial;
         private FurniturePiece _selectedPiece;
         private List<GridCell> _takenCells;
@@ -34,8 +35,10 @@ namespace Furniture
         private int _orientationIndex;
         private GameObject _preview;
 
+        public override PlayerMode HandledModes => PlayerMode.Organization;
+        
         public GridItemOrientation Orientation { get; private set; }
-        public GridItem Item { get; private set; }
+        public GridDimensions Dimensions { get; private set; }
 
         private static readonly Dictionary<FurnitureOrientation, GridItemOrientation> GridByFurniture = new()
         {
@@ -59,6 +62,10 @@ namespace Furniture
             FurnitureOrientation.AgainstRow
         };
         private static readonly int PreviewColorId = Shader.PropertyToID("_Base");
+
+        private void OnEnable() => playerMode.OnChanged += TogglePreview;
+        
+        private void OnDisable() => playerMode.OnChanged -= TogglePreview;
 
         private void Start()
         {
@@ -107,7 +114,7 @@ namespace Furniture
             if (_selectedPieceIndex == _lastSelectedPieceIndex)
                 return false;
 
-            _selectedPiece = _furniturePieces[_selectedPieceIndex];
+            _selectedPiece = _inventory.Pieces[_selectedPieceIndex];
             _lastSelectedPieceIndex = _selectedPieceIndex;
             return true;
         }
@@ -128,7 +135,7 @@ namespace Furniture
             foreach (Renderer previewRenderer in _preview.GetComponentsInChildren<Renderer>())
                 previewRenderer.material = _originalPreviewMaterial;
 
-            Item = _selectedPiece.Item;
+            Dimensions = _selectedPiece.Dimensions;
             _orientationIndex = 0;
         }
 
@@ -185,27 +192,28 @@ namespace Furniture
             if (--_selectedPiece.Count != 0)
                 return true;
             
-            _furniturePieces[_furniturePieces.IndexOf(_selectedPiece)] = null;
+            _inventory.Pieces[_inventory.Pieces.IndexOf(_selectedPiece)] = null;
             _selectedPiece = null;
             Destroy(_preview);
             return true;
         }
 
-        private void RefreshPiecesUI() => _furnishingPanel.Present(_furniturePieces);
+        private void TogglePreview(PlayerMode mode)
+        {
+            if (!_preview)
+                return;
+            
+            _preview.SetActive(mode == PlayerMode.Organization);
+        }
+
+        private void RefreshPiecesUI() => _furnishingPanel.Present(_inventory.Pieces.Select(piece => new FurniturePieceData { Icon = piece?.Icon, Count = piece?.Count ?? 0}).ToList());
         
         private void RefreshSelectionUI() => _furnishingPanel.Present(_selectedPieceIndex);
 
         private void GetReferences()
         {
-            _furnishingPanel = uiParent.GetComponentInChildren<IFurnishingPanel>();
-            _furniturePieces = new List<FurniturePiece>(selectionsInput.Count);
             _originalPreviewMaterial = new Material(previewMaterial);
             _takenCells = new List<GridCell>();
-
-            _furniturePieces.Add(test);
-            
-            for (int i = 0; i < selectionsInput.Count - 1; i++)
-                _furniturePieces.Add(null);
         }
     }
 }

@@ -1,6 +1,6 @@
 using Internal.Dependencies.Core;
 using Items.Implementations;
-using UI.Core;
+using UI.Shared;
 using UnityEngine;
 
 namespace Currency
