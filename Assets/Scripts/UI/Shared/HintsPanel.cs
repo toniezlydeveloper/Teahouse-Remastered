@@ -22,6 +22,7 @@ namespace UI.Shared
         [SerializeField] private GameObject eHint;
         [SerializeField] private GameObject qHint;
         [SerializeField] private GameObject hints;
+        [SerializeField] private bool isAlwaysActive;
         
         private Dictionary<PlayerMode, ModeHints> _hintsByMode;
 
@@ -31,7 +32,8 @@ namespace UI.Shared
         
         public void Present(InteractionElement interactionElement)
         {
-            ToggleHintsPanel(interactionElement);
+            if (!TryStayingActive())
+                ToggleHintsPanel(interactionElement);
             
             if (!TryGettingHints(interactionElement, out ModeHints modeHints))
                 return;
@@ -45,6 +47,17 @@ namespace UI.Shared
                 return;
             
             Present(modeHints);
+        }
+
+        private bool TryStayingActive()
+        {
+            if (!isAlwaysActive)
+                return false;
+            
+            spaceHint.SetActive(false);
+            eHint.SetActive(false);
+            qHint.SetActive(false);
+            return true;
         }
 
         private void ToggleHintsPanel(InteractionElement interactionElement) => hints.SetActive(interactionElement != null);

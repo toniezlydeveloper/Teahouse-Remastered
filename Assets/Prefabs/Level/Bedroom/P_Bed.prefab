@@ -77,13 +77,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   modeProxy: {fileID: 11400000, guid: e80d591c18778ab4b9dff2ddc5d7e633, type: 2}
-  handledMode: -1
+  handledMode: 2
   highlight: {fileID: 3001056940231999748}
   hints:
-  - <CorrespondingMode>k__BackingField: 1
-    <SpaceHint>k__BackingField: Sleep
-    <EHint>k__BackingField: 
-    <QHint>k__BackingField: 
   - <CorrespondingMode>k__BackingField: 2
     <SpaceHint>k__BackingField: Sleep
     <EHint>k__BackingField: 

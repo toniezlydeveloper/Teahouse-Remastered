@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 5020493583045865477}
   - component: {fileID: 5020493583045865498}
-  - component: {fileID: 1221850651430391125}
   - component: {fileID: 1908650316995999291}
+  - component: {fileID: 4517775622532875784}
   m_Layer: 0
   m_Name: P_ItemShop
   m_TagString: Untagged
@@ -50,28 +50,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: -0.045}
---- !u!114 &1221850651430391125
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5020493583045865499}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3dcc40aa64ad43a98c534ec54d0dceeb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  saleItems:
-  - <Piece>k__BackingField:
-      <Dimensions>k__BackingField:
-        <Height>k__BackingField: 3
-        <Width>k__BackingField: 2
-      <Prefab>k__BackingField: {fileID: 6396824862390078932, guid: 073d1e272ac14714a86f3a2d16a885b0, type: 3}
-      <Icon>k__BackingField: {fileID: 21300000, guid: a3dcc8b557b35474a9525a695a91c58c, type: 3}
-      <Count>k__BackingField: 1
-    <Name>k__BackingField: Bed
-    <Cost>k__BackingField: 10
 --- !u!114 &1908650316995999291
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -93,6 +71,19 @@ MonoBehaviour:
     <EHint>k__BackingField: 
     <QHint>k__BackingField: 
   order: 0
+--- !u!114 &4517775622532875784
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5020493583045865499}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b894af2e0fb84901a17ac219d1eaad8e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 5
 --- !u!1001 &1856679174749059780
 PrefabInstance:
   m_ObjectHideFlags: 0

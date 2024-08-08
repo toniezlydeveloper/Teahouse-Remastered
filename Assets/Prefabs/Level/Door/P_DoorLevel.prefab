@@ -17,11 +17,11 @@ PrefabInstance:
       objectReference: {fileID: 6314674342296885632}
     - target: {fileID: 3064861303790718610, guid: 909a7cd80b63b46449e7a9bd2d1bbef6, type: 3}
       propertyPath: handledMode
-      value: -1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3064861303790718610, guid: 909a7cd80b63b46449e7a9bd2d1bbef6, type: 3}
       propertyPath: hints.Array.size
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3064861303790718610, guid: 909a7cd80b63b46449e7a9bd2d1bbef6, type: 3}
       propertyPath: hints.Array.data[0].<SpaceHint>k__BackingField
@@ -33,7 +33,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3064861303790718610, guid: 909a7cd80b63b46449e7a9bd2d1bbef6, type: 3}
       propertyPath: hints.Array.data[0].<CorrespondingMode>k__BackingField
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3064861303790718610, guid: 909a7cd80b63b46449e7a9bd2d1bbef6, type: 3}
       propertyPath: hints.Array.data[1].<CorrespondingMode>k__BackingField

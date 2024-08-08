@@ -425,6 +425,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 692015094110154212, guid: 5ec39ce1067b853469a7a7d0acf54670, type: 3}
+      propertyPath: handledMode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 692015094110154212, guid: 5ec39ce1067b853469a7a7d0acf54670, type: 3}
+      propertyPath: hints.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 692015094110154212, guid: 5ec39ce1067b853469a7a7d0acf54670, type: 3}
+      propertyPath: hints.Array.data[0].<CorrespondingMode>k__BackingField
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 692015094110154215, guid: 5ec39ce1067b853469a7a7d0acf54670, type: 3}
       propertyPath: m_Name
       value: P_DoorLevel
@@ -545,11 +557,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <Orientation>k__BackingField: 0
+  <Dimensions>k__BackingField:
+    <Height>k__BackingField: 0
+    <Width>k__BackingField: 0
   <PointerPosition>k__BackingField: {x: 0.82, y: 0, z: 1.74}
   <PlayerPosition>k__BackingField: {x: 0, y: 0, z: 1.56}
-  <Item>k__BackingField:
-    <Height>k__BackingField: 3
-    <Width>k__BackingField: 2
 --- !u!114 &568032717
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -1,11 +1,15 @@
+using Currency;
 using Customers;
 using Internal.Dependencies.Core;
 using Internal.Flow.States;
 using Internal.Pooling;
 using Items.Holders;
 using Organization;
+using Player;
 using UI.Core;
+using UI.Shared;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace States
 {
@@ -26,6 +30,18 @@ namespace States
         [SerializeField] private Customer customerPrefab;
         [SerializeField] private SpawnData data;
 
+        [Header("Item Shop")]
+        [SerializeField] private InputActionReference controls;
+        [SerializeField] private InputActionReference back;
+        [SerializeField] private SaleItem[] itemsForSale;
+        
+        [Header("Bedroom")]
+        [SerializeField] private InputActionReference toggle;
+        [SerializeField] private PlayerModeProxy playerMode;
+
+        private IFurnishingPanel _furnishingPanel;
+        private ICurrencyHolder _currencyHolder;
+        private IItemShopPanel _itemShopPanel;
         private ITimePanel _timePanel;
         
         private void Awake()
@@ -41,7 +57,9 @@ namespace States
             AddState(new GardenState());
             
             AddState(new BedroomBoostrapState());
-            AddState(new BedroomState());
+            AddState(new BedroomState(toggle, playerMode, _furnishingPanel));
+            
+            AddState(new ItemShopState(itemsForSale, _itemShopPanel, controls, back, _furnishingPanel, _currencyHolder));
         }
 
         private void Start() => DependencyInjector.AddRecipeElement<IManageableItemHolder>(hand);
@@ -55,8 +73,16 @@ namespace States
             DependencyInjector.InjectListRecipe<IPoolItem>();
         }
         
-        private void GetReferences() => _timePanel = GetFromUI<ITimePanel>();
+        private void GetReferences()
+        {
+            _currencyHolder = GetFromScene<ICurrencyHolder>();
+            _furnishingPanel = GetFromUI<IFurnishingPanel>();
+            _itemShopPanel = GetFromUI<IItemShopPanel>();
+            _timePanel = GetFromUI<ITimePanel>();
+        }
         
+        private TDependency GetFromScene<TDependency>() where TDependency : IDependency => gameObject.GetComponentInChildren<TDependency>();
+
         private TDependency GetFromUI<TDependency>() where TDependency : IDependency => uiParent.GetComponentInChildren<TDependency>();
     }
 }

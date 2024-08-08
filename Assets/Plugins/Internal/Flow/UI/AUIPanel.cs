@@ -15,9 +15,11 @@ namespace Internal.Flow.UI
 
         private CanvasGroup _canvasGroup;
 
-        private void Awake() => _canvasGroup = GetComponent<CanvasGroup>();
-
-        private void Start() => Disable(true);
+        private void Awake()
+        {
+            GetReferences();
+            Disable(true);
+        }
 
         public void Disable(bool shouldSkipAnimation = false) => _canvasGroup.DOFade(0f, shouldSkipAnimation ? 0f : 0.25f)
             .OnStart(() =>
@@ -35,5 +37,7 @@ namespace Internal.Flow.UI
 
         protected void RequestTransition<TState>() where TState : AState =>
             OnTransitionRequested?.Invoke(typeof(TState));
+        
+        private void GetReferences() => _canvasGroup = GetComponent<CanvasGroup>();
     }
 }

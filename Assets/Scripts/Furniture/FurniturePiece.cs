@@ -16,8 +16,8 @@ namespace Furniture
         {
             Dimensions = piece.Dimensions;
             Prefab = piece.Prefab;
-            Icon = piece.Icon;
             Count = piece.Count;
+            Icon = piece.Icon;
         }
     }
 }

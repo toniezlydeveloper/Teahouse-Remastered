@@ -13,10 +13,11 @@ namespace UI.Shared
     public class CurrencyPanel : MonoBehaviour, ICurrencyPanel
     {
         [SerializeField] private TextMeshProUGUI currencyAmountContainer;
+        [SerializeField] private bool defaultState;
         
         private Sequence _currencySequence;
 
-        private void Start() => Toggle(false);
+        private void Start() => Toggle(defaultState);
 
         public void Present(int amount)
         {
@@ -25,7 +26,7 @@ namespace UI.Shared
             _currencySequence.AppendCallback(() => gameObject.SetActive(true));
             _currencySequence.Append(DOTween.To(() => int.Parse(currencyAmountContainer.text), value => currencyAmountContainer.text = value.ToString(), amount, 1f).SetEase(Ease.InSine));
             _currencySequence.AppendInterval(0.5f);
-            _currencySequence.AppendCallback(() => gameObject.SetActive(false));
+            _currencySequence.AppendCallback(() => gameObject.SetActive(defaultState));
         }
         
         private void Toggle(bool state) => gameObject.SetActive(state);

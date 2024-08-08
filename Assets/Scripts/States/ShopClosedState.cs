@@ -22,14 +22,17 @@ namespace States
             PopulateOrganizationPoints();
         }
 
-        public override void OnExit()
-        {
-            ToggleDoorHinge(true);
-        }
-
         protected override void AddConditions()
         {
-            AddCondition<ShopOpenedAtDayState>(() => Transition.ShouldToggle(TransitionType.OpenCloseShop));
+            AddCondition<ShopOpenedAtDayState>(() =>
+            {
+                if (!Transition.ShouldToggle(TransitionType.OpenCloseShop))
+                    return false;
+                
+                ToggleDoorHinge(true);
+                return true;
+            });
+            AddCondition<ItemShopState>(() => Transition.ShouldToggle(TransitionType.ItemShop));
             AddCondition<GardenBootstrapState>(() =>
             {
                 if (!Transition.ShouldToggle(TransitionType.Garden))

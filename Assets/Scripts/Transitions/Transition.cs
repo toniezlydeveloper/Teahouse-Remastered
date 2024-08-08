@@ -8,7 +8,8 @@ namespace Transitions
         OpenCloseShop,
         Shop,
         Garden,
-        Bedroom
+        Bedroom,
+        ItemShop
     }
 
     public class Transition : MonoBehaviour

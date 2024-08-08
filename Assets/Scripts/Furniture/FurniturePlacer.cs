@@ -3,9 +3,9 @@ using System.Linq;
 using Grids;
 using Interaction;
 using Internal.Dependencies.Core;
-using Inventory;
 using Player;
-using UI.Core;
+using States;
+using UI.Shared;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -103,6 +103,9 @@ namespace Furniture
 
         private bool TrySelectingOtherPiece()
         {
+            if (playerMode.Value == PlayerMode.Modification)
+                return false;
+            
             if (_grid.Value == null)
                 return false;
             

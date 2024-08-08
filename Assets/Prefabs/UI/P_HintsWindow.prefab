@@ -835,6 +835,7 @@ MonoBehaviour:
   eHint: {fileID: 1354961925555953424}
   qHint: {fileID: 1354961925903433361}
   hints: {fileID: 1354961926384454398}
+  isAlwaysActive: 0
 --- !u!1 &1354961926413191397
 GameObject:
   m_ObjectHideFlags: 0

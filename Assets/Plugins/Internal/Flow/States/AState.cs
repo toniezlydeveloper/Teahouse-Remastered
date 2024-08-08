@@ -55,7 +55,7 @@ namespace Internal.Flow.States
         
         private void AddTransition(StateTransition transition) => Transitions.Add(transition);
 
-        private static void AddCondition(StateTransition transition, Func<bool> condition) =>
+        private void AddCondition(StateTransition transition, Func<bool> condition) =>
             transition.Conditions.Add(condition);
     }
 }
