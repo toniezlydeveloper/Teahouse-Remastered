@@ -20,9 +20,12 @@ namespace Organization
 
         public void Populate()
         {
+            if (TryGetOrganizable(out Organizable organizable))
+                return;
+            
             TrySpawningOrganizable();
             
-            if (!TryGetOrganizable(out Organizable organizable))
+            if (!TryGetOrganizable(out organizable))
                 return;
             
             ApplyOffset(organizable);

@@ -24,6 +24,7 @@ namespace States
 
         protected override void AddConditions()
         {
+            AddCondition<TradeItemsState>(() => Transition.ShouldToggle(TransitionType.ItemShop));
             AddCondition<ShopOpenedAtDayState>(() =>
             {
                 if (!Transition.ShouldToggle(TransitionType.OpenCloseShop))
@@ -32,7 +33,6 @@ namespace States
                 ToggleDoorHinge(true);
                 return true;
             });
-            AddCondition<ItemShopState>(() => Transition.ShouldToggle(TransitionType.ItemShop));
             AddCondition<GardenBootstrapState>(() =>
             {
                 if (!Transition.ShouldToggle(TransitionType.Garden))

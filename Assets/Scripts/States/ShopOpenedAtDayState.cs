@@ -4,7 +4,6 @@ using Internal.Flow.States;
 using Internal.Pooling;
 using Internal.Utilities;
 using Items.Holders;
-using Items.Implementations;
 using Player;
 using Transitions;
 using UnityEngine;
@@ -38,10 +37,10 @@ namespace States
 
         protected override void AddConditions() => AddCondition<ShopClosedState>(() =>
         {
-            if (!Transition.ShouldToggle(TransitionType.OpenCloseShop))
-                return HasFinishedLevel();
+            if (Transition.ShouldToggle(TransitionType.OpenCloseShop))
+                return true;
 
-            return true;
+            return HasFinishedLevel();
         });
 
         private void InitModification() => _playerModeToggle.Value.Toggle(PlayerMode.Modification);

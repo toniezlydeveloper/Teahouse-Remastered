@@ -303,3 +303,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currencyAmountContainer: {fileID: 1542851868862149183}
+  defaultState: 0

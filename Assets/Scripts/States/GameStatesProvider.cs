@@ -1,5 +1,6 @@
 using Currency;
 using Customers;
+using Furniture;
 using Internal.Dependencies.Core;
 using Internal.Flow.States;
 using Internal.Pooling;
@@ -15,11 +16,11 @@ namespace States
 {
     // 1. Dekoracja pokoju v
     // 2. Wytwarzanie skladnikow ze skladnikow
-    // 3. Inventory do przekladania rzeczy
+    // 3. Inventory do przekladania rzeczy - do dopracowania
     // 4. Premie / nocni klienci
     // 5. Splacanie wujka herbaciarza
     // 6. Tutorial
-    // 7. Sklep z rzeczami
+    // 7. Sklep z rzeczami - do dopracowania
     public class GameStatesProvider : AStatesProvider
     {
         [Header("General")]
@@ -31,9 +32,10 @@ namespace States
         [SerializeField] private SpawnData data;
 
         [Header("Item Shop")]
+        [SerializeField] private InputActionReference toggleMode;
         [SerializeField] private InputActionReference controls;
         [SerializeField] private InputActionReference back;
-        [SerializeField] private SaleItem[] itemsForSale;
+        [SerializeField] private TradeItem[] itemsForSale;
         
         [Header("Bedroom")]
         [SerializeField] private InputActionReference toggle;
@@ -59,7 +61,7 @@ namespace States
             AddState(new BedroomBoostrapState());
             AddState(new BedroomState(toggle, playerMode, _furnishingPanel));
             
-            AddState(new ItemShopState(itemsForSale, _itemShopPanel, controls, back, _furnishingPanel, _currencyHolder));
+            AddState(new TradeItemsState(itemsForSale, _itemShopPanel, controls, toggleMode, back, _furnishingPanel, _currencyHolder));
         }
 
         private void Start() => DependencyInjector.AddRecipeElement<IManageableItemHolder>(hand);
@@ -70,7 +72,14 @@ namespace States
         {
             DependencyInjector.InjectListRecipe<IManageableItemHolder>();
             DependencyInjector.InjectListRecipe<IOrganizationPoint>();
+            DependencyInjector.InjectListRecipe<IFurniturePiece>();
             DependencyInjector.InjectListRecipe<IPoolItem>();
+            
+            DependencyInjector.GetRecipe<DependencyList<IFurniturePiece>>().Value.Add(null);
+            DependencyInjector.GetRecipe<DependencyList<IFurniturePiece>>().Value.Add(null);
+            DependencyInjector.GetRecipe<DependencyList<IFurniturePiece>>().Value.Add(null);
+            DependencyInjector.GetRecipe<DependencyList<IFurniturePiece>>().Value.Add(null);
+            DependencyInjector.GetRecipe<DependencyList<IFurniturePiece>>().Value.Add(null);
         }
         
         private void GetReferences()

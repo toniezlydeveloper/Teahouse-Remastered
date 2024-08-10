@@ -4,7 +4,6 @@ using Grids;
 using Interaction;
 using Internal.Dependencies.Core;
 using Player;
-using States;
 using UI.Shared;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -22,12 +21,13 @@ namespace Furniture
         [SerializeField] private Color invalidSpotColor;
         [SerializeField] private Color validSpotColor;
 
+        private DependencyRecipe<DependencyList<IFurniturePiece>> _pieces = DependencyInjector.GetRecipe<DependencyList<IFurniturePiece>>();
         private IFurnishingPanel _furnishingPanel = DependencyInjector.Get<IFurnishingPanel>();
         private DependencyRecipe<IGrid> _grid = DependencyInjector.GetRecipe<IGrid>();
-        private IInventory _inventory = DependencyInjector.Get<IInventory>();
         private Material _originalPreviewMaterial;
-        private FurniturePiece _selectedPiece;
+        private IFurniturePiece _selectedPiece;
         private List<GridCell> _takenCells;
+        private Vector3 _previewWorldPositionOffset;
         private Vector3 _previewForward;
         private bool _isAllowedToPlacePiece;
         private int _lastSelectedPieceIndex = -1;
@@ -117,7 +117,7 @@ namespace Furniture
             if (_selectedPieceIndex == _lastSelectedPieceIndex)
                 return false;
 
-            _selectedPiece = _inventory.Pieces[_selectedPieceIndex];
+            _selectedPiece = _pieces.Value[_selectedPieceIndex];
             _lastSelectedPieceIndex = _selectedPieceIndex;
             return true;
         }
@@ -130,6 +130,7 @@ namespace Furniture
             if (_selectedPiece?.Prefab == null)
                 return;
             
+            _previewWorldPositionOffset = _selectedPiece.Offset;
             _preview = Instantiate(_selectedPiece.Prefab);
                 
             foreach (Collider previewCollider in _preview.GetComponentsInChildren<Collider>())
@@ -158,6 +159,7 @@ namespace Furniture
         private void ShowPreview(out List<GridCell> cells, out Vector3 center)
         {
             _isAllowedToPlacePiece = _grid.Value.TryGetInsideCells(out cells, out center);
+            center += _previewWorldPositionOffset;
 
             foreach (GridCell cell in cells)
             {
@@ -195,7 +197,7 @@ namespace Furniture
             if (--_selectedPiece.Count != 0)
                 return true;
             
-            _inventory.Pieces[_inventory.Pieces.IndexOf(_selectedPiece)] = null;
+            _pieces.Value[_pieces.Value.IndexOf(_selectedPiece)] = null;
             _selectedPiece = null;
             Destroy(_preview);
             return true;
@@ -209,7 +211,7 @@ namespace Furniture
             _preview.SetActive(mode == PlayerMode.Organization);
         }
 
-        private void RefreshPiecesUI() => _furnishingPanel.Present(_inventory.Pieces.Select(piece => new FurniturePieceData { Icon = piece?.Icon, Count = piece?.Count ?? 0}).ToList());
+        private void RefreshPiecesUI() => _furnishingPanel.Present(_pieces.Value.Select(piece => new FurniturePieceData { Icon = piece?.Icon, Count = piece?.Count ?? 0}).ToList());
         
         private void RefreshSelectionUI() => _furnishingPanel.Present(_selectedPieceIndex);
 

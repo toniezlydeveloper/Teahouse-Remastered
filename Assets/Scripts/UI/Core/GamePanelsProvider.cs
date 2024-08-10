@@ -9,7 +9,7 @@ namespace UI.Core
         {
             AddTranslation<ShopOpenedAtDayState, ShopOpenedPanel>();
             AddTranslation<ShopClosedState, ShopClosedPanel>();
-            AddTranslation<ItemShopState, ItemShopPanel>();
+            AddTranslation<TradeItemsState, ItemShopPanel>();
             AddTranslation<BedroomState, BedroomPanel>();
             AddTranslation<GardenState, GardenPanel>();
         }
