@@ -6,7 +6,7 @@ namespace UI.Shared
     {
         public void Present(InteractionElement interactionElement)
         {
-            foreach (IHintsPanel panel in GetPanels())
+            foreach (IHintsPanel panel in typedPanels)
                 panel.Present(interactionElement);
         }
     }

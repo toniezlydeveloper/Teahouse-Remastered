@@ -24,7 +24,7 @@ namespace States
 
         protected override void AddConditions()
         {
-            AddCondition<TradeItemsState>(() => Transition.ShouldToggle(TransitionType.ItemShop));
+            AddCondition<ItemShopState>(() => Transition.ShouldToggle(TransitionType.ItemShop));
             AddCondition<ShopOpenedAtDayState>(() =>
             {
                 if (!Transition.ShouldToggle(TransitionType.OpenCloseShop))

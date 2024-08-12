@@ -32,7 +32,6 @@ namespace States
         [SerializeField] private SpawnData data;
 
         [Header("Item Shop")]
-        [SerializeField] private InputActionReference toggleMode;
         [SerializeField] private InputActionReference controls;
         [SerializeField] private InputActionReference back;
         [SerializeField] private TradeItem[] itemsForSale;
@@ -61,7 +60,7 @@ namespace States
             AddState(new BedroomBoostrapState());
             AddState(new BedroomState(toggle, playerMode, _furnishingPanel));
             
-            AddState(new TradeItemsState(itemsForSale, _itemShopPanel, controls, toggleMode, back, _furnishingPanel, _currencyHolder));
+            AddState(new ItemShopState(itemsForSale, _itemShopPanel, controls, back, _furnishingPanel, _currencyHolder));
         }
 
         private void Start() => DependencyInjector.AddRecipeElement<IManageableItemHolder>(hand);

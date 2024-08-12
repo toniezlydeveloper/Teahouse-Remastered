@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using Internal.Dependencies.Core;
 using Internal.Flow.UI;
-using TMPro;
 using UI.Helpers;
 using UnityEngine;
 
@@ -10,13 +9,15 @@ namespace UI.Core
 {
     public interface IItemShopPanel : IDependency
     {
-        void Present(ItemPreview[] previews, bool isSelling);
+        void Present(ItemPreview[] previews);
     }
 
     public class ItemPreview
     {
-        public string CallbackName { get; set; }
-        public Action Callback { get; set; }
+        public Func<bool> CanSellCallback { get; set; }
+        public Func<bool> CanBuyCallback { get; set; }
+        public Action SellCallback { get; set; }
+        public Action BuyCallback { get; set; }
         public Sprite Icon { get; set; }
         public string Name { get; set; }
         public int Cost { get; set; }
@@ -24,51 +25,31 @@ namespace UI.Core
     
     public class ItemShopPanel : AUIPanel, IItemShopPanel
     {
-        [SerializeField] private GameObject sellingBarsContainer;
-        [SerializeField] private GameObject buyingBarsContainer;
-        [SerializeField] private Transform sellingBarParent;
-        [SerializeField] private Transform buyingBarParent;
-        [SerializeField] private TextMeshProUGUI header;
+        [SerializeField] private Transform barParent;
         [SerializeField] private ItemBar barPrefab;
 
         private List<string> _previewNames = new();
 
-        private const string SellText = "Sell";
-        private const string BuyText = "Buy";
-        
-        public void Present(ItemPreview[] previews, bool isSelling)
+        public void Present(ItemPreview[] previews)
         {
             foreach (ItemPreview preview in previews)
-                Present(preview, isSelling);
-
-            RefreshHeader(isSelling);
-            Toggle(isSelling);
+                Present(preview);
         }
 
-        private void Present(ItemPreview preview, bool isSelling)
+        private void Present(ItemPreview preview)
         {
-            if (!TryAdd(preview.Name, isSelling))
+            if (!TryAdd(preview.Name))
                 return;
             
-            Instantiate(barPrefab, isSelling ? sellingBarParent : buyingBarParent).Present(preview);
+            Instantiate(barPrefab, barParent).Present(preview);
         }
 
-        private void RefreshHeader(bool isSelling) => header.text = isSelling ? SellText : BuyText;
-
-        private void Toggle(bool isSelling)
+        private bool TryAdd(string previewName)
         {
-            sellingBarsContainer.SetActive(isSelling);
-            buyingBarsContainer.SetActive(!isSelling);
-        }
-
-        private bool TryAdd(string previewName, bool isSelling)
-        {
-            string revisedPreviewName = $"{previewName}{isSelling}";
-            
-            if (_previewNames.Contains(revisedPreviewName))
+            if (_previewNames.Contains(previewName))
                 return false;
 
-            _previewNames.Add(revisedPreviewName);
+            _previewNames.Add(previewName);
             return true;
         }
     }

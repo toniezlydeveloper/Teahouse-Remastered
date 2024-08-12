@@ -4,7 +4,7 @@ namespace UI.Shared
     {
         public void Present(int amount)
         {
-            foreach (ICurrencyPanel panel in GetPanels())
+            foreach (ICurrencyPanel panel in typedPanels)
                 panel.Present(amount);
         }
     }

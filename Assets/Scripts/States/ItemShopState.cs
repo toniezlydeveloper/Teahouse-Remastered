@@ -1,5 +1,3 @@
-using System;
-using System.Collections.Generic;
 using System.Linq;
 using Currency;
 using Furniture;
@@ -11,29 +9,23 @@ using UnityEngine.InputSystem;
 
 namespace States
 {
-    public class TradeItemsState : AState
+    public class ItemShopState : AState
     {
         private DependencyRecipe<DependencyList<IFurniturePiece>> _pieces = DependencyInjector.GetRecipe<DependencyList<IFurniturePiece>>();
         private IFurnishingPanel _furnishingPanel;
         private ICurrencyHolder _currencyHolder;
         private InputActionReference _controls;
         private IItemShopPanel _itemShopPanel;
-        private InputActionReference _toggle;
         private InputActionReference _back;
         private TradeItem[] _tradeItems;
-        private bool _isSelling;
 
-        private const string SellItemName = "Sell";
-        private const string BuyItemName = "Buy";
-
-        public TradeItemsState(TradeItem[] tradeItems, IItemShopPanel itemShopPanel, InputActionReference controls, InputActionReference toggle, InputActionReference back, IFurnishingPanel furnishingPanel, ICurrencyHolder currencyHolder)
+        public ItemShopState(TradeItem[] tradeItems, IItemShopPanel itemShopPanel, InputActionReference controls, InputActionReference back, IFurnishingPanel furnishingPanel, ICurrencyHolder currencyHolder)
         {
             _furnishingPanel = furnishingPanel;
             _currencyHolder = currencyHolder;
             _itemShopPanel = itemShopPanel;
             _tradeItems = tradeItems;
             _controls = controls;
-            _toggle = toggle;
             _back = back;
         }
 
@@ -41,25 +33,12 @@ namespace States
         {
             ToggleControls(false);
             EnableFurniturePreview();
-            TogglePreview(false);
             PresentShop(GetPreviews());
         }
 
         public override void OnExit() => ToggleControls(true);
 
-        public override Type OnUpdate()
-        {
-            if (!ReceivedToggleInput())
-                return null;
-            
-            TogglePreview();
-            PresentShop(GetPreviews());
-            return null;
-        }
-
         protected override void AddConditions() => AddCondition<ShopClosedState>(ReceivedBackInput);
-
-        private bool ReceivedToggleInput() => _toggle.action.triggered;
 
         private bool ReceivedBackInput() => _back.action.triggered;
 
@@ -73,39 +52,40 @@ namespace States
 
         private void EnableFurniturePreview() => _furnishingPanel.Present(true);
 
-        private void TogglePreview(bool state) => _isSelling = state;
+        private void PresentShop(ItemPreview[] previews) => _itemShopPanel.Present(previews);
 
-        private void TogglePreview() => _isSelling = !_isSelling;
+        private ItemPreview[] GetPreviews() => _tradeItems.Select(item => new ItemPreview
+            {
+                CanSellCallback = () => CanSellItem(item),
+                SellCallback = () => TrySellingItem(item),
+                CanBuyCallback = () => CanBuyItem(item),
+                BuyCallback = () => TryBuyingItem(item),
+                Icon = item.Piece.Icon,
+                Name = item.Name,
+                Cost = item.Cost
+            })
+            .ToArray();
 
-        private void PresentShop(ItemPreview[] previews) => _itemShopPanel.Present(previews, _isSelling);
-
-        private ItemPreview[] GetPreviews()
+        private bool CanBuyItem(TradeItem item)
         {
-            IEnumerable<ItemPreview> previews = ShouldGetSellPreviews() ? GetSellPreviews() : GetBuyPreviews();
-            return previews.ToArray();
+            if (!_currencyHolder.Has(item.Cost))
+                return false;
+
+            if (_pieces.Value.Any(piece => piece == null))
+                return true;
+
+            return _pieces.Value.Any(piece => piece?.Prefab == item.Piece.Prefab);
         }
 
-        private bool ShouldGetSellPreviews() => _isSelling;
+        private bool CanSellItem(TradeItem item)
+        {
+            IFurniturePiece piece = _pieces.Value.FirstOrDefault(piece => piece?.Prefab == item.Piece.Prefab);
 
-        private IEnumerable<ItemPreview> GetSellPreviews() => _tradeItems.Select(item => new ItemPreview
-            {
-                Callback = () => TrySellingItem(item),
-                CallbackName = SellItemName,
-                Icon = item.Piece.Icon,
-                Name = item.Name,
-                Cost = item.Cost
-            })
-            .ToArray();
+            if (piece == null)
+                return false;
 
-        private IEnumerable<ItemPreview> GetBuyPreviews() => _tradeItems.Select(item => new ItemPreview
-            {
-                Callback = () => TryBuyingItem(item),
-                CallbackName = BuyItemName,
-                Icon = item.Piece.Icon,
-                Name = item.Name,
-                Cost = item.Cost
-            })
-            .ToArray();
+            return piece.Count > 0;
+        }
         
         private void TryBuyingItem(TradeItem item)
         {

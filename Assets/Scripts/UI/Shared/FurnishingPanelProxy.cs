@@ -6,19 +6,19 @@ namespace UI.Shared
     {
         public void Present(List<FurniturePieceData> pieces)
         {
-            foreach (IFurnishingPanel panel in GetPanels())
+            foreach (IFurnishingPanel panel in typedPanels)
                 panel.Present(pieces);
         }
 
         public void Present(int selectedIndex)
         {
-            foreach (IFurnishingPanel panel in GetPanels())
+            foreach (IFurnishingPanel panel in typedPanels)
                 panel.Present(selectedIndex);
         }
 
         public void Present(bool state)
         {
-            foreach (IFurnishingPanel panel in GetPanels())
+            foreach (IFurnishingPanel panel in typedPanels)
                 panel.Present(state);
         }
     }

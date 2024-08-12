@@ -8,6 +8,7 @@ namespace Currency
     public interface ICurrencyHolder : IDependency
     {
         bool TrySpend(int amount);
+        bool Has(int amount);
         void Add(int amount);
         void Add(Order order);
     }
@@ -41,6 +42,8 @@ namespace Currency
             ChangeAmount(order);
             Present();
         }
+
+        public bool Has(int amount) => _amount >= amount;
 
         private void Init()
         {
