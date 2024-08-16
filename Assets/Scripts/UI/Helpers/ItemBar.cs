@@ -41,6 +41,12 @@ namespace UI.Helpers
             ToggleButtons();
         }
 
+        public void ToggleButtons()
+        {
+            sellButton.interactable = _canSellCallback.Invoke();
+            buyButton.interactable = _canBuyCallback.Invoke();
+        }
+
         private void RefreshUI(ItemPreview preview)
         {
             costContainer.text = preview.Cost.ToString();
@@ -59,11 +65,5 @@ namespace UI.Helpers
         private void RaiseSellCallback() => _sellCallback?.Invoke();
 
         private void RaiseBuyCallback() => _buyCallback?.Invoke();
-
-        private void ToggleButtons()
-        {
-            sellButton.interactable = _canSellCallback.Invoke();
-            buyButton.interactable = _canBuyCallback.Invoke();
-        }
     }
 }

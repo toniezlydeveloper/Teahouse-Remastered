@@ -21,6 +21,7 @@ namespace Grids
     public interface IGrid : IDependency
     {
         bool TryGetInsideCells(out List<GridCell> cells, out Vector3 center);
+        void GetPointerCell(out GridCell cell);
     }
     
     // Along column: positive X (Vector3.right)
@@ -67,6 +68,13 @@ namespace Grids
             GetPointedCells();
             return ReadOutput(out cells, out cellsCenter);
         }
+
+        public void GetPointerCell(out GridCell cell)
+        {
+            GetGridPositions();
+            ReadOutput(out cell);
+        }
+
         private void GetGridPositions()
         {
             GetColumn(_pointer.Value.PointerPosition, out _pointerColumn);
@@ -206,6 +214,8 @@ namespace Grids
                 return cell.Row >= 0 && cell.Row <= rowCount - 1;
             });
         }
+
+        private void ReadOutput(out GridCell cell) => cell = new GridCell { Column = _pointerColumn, Row = _pointerRow };
         
         #region Drawing
         

@@ -49,7 +49,6 @@ GameObject:
   - component: {fileID: 2430716639554261119}
   - component: {fileID: 5410959493400203300}
   - component: {fileID: 2448521613813891129}
-  - component: {fileID: 8488870050797391157}
   m_Layer: 0
   m_Name: InteractionProxy
   m_TagString: Untagged
@@ -188,6 +187,7 @@ MonoBehaviour:
   rotateRightInput: {fileID: 4019998940808226789, guid: 66336f1aba36c584aa036f1400048593, type: 3}
   rotateLeftInput: {fileID: 7225357600893054974, guid: 66336f1aba36c584aa036f1400048593, type: 3}
   placeInput: {fileID: -688405445266427128, guid: 66336f1aba36c584aa036f1400048593, type: 3}
+  pickPreviewMaterial: {fileID: 2100000, guid: 413f1908234a8ac479c45e89ce8b525d, type: 2}
   playerMode: {fileID: 11400000, guid: e80d591c18778ab4b9dff2ddc5d7e633, type: 2}
   previewMaterial: {fileID: 2100000, guid: 7573bd6ea808d4f47877345acaecefed, type: 2}
   invalidSpotColor: {r: 1, g: 0.06132078, b: 0.06132078, a: 0.39215687}
@@ -202,18 +202,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: faec3727c2794c9ba8a7549e16528250, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &8488870050797391157
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7331144429307515016}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dd0d693051ae4849a0066a811854ff42, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &8150078192287195966

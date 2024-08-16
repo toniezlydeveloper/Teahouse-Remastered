@@ -23,7 +23,7 @@ namespace Furniture
         [field:SerializeField] public Sprite Icon { get; set; }
         [field:SerializeField] public int Count { get; set; }
         
-        public FurniturePiece(FurniturePiece piece)
+        public FurniturePiece(IFurniturePiece piece)
         {
             Dimensions = piece.Dimensions;
             Prefab = piece.Prefab;

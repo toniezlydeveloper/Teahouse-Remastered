@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using Grids;
-using Interaction;
 using Internal.Dependencies.Core;
 using Player;
 using UI.Shared;
@@ -10,215 +9,181 @@ using UnityEngine.InputSystem;
 
 namespace Furniture
 {
-    public class FurniturePlacer : AInteractionHandler, IGridItemHolder
+    // This can be simplified by changing methods arrangement
+    public class FurniturePlacer
     {
-        [SerializeField] private List<InputActionReference> selectionsInput;
-        [SerializeField] private InputActionReference rotateRightInput;
-        [SerializeField] private InputActionReference rotateLeftInput;
-        [SerializeField] private InputActionReference placeInput;
-        [SerializeField] private PlayerModeProxy playerMode;
-        [SerializeField] private Material previewMaterial;
-        [SerializeField] private Color invalidSpotColor;
-        [SerializeField] private Color validSpotColor;
-
         private DependencyRecipe<DependencyList<IFurniturePiece>> _pieces = DependencyInjector.GetRecipe<DependencyList<IFurniturePiece>>();
         private IFurnishingPanel _furnishingPanel = DependencyInjector.Get<IFurnishingPanel>();
         private DependencyRecipe<IGrid> _grid = DependencyInjector.GetRecipe<IGrid>();
-        private Material _originalPreviewMaterial;
-        private IFurniturePiece _selectedPiece;
-        private List<GridCell> _takenCells;
-        private Vector3 _previewWorldPositionOffset;
+        private List<PlacedFurniture> _placedFurniture;
+        private Vector3 _worldPositionOffset;
+        private InputActionReference _placeInput;
+        private List<GridCell> _cells;
+        private Quaternion _rotation;
+        private Vector3 _position;
         private Vector3 _previewForward;
-        private bool _isAllowedToPlacePiece;
-        private int _lastSelectedPieceIndex = -1;
-        private int _selectedPieceIndex;
         private int _orientationIndex;
+        private Color _invalidSpotColor;
+        private Color _validSpotColor;
+        private Material _originalPreviewMaterial;
         private GameObject _preview;
-
-        public override PlayerMode HandledModes => PlayerMode.Organization;
+        private IFurniturePiece _previewPiece;
         
-        public GridItemOrientation Orientation { get; private set; }
-        public GridDimensions Dimensions { get; private set; }
-
-        private static readonly Dictionary<FurnitureOrientation, GridItemOrientation> GridByFurniture = new()
-        {
-            { FurnitureOrientation.AgainstColumn, GridItemOrientation.ColumnWise },
-            { FurnitureOrientation.AlongColumn, GridItemOrientation.ColumnWise },
-            { FurnitureOrientation.AgainstRow, GridItemOrientation.RowWise },
-            { FurnitureOrientation.AlongRow, GridItemOrientation.RowWise }
-        };
-        private static readonly Dictionary<FurnitureOrientation, Vector3> ForwardByFurniture = new()
-        {
-            { FurnitureOrientation.AgainstColumn, Vector3.back },
-            { FurnitureOrientation.AlongColumn, Vector3.forward },
-            { FurnitureOrientation.AgainstRow, Vector3.left },
-            { FurnitureOrientation.AlongRow, Vector3.right },
-        };
-        private static readonly List<FurnitureOrientation> AllOrientations = new()
-        {
-            FurnitureOrientation.AlongColumn,
-            FurnitureOrientation.AlongRow,
-            FurnitureOrientation.AgainstColumn,
-            FurnitureOrientation.AgainstRow
-        };
         private static readonly int PreviewColorId = Shader.PropertyToID("_Base");
 
-        private void OnEnable() => playerMode.OnChanged += TogglePreview;
-        
-        private void OnDisable() => playerMode.OnChanged -= TogglePreview;
-
-        private void Start()
+        public FurniturePlacer(List<PlacedFurniture> placedFurniture, InputActionReference placeInput, Material previewMaterial, Color invalidSpotColor, Color validSpotColor)
         {
-            GetReferences();
+            GetReferences(placedFurniture, previewMaterial, invalidSpotColor, validSpotColor, placeInput);
             RefreshPiecesUI();
         }
 
-        private void Update()
+        public bool TryPlacing(IFurniturePiece selectedPiece, FurnitureOrientation orientation)
         {
-            HandleSelection();
+            if (!TryGettingPlacementData(orientation))
+                return false;
             
+            if (!AreCellsFree())
+                return false;
+            
+            if (!TryPlacingPiece(selectedPiece))
+                return false;
+            
+            RefreshPiecesUI();
+            return true;
+        }
+        
+        public void HandlePreview(FurnitureOrientation orientation)
+        {
             if (!HasPreview())
                 return;
             
-            HandleOrientation();
-            ShowPreview(out List<GridCell> cells, out Vector3 center);
-            MovePreview(center);
+            ShowPreview(out Vector3 position);
+            MovePreview(position, orientation);
+        }
 
-            if (!TryPlacingPiece(cells))
+        public void TryPrepareNewPreview(IFurniturePiece selectedPiece)
+        {
+            if (HasPreview(selectedPiece))
                 return;
             
-            RefreshPiecesUI();
+            Destroy();
+
+            if (HasSelectedPiece(selectedPiece))
+                return;
+            
+            PrepareNewPreview(selectedPiece);
         }
 
-        private void HandleSelection()
+        public void TryTogglingPreview(PlayerMode mode)
         {
-            if (!TrySelectingOtherPiece())
+            if (!HasPreview())
                 return;
 
-            RefreshSelectionUI();
-            PreparePreview();
+            TogglePreview(mode);
         }
+
+        public void Destroy()
+        {
+            if (!HasPreview())
+                return;
+            
+            Object.Destroy(_preview);
+            ClearPreview();
+        }
+
+        private void ClearPreview() => _previewPiece = null;
+
+        private bool TryGettingPlacementData(FurnitureOrientation orientation)
+        {
+            if (!_grid.Value.TryGetInsideCells(out _cells, out _position))
+                return false;
+
+            _rotation = Quaternion.LookRotation(orientation.ToForward());
+            return true;
+        }
+
+        private bool AreCellsFree() => _placedFurniture.All(furniture => furniture.Cells.All(takenCell => _cells.All(cell => takenCell.Column != cell.Column || takenCell.Row != cell.Row)));
+
+        private bool TryPlacingPiece(IFurniturePiece selectedPiece)
+        {
+            if (!_placeInput.action.triggered)
+                return false;
+            
+            GameObject model = Object.Instantiate(selectedPiece.Prefab);
+            model.transform.position = _worldPositionOffset + _position;
+            model.transform.rotation = _rotation;
+            
+            _placedFurniture.Add(new PlacedFurniture
+            {
+                Piece = selectedPiece,
+                Cells = _cells,
+                Model = model
+            });
+
+            if (--selectedPiece.Count != 0)
+                return true;
+            
+            _pieces.Value[_pieces.Value.IndexOf(selectedPiece)] = null;
+            return true;
+        }
+
+        private bool HasPreview(IFurniturePiece selectedPiece) => selectedPiece?.Prefab == _previewPiece?.Prefab;
 
         private bool HasPreview() => _preview != null;
 
-        private bool TrySelectingOtherPiece()
+        private void TogglePreview(PlayerMode mode) => _preview.SetActive(mode == PlayerMode.Organization);
+
+        private bool HasSelectedPiece(IFurniturePiece selectedPiece) => selectedPiece?.Prefab == null;
+
+        private void PrepareNewPreview(IFurniturePiece selectedPiece)
         {
-            if (playerMode.Value == PlayerMode.Modification)
-                return false;
-            
-            if (_grid.Value == null)
-                return false;
-            
-            foreach (InputActionReference input in selectionsInput.Where(input => input.action.triggered))
-                _selectedPieceIndex = selectionsInput.IndexOf(input);
+            _worldPositionOffset = selectedPiece.Offset;
+            _preview = Object.Instantiate(selectedPiece.Prefab);
 
-            _selectedPieceIndex = (_selectedPieceIndex + selectionsInput.Count) % selectionsInput.Count;
-
-            if (_selectedPieceIndex == _lastSelectedPieceIndex)
-                return false;
-
-            _selectedPiece = _pieces.Value[_selectedPieceIndex];
-            _lastSelectedPieceIndex = _selectedPieceIndex;
-            return true;
-        }
-
-        private void PreparePreview()
-        {
-            if (_preview != null)
-                Destroy(_preview);
-
-            if (_selectedPiece?.Prefab == null)
-                return;
-            
-            _previewWorldPositionOffset = _selectedPiece.Offset;
-            _preview = Instantiate(_selectedPiece.Prefab);
-                
             foreach (Collider previewCollider in _preview.GetComponentsInChildren<Collider>())
-                Destroy(previewCollider);
+                previewCollider.enabled = false;
 
             foreach (Renderer previewRenderer in _preview.GetComponentsInChildren<Renderer>())
                 previewRenderer.material = _originalPreviewMaterial;
-
-            Dimensions = _selectedPiece.Dimensions;
-            _orientationIndex = 0;
+            
+            _previewPiece = selectedPiece;
         }
 
-        private void HandleOrientation()
+        private void ShowPreview(out Vector3 center)
         {
-            if (rotateLeftInput.action.triggered)
-                _orientationIndex--;
-
-            if (rotateRightInput.action.triggered)
-                _orientationIndex++;
-
-            _orientationIndex = (_orientationIndex + AllOrientations.Count) % AllOrientations.Count;
-            _previewForward = ForwardByFurniture[AllOrientations[_orientationIndex]];
-            Orientation = GridByFurniture[AllOrientations[_orientationIndex]];
-        }
-
-        private void ShowPreview(out List<GridCell> cells, out Vector3 center)
-        {
-            _isAllowedToPlacePiece = _grid.Value.TryGetInsideCells(out cells, out center);
-            center += _previewWorldPositionOffset;
+            bool isAllowedToPlacePiece = _grid.Value.TryGetInsideCells(out List<GridCell> cells, out center);
+            
+            center += _worldPositionOffset;
 
             foreach (GridCell cell in cells)
             {
-                if (!_isAllowedToPlacePiece)
+                if (!isAllowedToPlacePiece)
                     break;
                 
-                if (_takenCells.All(takenCell => takenCell.Column != cell.Column || takenCell.Row != cell.Row))
+                if (_placedFurniture.All(furniture => furniture.Cells.All(takenCell => takenCell.Column != cell.Column || takenCell.Row != cell.Row)))
                     continue;
 
-                _isAllowedToPlacePiece = false;
+                isAllowedToPlacePiece = false;
             }
             
-            _originalPreviewMaterial.SetColor(PreviewColorId, _isAllowedToPlacePiece ? validSpotColor : invalidSpotColor);
+            _originalPreviewMaterial.SetColor(PreviewColorId, isAllowedToPlacePiece ? _validSpotColor : _invalidSpotColor);
         }
 
-        private void MovePreview(Vector3 center)
+        private void MovePreview(Vector3 center, FurnitureOrientation orientation)
         {
-            _preview.transform.forward = _previewForward;
+            _preview.transform.forward = orientation.ToForward();
             _preview.transform.position = center;
         }
 
-        private bool TryPlacingPiece(List<GridCell> cells)
+        private void GetReferences(List<PlacedFurniture> placedFurniture, Material previewMaterial, Color invalidSpotColor, Color validSpotColor, InputActionReference placeInput)
         {
-            if (!_isAllowedToPlacePiece)
-                return false;
-            
-            if (!placeInput.action.triggered)
-                return false;
-            
-            GameObject piece = Instantiate(_selectedPiece.Prefab);
-            piece.transform.position = _preview.transform.position;
-            piece.transform.rotation = _preview.transform.rotation;
-            _takenCells.AddRange(cells);
-
-            if (--_selectedPiece.Count != 0)
-                return true;
-            
-            _pieces.Value[_pieces.Value.IndexOf(_selectedPiece)] = null;
-            _selectedPiece = null;
-            Destroy(_preview);
-            return true;
-        }
-
-        private void TogglePreview(PlayerMode mode)
-        {
-            if (!_preview)
-                return;
-            
-            _preview.SetActive(mode == PlayerMode.Organization);
+            _originalPreviewMaterial = new Material(previewMaterial);
+            _invalidSpotColor = invalidSpotColor;
+            _placedFurniture = placedFurniture;
+            _validSpotColor = validSpotColor;
+            _placeInput = placeInput;
         }
 
         private void RefreshPiecesUI() => _furnishingPanel.Present(_pieces.Value.Select(piece => new FurniturePieceData { Icon = piece?.Icon, Count = piece?.Count ?? 0}).ToList());
-        
-        private void RefreshSelectionUI() => _furnishingPanel.Present(_selectedPieceIndex);
-
-        private void GetReferences()
-        {
-            _originalPreviewMaterial = new Material(previewMaterial);
-            _takenCells = new List<GridCell>();
-        }
     }
 }

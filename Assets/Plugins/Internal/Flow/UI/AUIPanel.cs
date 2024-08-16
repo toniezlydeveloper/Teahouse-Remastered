@@ -26,14 +26,22 @@ namespace Internal.Flow.UI
             {
                 _canvasGroup.blocksRaycasts = false;
                 _canvasGroup.interactable = false;
-            });
+            }).OnComplete(DisableCallback);
 
         public void Enable() => _canvasGroup.DOFade(1f, 0.25f)
             .OnStart(() =>
             {
                 _canvasGroup.blocksRaycasts = isInteractable;
                 _canvasGroup.interactable = isInteractable;
-            });
+            }).OnComplete(EnableCallback);
+
+        protected virtual void DisableCallback()
+        {
+        }
+        
+        protected virtual void EnableCallback()
+        {
+        }
 
         protected void RequestTransition<TState>() where TState : AState =>
             OnTransitionRequested?.Invoke(typeof(TState));

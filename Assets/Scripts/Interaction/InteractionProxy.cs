@@ -83,7 +83,7 @@ namespace Interaction
             if (_highlightedElement != null)
                 _highlightedElement.Highlight(false);
 
-            _highlightedElement = _elementsInRange.OrderBy(hint => hint.Order).FirstOrDefault(hint => hint.HandledMode.HasFlag(playerMode.Value));
+            _highlightedElement = _elementsInRange.Where(hint => hint != null).OrderBy(hint => hint.Order).FirstOrDefault(hint => hint.HandledMode.HasFlag(playerMode.Value));
             
             if (_interactionHandlers.ContainsKey(playerMode.Value))
                 _interactionHandlers[playerMode.Value].ForEach(handler => handler.Present(_highlightedElement));

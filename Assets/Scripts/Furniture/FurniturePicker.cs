@@ -1,0 +1,160 @@
+using System.Collections.Generic;
+using System.Linq;
+using Grids;
+using Internal.Dependencies.Core;
+using Player;
+using UI.Shared;
+using UnityEngine;
+using UnityEngine.InputSystem;
+
+namespace Furniture
+{
+    public class FurniturePicker
+    {
+        private DependencyRecipe<DependencyList<IFurniturePiece>> _pieces = DependencyInjector.GetRecipe<DependencyList<IFurniturePiece>>();
+        private IFurnishingPanel _furnishingPanel = DependencyInjector.Get<IFurnishingPanel>();
+        private DependencyRecipe<IGrid> _grid = DependencyInjector.GetRecipe<IGrid>();
+        private List<PlacedFurniture> _placedFurniture;
+        private Material _originalPreviewMaterial;
+        private InputActionReference _pickInput;
+        private Dictionary<Renderer, Material> _originalsByRenderer = new();
+        private GameObject _model;
+
+        public FurniturePicker(List<PlacedFurniture> placedFurniture, InputActionReference pickInput, Material previewMaterial)
+        {
+            _originalPreviewMaterial = new Material(previewMaterial);
+            _placedFurniture = placedFurniture;
+            _pickInput = pickInput;
+        }
+
+        public void TryTogglingPreview(PlayerMode mode)
+        {
+            if (ShouldShowPreview(mode))
+                return;
+            
+            Restore();
+        }
+
+        public bool HasPickUp() => IsGridPointingAtPlacedPiece();
+
+        public void Restore()
+        {
+            if (HasModel())
+                return;
+            
+            RestoreMaterials();
+            ClearModel();
+        }
+
+        public void HandlePickUp()
+        {
+            if (!TryGetFurniture(out PlacedFurniture furniture))
+            {
+                Restore();
+                return;
+            }
+
+            if (HasSwitchedModels(furniture))
+            {
+                RestoreMaterials();
+                CacheMaterials(furniture);
+            }
+            
+            if (!ReceivedPickInput())
+                return;
+            
+            if (TryGetPieceInInventory(furniture, out IFurniturePiece piece))
+            {
+                AddToInventory(piece);
+                Clear(furniture);
+                RefreshPiecesUI();
+                return;
+            }
+
+            if (HasFullInventory())
+                return;
+            
+            Clear(furniture);
+            AddToInventory(furniture);
+            RefreshPiecesUI();
+        }
+
+        private bool TryGetPieceInInventory(PlacedFurniture furniture, out IFurniturePiece piece)
+        {
+            piece = _pieces.Value.FirstOrDefault(piece => piece?.Prefab == furniture.Piece.Prefab);
+            return piece != null;
+        }
+
+        private bool TryGetFurniture(out PlacedFurniture furniture)
+        {
+            furniture = null;
+            
+            if (_grid.Value == null)
+                return false;
+            
+            _grid.Value.GetPointerCell(out GridCell pointer);
+            furniture = _placedFurniture.FirstOrDefault(furniture => furniture.Cells.Any(takenCell => takenCell.Column == pointer.Column && takenCell.Row == pointer.Row));
+            return furniture != null;
+        }
+
+        private bool IsGridPointingAtPlacedPiece()
+        {
+            if (_grid.Value == null)
+                return false;
+            
+            _grid.Value.GetPointerCell(out GridCell pointer);
+            return _placedFurniture.Any(furniture => furniture.Cells.Any(takenCell => takenCell.Column == pointer.Column && takenCell.Row == pointer.Row));
+        }
+
+        private static bool ShouldShowPreview(PlayerMode mode) => mode == PlayerMode.Organization;
+
+        private bool HasModel() => _model == null;
+
+        private void RestoreMaterials()
+        {
+            foreach ((Renderer originalRenderer, Material originalMaterial) in _originalsByRenderer)
+            {
+                if (!originalRenderer)
+                    continue;
+                
+                originalRenderer.material = originalMaterial;
+            }
+            
+            _originalsByRenderer.Clear();
+        }
+
+        private void CacheMaterials(PlacedFurniture furniture)
+        {
+            foreach (Renderer originalRenderer in furniture.Model.GetComponentsInChildren<Renderer>())
+            {
+                _originalsByRenderer.Add(originalRenderer, originalRenderer.material);
+                originalRenderer.material = _originalPreviewMaterial;
+            }
+            
+            _model = furniture.Model;
+        }
+
+        private bool HasSwitchedModels(PlacedFurniture furniture) => _model != furniture.Model;
+
+        private void ClearModel() => _model = null;
+
+        private bool HasFullInventory() => _pieces.Value.All(piece => piece != null);
+
+        private static void AddToInventory(IFurniturePiece piece) => piece.Count++;
+
+        private void AddToInventory(PlacedFurniture furniture) => _pieces.Value[_pieces.Value.IndexOf(null)] = new FurniturePiece(furniture.Piece)
+        {
+            Count = 1
+        };
+
+        private void Clear(PlacedFurniture furniture)
+        {
+            _placedFurniture.Remove(furniture);
+            Object.Destroy(furniture.Model);
+        }
+
+        private bool ReceivedPickInput() => _pickInput.action.triggered;
+
+        private void RefreshPiecesUI() => _furnishingPanel.Present(_pieces.Value.Select(piece => new FurniturePieceData { Icon = piece?.Icon, Count = piece?.Count ?? 0}).ToList());
+    }
+}

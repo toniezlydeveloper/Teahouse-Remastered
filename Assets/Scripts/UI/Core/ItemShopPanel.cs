@@ -29,6 +29,7 @@ namespace UI.Core
         [SerializeField] private ItemBar barPrefab;
 
         private List<string> _previewNames = new();
+        private List<ItemBar> _bars = new();
 
         public void Present(ItemPreview[] previews)
         {
@@ -41,7 +42,14 @@ namespace UI.Core
             if (!TryAdd(preview.Name))
                 return;
             
-            Instantiate(barPrefab, barParent).Present(preview);
+            CreateItemBar().Present(preview);
+        }
+
+        private ItemBar CreateItemBar()
+        {
+            ItemBar itemBar = Instantiate(barPrefab, barParent);
+            _bars.Add(itemBar);
+            return itemBar;
         }
 
         private bool TryAdd(string previewName)
@@ -51,6 +59,12 @@ namespace UI.Core
 
             _previewNames.Add(previewName);
             return true;
+        }
+
+        protected override void EnableCallback()
+        {
+            foreach (ItemBar bar in _bars)
+                bar.ToggleButtons();
         }
     }
 }
