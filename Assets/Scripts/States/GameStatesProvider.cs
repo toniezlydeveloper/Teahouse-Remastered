@@ -14,13 +14,13 @@ using UnityEngine.InputSystem;
 
 namespace States
 {
-    // 1. Dekoracja pokoju v
+    // 1. Dekoracja pokoju V
     // 2. Wytwarzanie skladnikow ze skladnikow
-    // 3. Inventory do przekladania rzeczy - do dopracowania
+    // 3. Inventory do przekladania rzeczy V
     // 4. Premie / nocni klienci
     // 5. Splacanie wujka herbaciarza
     // 6. Tutorial
-    // 7. Sklep z rzeczami - do dopracowania
+    // 7. Sklep z rzeczami V
     public class GameStatesProvider : AStatesProvider
     {
         [Header("General")]
@@ -48,6 +48,7 @@ namespace States
         private void Awake()
         {
             InjectListRecipes();
+            InitListRecipes();
             GetReferences();
             
             AddInitialState(new ShopBootstrapState());
@@ -73,12 +74,16 @@ namespace States
             DependencyInjector.InjectListRecipe<IOrganizationPoint>();
             DependencyInjector.InjectListRecipe<IFurniturePiece>();
             DependencyInjector.InjectListRecipe<IPoolItem>();
-            
-            DependencyInjector.GetRecipe<DependencyList<IFurniturePiece>>().Value.Add(null);
-            DependencyInjector.GetRecipe<DependencyList<IFurniturePiece>>().Value.Add(null);
-            DependencyInjector.GetRecipe<DependencyList<IFurniturePiece>>().Value.Add(null);
-            DependencyInjector.GetRecipe<DependencyList<IFurniturePiece>>().Value.Add(null);
-            DependencyInjector.GetRecipe<DependencyList<IFurniturePiece>>().Value.Add(null);
+        }
+
+        private void InitListRecipes()
+        {
+            DependencyList<IFurniturePiece> pieces = DependencyInjector.GetRecipe<DependencyList<IFurniturePiece>>().Value;
+            pieces.Add(null);
+            pieces.Add(null);
+            pieces.Add(null);
+            pieces.Add(null);
+            pieces.Add(null);
         }
         
         private void GetReferences()

@@ -19,7 +19,6 @@ namespace Furniture
         private GridDimensions _selectedPieceDimensions;
         private IFurniturePiece _selectedPiece;
         private bool _isAllowedToPlacePiece;
-        private int _lastSelectedPieceIndex = -1;
         private int _selectedPieceIndex;
 
         public GridDimensions Dimensions => _selectedPieceDimensions;
@@ -64,7 +63,6 @@ namespace Furniture
                 return false;
 
             _selectedPiece = _pieces.Value[_selectedPieceIndex];
-            _lastSelectedPieceIndex = _selectedPieceIndex;
             _selectedPieceDimensions = _selectedPiece != null ? _selectedPiece.Dimensions : DefaultDimensions;
             return true;
         }

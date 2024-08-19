@@ -5,12 +5,14 @@ namespace Items.Models
 {
     public class TeabagModel : AItemModel
     {
+        [SerializeField] private Renderer teabagRenderer;
+        
         public override void Refresh(object item)
         {
-            if (item is not Teabag jar)
+            if (item is not Teabag teabag)
                 return;
             
-            GetComponentInChildren<Renderer>().material.color = jar.TeabagType == TeabagType.Default
+            teabagRenderer.material.color = teabag.TeabagType == TeabagType.Default
                 ? Color.magenta
                 : Color.red;
         }

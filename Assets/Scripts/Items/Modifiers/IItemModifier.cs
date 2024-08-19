@@ -6,7 +6,7 @@ namespace Items.Modifiers
     [Flags]
     public enum ModifierType
     {
-        // Next: | 8 | X | X |
+        // Next: | 7 | X | X |
         None = 0,
         
         // Level
