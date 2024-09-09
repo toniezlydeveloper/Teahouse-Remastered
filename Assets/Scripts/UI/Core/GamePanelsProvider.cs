@@ -11,7 +11,6 @@ namespace UI.Core
             AddTranslation<ShopClosedState, ShopClosedPanel>();
             AddTranslation<ItemShopState, ItemShopPanel>();
             AddTranslation<BedroomState, BedroomPanel>();
-            AddTranslation<GardenState, GardenPanel>();
         }
     }
 }

@@ -3,11 +3,6 @@ using UnityEngine.SceneManagement;
 
 namespace States
 {
-    public class GardenBootstrapState : ABootstrapState<GardenState>
-    {
-        protected override string LevelName => "Garden";
-    }
-    
     public class BedroomBoostrapState : ABootstrapState<BedroomState>
     {
         protected override string LevelName => "Bedroom";

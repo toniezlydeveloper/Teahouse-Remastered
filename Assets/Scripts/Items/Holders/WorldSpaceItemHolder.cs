@@ -11,8 +11,7 @@ namespace Items.Holders
         None,
         Kettle,
         Cup,
-        TeabagJar,
-        CombinedItem
+        TeabagJar
     }
 
     public interface IManageableItemHolder : IDependency
@@ -62,7 +61,6 @@ namespace Items.Holders
                 InitialItemType.Kettle => new Kettle(),
                 InitialItemType.Cup => new Cup(),
                 InitialItemType.TeabagJar => new TeabagJar(),
-                InitialItemType.CombinedItem => new CombinationItem(),
                 _ => throw new ArgumentOutOfRangeException()
             };
 

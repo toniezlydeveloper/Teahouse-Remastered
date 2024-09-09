@@ -33,14 +33,6 @@ namespace States
                 ToggleDoorHinge(true);
                 return true;
             });
-            AddCondition<GardenBootstrapState>(() =>
-            {
-                if (!Transition.ShouldToggle(TransitionType.Garden))
-                    return false;
-                
-                ReleasePools();
-                return true;
-            });
             AddCondition<BedroomBoostrapState>(() =>
             {
                 if (!Transition.ShouldToggle(TransitionType.Bedroom))

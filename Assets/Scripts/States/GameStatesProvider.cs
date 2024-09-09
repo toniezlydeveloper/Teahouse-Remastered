@@ -55,9 +55,6 @@ namespace States
             AddState(new ShopOpenedAtDayState(new CustomerSpawner(_timePanel, customerPrefab, data)));
             AddState(new ShopClosedState());
             
-            AddState(new GardenBootstrapState());
-            AddState(new GardenState());
-            
             AddState(new BedroomBoostrapState());
             AddState(new BedroomState(toggle, playerMode, _furnishingPanel));
             

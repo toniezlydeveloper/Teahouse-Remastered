@@ -7,7 +7,6 @@ namespace Transitions
         None,
         OpenCloseShop,
         Shop,
-        Garden,
         Bedroom,
         ItemShop
     }
