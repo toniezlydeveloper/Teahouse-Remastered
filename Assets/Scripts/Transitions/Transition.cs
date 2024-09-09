@@ -4,11 +4,11 @@ namespace Transitions
 {
     public enum TransitionType
     {
-        None,
-        OpenCloseShop,
-        Shop,
-        Bedroom,
-        ItemShop
+        None = 0,
+        OpenCloseShop = 1,
+        Shop = 2,
+        Bedroom = 4,
+        ItemShop = 5
     }
 
     public class Transition : MonoBehaviour
