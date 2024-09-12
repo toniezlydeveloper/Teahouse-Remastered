@@ -1,4 +1,6 @@
+using Internal.Dependencies.Core;
 using Internal.Flow.States;
+using Organization;
 using UnityEngine.SceneManagement;
 
 namespace States
@@ -10,7 +12,17 @@ namespace States
     
     public class ShopBootstrapState : ABootstrapState<ShopClosedState>
     {
+        private DependencyRecipe<DependencyList<IOrganizationPoint>> _organizationPoints = DependencyInjector.GetRecipe<DependencyList<IOrganizationPoint>>();
+        
         protected override string LevelName => "Shop";
+
+        public override void OnExit() => PopulateOrganizationPoints();
+
+        private void PopulateOrganizationPoints()
+        {
+            foreach (IOrganizationPoint point in _organizationPoints.Value)
+                point.Populate();
+        }
     }
 
     public abstract class ABootstrapState<TTargetState> : AState where TTargetState : AState

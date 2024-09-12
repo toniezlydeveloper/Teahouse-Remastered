@@ -1,3 +1,4 @@
+using System.Linq;
 using Customers;
 using Internal.Dependencies.Core;
 using Internal.Flow.States;
@@ -69,7 +70,7 @@ namespace States
 
         private void DeinitPooledItems()
         {
-            foreach (IPoolItem poolItem in _poolItems.Value)
+            foreach (IPoolItem poolItem in _poolItems.Value.Where(poolItem => poolItem.Type == PoolItemType.Game))
                 poolItem.TryReleasing();
         }
 
