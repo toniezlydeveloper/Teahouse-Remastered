@@ -1,6 +1,7 @@
 using Internal.Dependencies.Core;
 using Internal.Flow.States;
 using Organization;
+using Saving.Items;
 using UnityEngine.SceneManagement;
 
 namespace States
@@ -16,7 +17,11 @@ namespace States
         
         protected override string LevelName => "Shop";
 
-        public override void OnExit() => PopulateOrganizationPoints();
+        public override void OnExit()
+        {
+            PopulateOrganizationPoints();
+            SavingController.Load();
+        }
 
         private void PopulateOrganizationPoints()
         {

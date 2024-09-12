@@ -3,6 +3,7 @@ using Internal.Dependencies.Core;
 using Internal.Flow.States;
 using Internal.Pooling;
 using Player;
+using Saving.Items;
 using Transitions;
 
 namespace States
@@ -35,6 +36,7 @@ namespace States
                 if (!Transition.ShouldToggle(TransitionType.Bedroom))
                     return false;
                 
+                SavingController.Save();
                 ReleasePools();
                 return true;
             });
