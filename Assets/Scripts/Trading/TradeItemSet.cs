@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Furniture
+namespace Trading
 {
     [CreateAssetMenu(menuName = "Sets/Trade Items")]
     public class TradeItemSet : ScriptableObject

@@ -1,8 +1,9 @@
 using System;
+using Saving.Proxies;
 using UnityEditor;
 using UnityEngine;
 
-namespace Saving.Items
+namespace Saving.Editor
 {
     public class SavingSetupHelper : EditorWindow
     {

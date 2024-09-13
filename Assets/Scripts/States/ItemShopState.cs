@@ -3,6 +3,7 @@ using Currency;
 using Furniture;
 using Internal.Dependencies.Core;
 using Internal.Flow.States;
+using Trading;
 using UI.Core;
 using UI.Shared;
 using UnityEngine.InputSystem;

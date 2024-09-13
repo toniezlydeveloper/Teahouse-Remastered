@@ -1,7 +1,7 @@
 using Newtonsoft.Json;
 using UnityEngine;
 
-namespace Saving.Items
+namespace Saving.Proxies
 {
     public class FurniturePieceSaveData
     {

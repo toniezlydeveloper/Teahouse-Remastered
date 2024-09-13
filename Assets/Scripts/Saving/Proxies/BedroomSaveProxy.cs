@@ -5,7 +5,7 @@ using Internal.Pooling;
 using Newtonsoft.Json;
 using UnityEngine;
 
-namespace Saving.Items
+namespace Saving.Proxies
 {
     public class BedroomSaveData
     {

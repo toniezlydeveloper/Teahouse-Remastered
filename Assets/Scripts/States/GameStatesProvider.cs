@@ -7,6 +7,7 @@ using Internal.Pooling;
 using Items.Holders;
 using Organization;
 using Player;
+using Trading;
 using UI.Core;
 using UI.Shared;
 using UnityEngine;

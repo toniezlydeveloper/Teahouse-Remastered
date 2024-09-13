@@ -4,9 +4,10 @@ using System.Reflection;
 using Furniture;
 using Grids;
 using Newtonsoft.Json;
+using Trading;
 using UnityEngine;
 
-namespace Saving.Items
+namespace Saving.Proxies
 {
     public class PlacedFurnitureSaveData
     {

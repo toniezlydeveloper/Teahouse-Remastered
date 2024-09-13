@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace Saving.Items
+namespace Saving.Proxies
 {
     public abstract class ASaveProxy : MonoBehaviour
     {

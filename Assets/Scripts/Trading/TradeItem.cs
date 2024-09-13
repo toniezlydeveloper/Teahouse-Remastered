@@ -1,7 +1,8 @@
 using System;
+using Furniture;
 using UnityEngine;
 
-namespace Furniture
+namespace Trading
 {
     [Serializable]
     public class TradeItem

@@ -4,7 +4,7 @@ using Newtonsoft.Json;
 using Organization;
 using UnityEngine;
 
-namespace Saving.Items
+namespace Saving.Proxies
 {
     public class OrganizableSaveData
     {
