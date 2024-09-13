@@ -10,7 +10,7 @@ namespace States
     {
         protected override string LevelName => "Bedroom";
 
-        public override void OnExit() => SavingController.Load(SaveType.Bedroom);
+        public override void OnExit() => SavingController.Load(PersistenceType.Volatile, SaveType.Bedroom);
     }
     
     public class ShopBootstrapState : ABootstrapState<ShopClosedState>
@@ -22,7 +22,7 @@ namespace States
         public override void OnExit()
         {
             PopulateOrganizationPoints();
-            SavingController.Load(SaveType.Shop);
+            SavingController.Load(PersistenceType.Volatile, SaveType.Shop);
         }
 
         private void PopulateOrganizationPoints()

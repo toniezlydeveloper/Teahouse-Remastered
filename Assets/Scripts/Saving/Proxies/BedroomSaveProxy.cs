@@ -14,8 +14,6 @@ namespace Saving.Proxies
 
     public class BedroomSaveProxy : ASaveProxy
     {
-        private IPoolsProxy _poolsProxy = DependencyInjector.Get<IPoolsProxy>();
-        
         public override void Read(string json)
         {
             BedroomSaveData data = JsonConvert.DeserializeObject<BedroomSaveData>(json);
@@ -41,7 +39,7 @@ namespace Saving.Proxies
             FurniturePieceSaveData pieceData = JsonConvert.DeserializeObject<FurniturePieceSaveData>(json);
             Vector3 piecePosition = new Vector3(pieceData.PositionX, pieceData.PositionY, pieceData.PositionZ);
             Quaternion pieceRotation = Quaternion.Euler(0f, pieceData.RotationY, 0f);
-            ASaveProxy proxy = _poolsProxy.GetTyped<ASaveProxy>(pieceData.PrefabName, piecePosition, pieceRotation);
+            ASaveProxy proxy = DependencyInjector.Get<IPoolsProxy>().GetTyped<ASaveProxy>(pieceData.PrefabName, piecePosition, pieceRotation);
             proxy.Id = id;
         }
     }

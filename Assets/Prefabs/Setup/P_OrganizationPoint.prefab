@@ -96,6 +96,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e59ddf538dc46dd8bfb0396cdf75070, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <Type>k__BackingField: 1
   <Id>k__BackingField: 
 --- !u!1001 &8667060694545030909
 PrefabInstance:

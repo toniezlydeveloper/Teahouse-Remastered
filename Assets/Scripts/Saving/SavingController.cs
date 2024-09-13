@@ -11,52 +11,53 @@ namespace Saving
     public enum SaveType
     {
         Bedroom,
-        Shop
+        Shop,
+        Inventory
+    }
+
+    public enum PersistenceType
+    {
+        Persistent,
+        Volatile
     }
     
     public static class SavingController
     {
-        private static readonly Dictionary<SaveType, string> FileNameByType = new()
-        {
-            { SaveType.Bedroom, "teahouse-bedroom-save.json"},
-            { SaveType.Shop, "teahouse-shop-save.json"}
-        };
-        
-        public static void Save(SaveType type) => File.WriteAllText(GetSaveFilePath(type), ReadJsonFromScene());
+        public static void Save(PersistenceType persistenceType, SaveType saveType) => File.WriteAllText(GetSaveFilePath(persistenceType, saveType), ReadJsonFromScene(saveType));
 
-        public static void Load(SaveType type)
+        public static void Load(PersistenceType persistenceType, SaveType saveType)
         {
-            string path = GetSaveFilePath(type);
+            string filePath = GetSaveFilePath(persistenceType, saveType);
                 
-            if (!File.Exists(path))
+            if (!File.Exists(filePath))
                 return;
             
-            ReadJsonToScene(path);
+            ReadJsonToScene(saveType, filePath);
         }
 
-        public static void Clear(SaveType type)
+        public static void Clear(PersistenceType persistenceType, SaveType saveType)
         {
-            string path = GetSaveFilePath(type);
+            string filePath = GetSaveFilePath(persistenceType, saveType);
                 
-            if (!File.Exists(path))
+            if (!File.Exists(filePath))
                 return;
             
-            File.Delete(path);
+            File.Delete(filePath);
         }
 
-        private static string GetSaveFilePath(SaveType type) => Path.Combine(Application.persistentDataPath, FileNameByType[type]);
+        private static string GetSaveFilePath(PersistenceType persistenceType, SaveType saveType) => Path.Combine(Application.persistentDataPath, $"Teahouse-{persistenceType}-{saveType}.json");
 
-        private static string ReadJsonFromScene()
+        private static string ReadJsonFromScene(SaveType type)
         {
-            Dictionary<string, string> dataById = Object.FindObjectsOfType<ASaveProxy>().ToDictionary(proxy => proxy.Id, proxy => proxy.Write());
+            Dictionary<string, string> dataById = Object.FindObjectsOfType<ASaveProxy>().Where(proxy => proxy.Type == type).ToDictionary(proxy => proxy.Id, proxy => proxy.Write());
             return JsonConvert.SerializeObject(dataById);
         }
 
-        private static void ReadJsonToScene(string path)
+        private static void ReadJsonToScene(SaveType type, string path)
         {
             Dictionary<string, string> dataById = JsonConvert.DeserializeObject<Dictionary<string, string>>(File.ReadAllText(path));
 
-            foreach (ASaveProxy proxy in Object.FindObjectsOfType<ASaveProxy>())
+            foreach (ASaveProxy proxy in Object.FindObjectsOfType<ASaveProxy>().Where(proxy => proxy.Type == type))
             {
                 proxy.Read(dataById.First(data => data.Key == proxy.Id).Value);
             }
