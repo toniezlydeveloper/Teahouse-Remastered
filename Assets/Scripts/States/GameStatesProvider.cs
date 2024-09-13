@@ -34,7 +34,7 @@ namespace States
         [Header("Item Shop")]
         [SerializeField] private InputActionReference controls;
         [SerializeField] private InputActionReference back;
-        [SerializeField] private TradeItem[] itemsForSale;
+        [SerializeField] private TradeItemSet itemsForSale;
         
         [Header("Bedroom")]
         [SerializeField] private InputActionReference toggle;

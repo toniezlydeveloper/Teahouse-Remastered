@@ -1,8 +1,10 @@
+using Newtonsoft.Json;
+
 namespace Grids
 {
     public class GridCell
     {
-        public int Column { get; set; }
-        public int Row { get; set; }
+        [JsonProperty("c")] public int Column { get; set; }
+        [JsonProperty("r")] public int Row { get; set; }
     }
 }

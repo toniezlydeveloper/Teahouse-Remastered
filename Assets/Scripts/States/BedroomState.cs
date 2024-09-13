@@ -2,6 +2,7 @@ using System;
 using Internal.Dependencies.Core;
 using Internal.Flow.States;
 using Player;
+using Saving.Items;
 using Transitions;
 using UI.Shared;
 using UnityEngine.InputSystem;
@@ -30,7 +31,14 @@ namespace States
             return null;
         }
 
-        protected override void AddConditions() => AddCondition<ShopBootstrapState>(() => Transition.ShouldToggle(TransitionType.Shop));
+        protected override void AddConditions() => AddCondition<ShopBootstrapState>(() =>
+        {
+            if (!Transition.ShouldToggle(TransitionType.Shop))
+                return false;
+            
+            SavingController.Save(SaveType.Bedroom);
+            return true;
+        });
 
         private void InitModification()
         {

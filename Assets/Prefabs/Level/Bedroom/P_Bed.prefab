@@ -13,6 +13,8 @@ GameObject:
   - component: {fileID: 4509753290905833392}
   - component: {fileID: 3590988445306410193}
   - component: {fileID: 6537011209938291699}
+  - component: {fileID: -7264265859694847778}
+  - component: {fileID: 4327239040887438604}
   m_Layer: 0
   m_Name: P_Bed
   m_TagString: Untagged
@@ -97,6 +99,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: efb6fbaf8a814aa291bd0620f87f532f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &-7264265859694847778
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6396824862390078932}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 06953258352148b9bde6d30fe884a331, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <Id>k__BackingField: 
+--- !u!114 &4327239040887438604
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6396824862390078932}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b48b85f5b1145688cf683f08f912153, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <Type>k__BackingField: 1
 --- !u!1001 &2718343760958668445
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -27,8 +27,7 @@ namespace Saving.Items
             if (string.IsNullOrEmpty(json))
                 return;
             
-            OrganizableSaveData data = JsonConvert.DeserializeObject<OrganizableSaveData>(json);
-            _poolsProxy.Get(data.PrefabName, new Vector3(data.XPosition, data.YPosition, data.ZPosition), Quaternion.Euler(0f, data.YRotation, 0f), transform);
+            ReadData(json);
         }
 
         public override string Write()
@@ -36,6 +35,23 @@ namespace Saving.Items
             if (!TryGetOrganizable(out Organizable organizable))
                 return string.Empty;
 
+            return WriteData(organizable);
+        }
+
+        private bool TryGetOrganizable(out Organizable organizable)
+        {
+            organizable = GetComponentInChildren<Organizable>();
+            return organizable != null;
+        }
+
+        private void ReadData(string json)
+        {
+            OrganizableSaveData data = JsonConvert.DeserializeObject<OrganizableSaveData>(json);
+            _poolsProxy.Get(data.PrefabName, new Vector3(data.XPosition, data.YPosition, data.ZPosition), Quaternion.Euler(0f, data.YRotation, 0f), transform);
+        }
+
+        private static string WriteData(Organizable organizable)
+        {
             OrganizableSaveData data = new OrganizableSaveData
             {
                 PrefabName = organizable.name.Replace("(Clone)", ""),
@@ -44,13 +60,8 @@ namespace Saving.Items
                 YPosition = organizable.transform.position.y,
                 ZPosition = organizable.transform.position.z
             };
+            
             return JsonConvert.SerializeObject(data);
-        }
-        
-        private bool TryGetOrganizable(out Organizable organizable)
-        {
-            organizable = GetComponentInChildren<Organizable>();
-            return organizable != null;
         }
     }
 }

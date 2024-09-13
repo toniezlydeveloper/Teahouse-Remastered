@@ -36,7 +36,7 @@ namespace States
                 if (!Transition.ShouldToggle(TransitionType.Bedroom))
                     return false;
                 
-                SavingController.Save();
+                SavingController.Save(SaveType.Shop);
                 ReleasePools();
                 return true;
             });

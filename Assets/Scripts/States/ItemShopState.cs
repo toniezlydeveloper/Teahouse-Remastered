@@ -17,9 +17,9 @@ namespace States
         private InputActionReference _controls;
         private IItemShopPanel _itemShopPanel;
         private InputActionReference _back;
-        private TradeItem[] _tradeItems;
+        private TradeItemSet _tradeItems;
 
-        public ItemShopState(TradeItem[] tradeItems, IItemShopPanel itemShopPanel, InputActionReference controls, InputActionReference back, IFurnishingPanel furnishingPanel, ICurrencyHolder currencyHolder)
+        public ItemShopState(TradeItemSet tradeItems, IItemShopPanel itemShopPanel, InputActionReference controls, InputActionReference back, IFurnishingPanel furnishingPanel, ICurrencyHolder currencyHolder)
         {
             _furnishingPanel = furnishingPanel;
             _currencyHolder = currencyHolder;
@@ -54,7 +54,7 @@ namespace States
 
         private void PresentShop(ItemPreview[] previews) => _itemShopPanel.Present(previews);
 
-        private ItemPreview[] GetPreviews() => _tradeItems.Select(item => new ItemPreview
+        private ItemPreview[] GetPreviews() => _tradeItems.Set.Select(item => new ItemPreview
             {
                 CanSellCallback = () => CanSellItem(item),
                 SellCallback = () => TrySellingItem(item),

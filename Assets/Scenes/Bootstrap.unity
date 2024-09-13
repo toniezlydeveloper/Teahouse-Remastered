@@ -1103,27 +1103,7 @@ MonoBehaviour:
     <SpawnCount>k__BackingField: 5
   controls: {fileID: -1653618431344143445, guid: 66336f1aba36c584aa036f1400048593, type: 3}
   back: {fileID: 1528418383925921763, guid: 66336f1aba36c584aa036f1400048593, type: 3}
-  itemsForSale:
-  - <Piece>k__BackingField:
-      <Dimensions>k__BackingField:
-        <Height>k__BackingField: 3
-        <Width>k__BackingField: 2
-      <Prefab>k__BackingField: {fileID: 6396824862390078932, guid: 073d1e272ac14714a86f3a2d16a885b0, type: 3}
-      <Offset>k__BackingField: {x: 0, y: 0.2, z: 0}
-      <Icon>k__BackingField: {fileID: 21300000, guid: a3dcc8b557b35474a9525a695a91c58c, type: 3}
-      <Count>k__BackingField: 1
-    <Name>k__BackingField: Bed
-    <Cost>k__BackingField: 10
-  - <Piece>k__BackingField:
-      <Dimensions>k__BackingField:
-        <Height>k__BackingField: 1
-        <Width>k__BackingField: 1
-      <Prefab>k__BackingField: {fileID: 4962393053854447344, guid: 3a1ccb6fcb91caa42ac2bb6135549ab4, type: 3}
-      <Offset>k__BackingField: {x: 0, y: 0, z: 0}
-      <Icon>k__BackingField: {fileID: 21300000, guid: 786128879eeac9348801d07e0e0f9a9b, type: 3}
-      <Count>k__BackingField: 1
-    <Name>k__BackingField: Chair
-    <Cost>k__BackingField: 10
+  itemsForSale: {fileID: 11400000, guid: eced42cd2d8da8b43bdb70590a7ddb56, type: 2}
   toggle: {fileID: 2855096636729473866, guid: 66336f1aba36c584aa036f1400048593, type: 3}
   playerMode: {fileID: 11400000, guid: e80d591c18778ab4b9dff2ddc5d7e633, type: 2}
 --- !u!1001 &332573726
@@ -3894,7 +3874,7 @@ MonoBehaviour:
   - {fileID: -8346903964888035581, guid: dca901f98e3c82f45bdb5bc8465870bf, type: 3}
   - {fileID: -3601072560015309634, guid: 867297aff505fd046aee47cc86b85636, type: 3}
   - {fileID: -2242316164406126159, guid: 1cb3fc44a5d9124458c032b7493317c5, type: 3}
-  - {fileID: 2993121785955118834, guid: 6f443e79705f8304d986d37a15cb7721, type: 3}
+  - {fileID: 4327239040887438604, guid: 073d1e272ac14714a86f3a2d16a885b0, type: 3}
 --- !u!1 &1941554710
 GameObject:
   m_ObjectHideFlags: 0

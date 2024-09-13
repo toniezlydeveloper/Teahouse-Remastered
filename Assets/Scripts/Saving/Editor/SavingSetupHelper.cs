@@ -11,24 +11,58 @@ namespace Saving.Items
 
         private void OnGUI()
         {
-            if (GUILayout.Button("Setup"))
+            if (GUILayout.Button("Setup Proxies"))
             {
-                foreach (ASaveProxy item in FindObjectsOfType<ASaveProxy>())
-                {
-                    item.Id = Guid.NewGuid().ToString();
-                    EditorUtility.SetDirty(item);
-                }
+                Setup();
             }
             
-            if (GUILayout.Button("Save"))
+            GUILayout.Space(20);
+            
+            if (GUILayout.Button("Save Shop"))
             {
-                SavingController.Save();
+                SavingController.Save(SaveType.Shop);
             }
             
-            if (GUILayout.Button("Load"))
+            if (GUILayout.Button("Load Shop"))
             {
-                SavingController.Load();
+                SavingController.Load(SaveType.Shop);
             }
+            
+            if (GUILayout.Button("Clear Shop"))
+            {
+                SavingController.Clear(SaveType.Shop);
+            }
+            
+            GUILayout.Space(20);
+            
+            if (GUILayout.Button("Save Bedroom"))
+            {
+                SavingController.Save(SaveType.Bedroom);
+            }
+            
+            if (GUILayout.Button("Load Bedroom"))
+            {
+                SavingController.Load(SaveType.Bedroom);
+            }
+            
+            if (GUILayout.Button("Clear Bedroom"))
+            {
+                SavingController.Clear(SaveType.Bedroom);
+            }
+        }
+
+        private static void Setup()
+        {
+            foreach (ASaveProxy proxy in FindObjectsOfType<ASaveProxy>())
+            {
+                EditorUtility.SetDirty(AssignId(proxy));
+            }
+        }
+
+        private static ASaveProxy AssignId(ASaveProxy proxy)
+        {
+            proxy.Id = string.IsNullOrEmpty(proxy.Id) ? Guid.NewGuid().ToString() : proxy.Id;
+            return proxy;
         }
     }
 }
