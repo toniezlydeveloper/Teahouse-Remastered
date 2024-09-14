@@ -7,6 +7,7 @@ using Internal.Pooling;
 using Items.Holders;
 using Organization;
 using Player;
+using Saving;
 using Trading;
 using UI.Core;
 using UI.Shared;
@@ -62,9 +63,17 @@ namespace States
             AddState(new ItemShopState(itemsForSale, _itemShopPanel, controls, back, _furnishingPanel, _currencyHolder));
         }
 
-        private void Start() => DependencyInjector.AddRecipeElement<IManageableItemHolder>(hand);
+        private void Start()
+        {
+            DependencyInjector.AddRecipeElement<IManageableItemHolder>(hand);
+            SavingController.OverrideVolatileWithPersistent();
+        }
 
-        private void OnDestroy() => DependencyInjector.RemoveRecipeElement<IManageableItemHolder>(hand);
+        private void OnDestroy()
+        {
+            DependencyInjector.RemoveRecipeElement<IManageableItemHolder>(hand);
+            SavingController.ClearVolatile();
+        }
 
         private void InjectListRecipes()
         {

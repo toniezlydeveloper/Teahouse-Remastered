@@ -9,12 +9,14 @@ namespace Internal.Flow.States
         public Dictionary<Type, AState> StatesByType { get; } = new();
         public Type InitialStateType { get; private set; }
 
-        protected void AddState<TState>(TState state) where TState : AState => StatesByType.Add(typeof(TState), state);
-
         protected void AddInitialState<TState>(TState state) where TState : AState
         {
-            StatesByType.Add(typeof(TState), state);
-            InitialStateType = typeof(TState);
+            AssignInitialState<TState>();
+            AddState(state);
         }
+
+        protected void AddState<TState>(TState state) where TState : AState => StatesByType.Add(typeof(TState), state);
+
+        private void AssignInitialState<TState>() where TState : AState => InitialStateType = typeof(TState);
     }
 }

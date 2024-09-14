@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -28,24 +29,62 @@ namespace Saving
         public static void Load(PersistenceType persistenceType, SaveType saveType)
         {
             string filePath = GetSaveFilePath(persistenceType, saveType);
-                
+
             if (!File.Exists(filePath))
+            {
                 return;
+            }
             
             ReadJsonToScene(saveType, filePath);
+        }
+
+        public static void ClearVolatile()
+        {
+            foreach (SaveType saveType in (SaveType[])Enum.GetValues(typeof(SaveType)))
+            {
+                Clear(PersistenceType.Volatile, saveType);
+            }
         }
 
         public static void Clear(PersistenceType persistenceType, SaveType saveType)
         {
             string filePath = GetSaveFilePath(persistenceType, saveType);
-                
+
             if (!File.Exists(filePath))
+            {
                 return;
+            }
             
             File.Delete(filePath);
         }
 
+        public static void OverrideVolatileWithPersistent()
+        {
+            foreach (SaveType saveType in (SaveType[])Enum.GetValues(typeof(SaveType)))
+            {
+                OverrideVolatileWithPersistent(saveType);
+            }
+        }
+
+        private static void OverrideVolatileWithPersistent(SaveType saveType)
+        {
+            if (TryGetSaveExistingFilePath(PersistenceType.Persistent, saveType, out string persistentFilePath))
+            {
+                File.WriteAllText(GetSaveFilePath(PersistenceType.Volatile, saveType), File.ReadAllText(persistentFilePath));
+            }
+            else
+            {
+                Clear(PersistenceType.Volatile, SaveType.Shop);
+            }
+        }
+
         private static string GetSaveFilePath(PersistenceType persistenceType, SaveType saveType) => Path.Combine(Application.persistentDataPath, $"Teahouse-{persistenceType}-{saveType}.json");
+        
+        private static bool TryGetSaveExistingFilePath(PersistenceType persistenceType, SaveType saveType, out string filePath)
+        {
+            filePath = Path.Combine(Application.persistentDataPath, $"Teahouse-{persistenceType}-{saveType}.json");
+            return File.Exists(filePath);
+        }
 
         private static string ReadJsonFromScene(SaveType type)
         {
