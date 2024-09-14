@@ -13,6 +13,8 @@ GameObject:
   - component: {fileID: 942814747597016433}
   - component: {fileID: 5253492644165290836}
   - component: {fileID: 4346133001960062895}
+  - component: {fileID: 8176340708956165264}
+  - component: {fileID: 3919294768298344814}
   m_Layer: 0
   m_Name: P_CupboardFlowers
   m_TagString: Untagged
@@ -158,6 +160,32 @@ MonoBehaviour:
     <EHint>k__BackingField: Next
     <QHint>k__BackingField: Previous
   order: 0
+--- !u!114 &8176340708956165264
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4389346177909445218}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b48b85f5b1145688cf683f08f912153, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <Type>k__BackingField: 0
+--- !u!114 &3919294768298344814
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4389346177909445218}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4536aa8782e44ae9c1976420d33e6f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <ForwardOffset>k__BackingField: 0.1
 --- !u!1001 &3013566279165096719
 PrefabInstance:
   m_ObjectHideFlags: 0

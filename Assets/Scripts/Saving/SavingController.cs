@@ -74,7 +74,7 @@ namespace Saving
             }
             else
             {
-                Clear(PersistenceType.Volatile, FileSaveType.Shop);
+                Clear(PersistenceType.Volatile, saveType);
             }
         }
 

@@ -31,14 +31,18 @@ namespace States
             return null;
         }
 
-        protected override void AddConditions() => AddCondition<ShopBootstrapState>(() =>
+        protected override void AddConditions()
         {
-            if (!Transition.ShouldToggle(TransitionType.Shop))
-                return false;
-            
-            SavingController.Save(PersistenceType.Volatile, FileSaveType.Bedroom);
-            return true;
-        });
+            AddCondition<ItemShopState>(() => Transition.ShouldToggle(TransitionType.ItemShop));
+            AddCondition<ShopBootstrapState>(() =>
+            {
+                if (!Transition.ShouldToggle(TransitionType.Shop))
+                    return false;
+
+                SavingController.Save(PersistenceType.Volatile, FileSaveType.Bedroom);
+                return true;
+            });
+        }
 
         private void InitModification()
         {

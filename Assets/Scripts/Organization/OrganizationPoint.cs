@@ -1,36 +1,11 @@
-using Internal.Dependencies.Core;
-using Internal.Pooling;
 using UnityEngine;
 
 namespace Organization
 {
-    public interface IOrganizationPoint : IDependency
+    public class OrganizationPoint : MonoBehaviour
     {
-        void Populate();
-    }
-    
-    public class OrganizationPoint : ADependencyElement<IOrganizationPoint>, IOrganizationPoint
-    {
-        [SerializeField] private float originalRotation;
-        [SerializeField] private GameObject prefab;
-        
-        private IPoolsProxy _poolsProxy = DependencyInjector.Get<IPoolsProxy>();
-
         public bool IsTaken => TryGetOrganizable(out Organizable _);
-
-        public void Populate()
-        {
-            if (TryGetOrganizable(out Organizable organizable))
-                return;
-            
-            TrySpawningOrganizable();
-            
-            if (!TryGetOrganizable(out organizable))
-                return;
-            
-            ApplyOffset(organizable);
-        }
-
+        
         public void RotateLeft()
         {
             if (!TryGetOrganizable(out Organizable organizable))
@@ -55,14 +30,6 @@ namespace Organization
 
         private static void ApplyOffset(Organizable organizable) => organizable.transform.localPosition = organizable.transform.forward * organizable.ForwardOffset;
 
-        private void TrySpawningOrganizable()
-        {
-            if (!prefab)
-                return;
-
-            _poolsProxy.Get(prefab.name, transform.position, Quaternion.Euler(0f, originalRotation, 0f), transform);
-        }
-        
         private bool TryGetOrganizable(out Organizable organizable)
         {
             organizable = GetComponentInChildren<Organizable>();

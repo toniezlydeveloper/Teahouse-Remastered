@@ -14,6 +14,8 @@ GameObject:
   - component: {fileID: 6822766210306890704}
   - component: {fileID: 2703524118384845607}
   - component: {fileID: 835207975068166403}
+  - component: {fileID: 475228548885766897}
+  - component: {fileID: 8641149756987463417}
   m_Layer: 0
   m_Name: P_CupboardHerbs
   m_TagString: Untagged
@@ -127,6 +129,32 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   config: {fileID: 11400000, guid: b6c0dd8f22f4e8541b4dc0e53bfcdf13, type: 2}
   herb: {fileID: 2369757924050987710}
+--- !u!114 &475228548885766897
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5825123945418612910}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b48b85f5b1145688cf683f08f912153, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <Type>k__BackingField: 0
+--- !u!114 &8641149756987463417
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5825123945418612910}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4536aa8782e44ae9c1976420d33e6f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <ForwardOffset>k__BackingField: 0.1
 --- !u!1 &8560073091867299788
 GameObject:
   m_ObjectHideFlags: 0

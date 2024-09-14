@@ -39,7 +39,7 @@ namespace States
 
         public override void OnExit() => ToggleControls(true);
 
-        protected override void AddConditions() => AddCondition<ShopClosedState>(ReceivedBackInput);
+        protected override void AddConditions() => AddCondition<BedroomState>(ReceivedBackInput);
 
         private bool ReceivedBackInput() => _back.action.triggered;
 

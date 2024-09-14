@@ -5,7 +5,6 @@ using Internal.Dependencies.Core;
 using Internal.Flow.States;
 using Internal.Pooling;
 using Items.Holders;
-using Organization;
 using Player;
 using Saving;
 using Trading;
@@ -23,7 +22,8 @@ namespace States
     // 5. Splacanie wujka herbaciarza
     // 6. Tutorial
     // 7. Sklep z rzeczami V
-    // 8. 
+    // 8. Dodanie skladnikow z ChatGPT
+    // 9. Dodanie systemu zamowien na podstawie rasy zwierzecia
     public class GameStatesProvider : AStatesProvider
     {
         [Header("General")]
@@ -80,7 +80,6 @@ namespace States
         private void InjectListRecipes()
         {
             DependencyInjector.InjectListRecipe<IManageableItemHolder>();
-            DependencyInjector.InjectListRecipe<IOrganizationPoint>();
             DependencyInjector.InjectListRecipe<IFurniturePiece>();
             DependencyInjector.InjectListRecipe<IPoolItem>();
         }
