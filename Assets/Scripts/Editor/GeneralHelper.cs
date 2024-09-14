@@ -43,14 +43,23 @@ namespace Editor
             {
                 return;
             }
+
+            if (!TryGetCachedScenePath(out string scenePath))
+            {
+                return;
+            }
             
-            EditorSceneManager.OpenScene(GetCachedScenePath());
+            EditorSceneManager.OpenScene(scenePath);
         }
 
         private static bool HasExitedPlayMode(PlayModeStateChange change) => change == PlayModeStateChange.EnteredEditMode;
 
         private static void CacheScene(Scene scene) => _previousScenePath = scene.path;
 
-        private static string GetCachedScenePath() => _previousScenePath;
+        private static bool TryGetCachedScenePath(out string scenePath)
+        {
+            scenePath = _previousScenePath;
+            return scenePath != null;
+        }
     }
 }

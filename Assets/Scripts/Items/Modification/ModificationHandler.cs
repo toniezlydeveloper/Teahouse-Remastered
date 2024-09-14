@@ -39,6 +39,20 @@ namespace Items.Modification
             
             ModifiersFactory.Interact(hand, itemHolder, itemHolder.ModifierType);
         }
+
+        public override void HandleProgressInput(InteractionElement element)
+        {
+            if (!TryGetInteractionComponent(element, out WorldSpaceItemHolder itemHolder))
+                return;
+            
+            Progress(itemHolder);
+        }
+
+        private void ToggleDown(WorldSpaceItemHolder itemHolder) => itemHolder.ToggleDown();
+
+        private void ToggleUp(WorldSpaceItemHolder itemHolder) => itemHolder.ToggleUp();
+
+        private void Progress(WorldSpaceItemHolder itemHolder) => itemHolder.Progress();
         
         public override void Present(InteractionElement element)
         {
@@ -58,9 +72,5 @@ namespace Items.Modification
             itemHolder.TryGetComponent(out _itemPreviewer);
             _itemPreviewer?.Toggle(false);
         }
-
-        private void ToggleDown(WorldSpaceItemHolder itemHolder) => itemHolder.ToggleDown();
-
-        private void ToggleUp(WorldSpaceItemHolder itemHolder) => itemHolder.ToggleUp();
     }
 }

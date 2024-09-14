@@ -1,15 +1,48 @@
 using System;
+using UnityEngine;
 
 namespace Items.Implementations
 {
-    public class AddInStorage<TAddIn> where TAddIn : Enum
+    public class AddInStorage<TAddIn> : IAddInStorage where TAddIn : Enum
     {
+        private float _processingProgress;
+        
+        public bool RequiresProcessing { get; set; }
         public TAddIn Type { get; set; }
+        
+        public float ProcessingProgress
+        {
+            get => _processingProgress;
+            set => _processingProgress = Mathf.Clamp(value, 0, MaxProcessing);
+        }
+
+        private const float MaxProcessing = 100f;
+        
+        public bool CanGet()
+        {
+            if (!RequiresProcessing)
+            {
+                return true;
+            }
+
+            return ProcessingProgress >= MaxProcessing;
+        }
+
+        public object Get() => new AddIn<TAddIn> { Type = Type };
+        
+        public void Reset() => ProcessingProgress = 0f;
     }
     
     public class AddIn<TAddIn> where TAddIn : Enum
     {
         public TAddIn Type { get; set; }
+    }
+    
+    public interface IAddInStorage
+    {
+        bool CanGet();
+        object Get();
+        void Reset();
     }
     
     public enum HerbType

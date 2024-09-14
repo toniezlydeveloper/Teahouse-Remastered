@@ -16,9 +16,7 @@ namespace Items.Modifiers
         BoilingPlate = 1 << 3,
         TeabagJar = 1 << 4,
         Customer = 1 << 5,
-        
-        // Garden
-        Combinator = 1 << 6
+        AddInStorage = 1 << 6
     }
     
     public interface IItemModifier

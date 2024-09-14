@@ -8,7 +8,7 @@ namespace Items.Holders
         [SerializeField] private AddInsConfig config;
         [SerializeField] private Renderer[] models;
         
-        protected override void Setup()
+        protected override void SetupVisuals()
         {
             for (int i = 0; i < config.FlowerColors.Count; i++)
             {

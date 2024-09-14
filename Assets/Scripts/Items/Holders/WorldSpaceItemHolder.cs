@@ -52,8 +52,12 @@ namespace Items.Holders
         public virtual void ToggleUp()
         {
         }
+
+        public virtual void Progress()
+        {
+        }
         
-        private bool TryGetInitialItem(out object initialItem)
+        protected virtual bool TryGetInitialItem(out object initialItem)
         {
             initialItem = InitialItemType switch
             {

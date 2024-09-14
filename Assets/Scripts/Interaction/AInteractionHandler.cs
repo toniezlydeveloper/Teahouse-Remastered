@@ -15,6 +15,10 @@ namespace Interaction
         {
         }
 
+        public virtual void HandleProgressInput(InteractionElement element)
+        {
+        }
+
         public virtual void HandleInteractionInput(InteractionElement element)
         {
         }

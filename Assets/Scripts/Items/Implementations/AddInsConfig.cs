@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Items.Implementations
 {
-    [CreateAssetMenu(menuName = "Setup/Add Ins")]
+    [CreateAssetMenu(menuName = "Config/Add Ins")]
     public class AddInsConfig : ScriptableObject
     {
         [field:SerializeField] public List<HerbColor> HerbColors { get; set; }

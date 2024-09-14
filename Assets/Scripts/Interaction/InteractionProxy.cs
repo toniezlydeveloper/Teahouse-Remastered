@@ -64,6 +64,8 @@ namespace Interaction
             Present();
         }
 
+        private void Update() => TryProgressing();
+
         private bool TryGetHintPreview(Collider other, out InteractionElement interactionElement) => other.TryGetComponent(out interactionElement);
 
         private void Add(InteractionElement interactionElement)
@@ -95,6 +97,17 @@ namespace Interaction
 
             _highlightedElement.Highlight(true);
             _hintsPanel.Present(_highlightedElement);
+        }
+
+        private void TryProgressing()
+        {
+            if (!interactInput.action.IsPressed())
+                return;
+
+            if (_highlightedElement == null)
+                return;
+            
+            _interactionHandlers[playerMode.Value].ForEach(handler => handler.HandleProgressInput(_highlightedElement));
         }
 
         private void InteractDown(InputAction.CallbackContext _) =>
