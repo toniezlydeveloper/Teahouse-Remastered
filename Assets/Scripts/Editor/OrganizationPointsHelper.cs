@@ -41,7 +41,7 @@ namespace Editor
             {
                 foreach (OrganizationPoint organizationPoint in FindObjectsOfType<OrganizationPoint>())
                 {
-                    organizationPoint.GetComponent<MeshRenderer>().enabled = true;
+                    organizationPoint.transform.Find("Handle").GetComponentInChildren<MeshRenderer>().enabled = true;
                 }
             }
 
@@ -49,14 +49,22 @@ namespace Editor
             {
                 foreach (OrganizationPoint organizationPoint in FindObjectsOfType<OrganizationPoint>())
                 {
-                    organizationPoint.GetComponent<MeshRenderer>().enabled = false;
+                    organizationPoint.transform.Find("Handle").GetComponentInChildren<MeshRenderer>().enabled = false;
+                }
+            }
+
+            if (GUILayout.Button("Clear"))
+            {
+                foreach (OrganizationPoint point in FindObjectsOfType<OrganizationPoint>())
+                {
+                    DestroyImmediate(point.gameObject);
                 }
             }
         }
 
         private bool TryGetOrganizationPoint(out OrganizationPoint point)
         {
-            point = Selection.activeGameObject?.GetComponent<OrganizationPoint>();
+            point = Selection.activeGameObject?.GetComponentInParent<OrganizationPoint>();
             return point != null;
         }
     }

@@ -115,6 +115,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: 3D_Teabag
       objectReference: {fileID: 0}
+    - target: {fileID: 5355461385685617334, guid: 0492252d8d76e294a982de09dda331e9, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.1255
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0492252d8d76e294a982de09dda331e9, type: 3}
 --- !u!4 &3190066230708041466 stripped
