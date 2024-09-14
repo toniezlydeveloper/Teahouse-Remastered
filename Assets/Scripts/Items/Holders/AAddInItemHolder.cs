@@ -6,10 +6,11 @@ using UnityEngine;
 
 namespace Items.Holders
 {
-    public abstract class AddInItemHolder<TAddIn> : WorldSpaceItemHolder where TAddIn : Enum
+    public abstract class AAddInItemHolder<TAddIn> : WorldSpaceItemHolder where TAddIn : Enum
     {
         [SerializeField] private bool requiresProcessing;
         [SerializeField] private float processingSpeed;
+        [SerializeField] private CachedItemHolder hand;
         [SerializeField] private TAddIn initialType;
 
         private List<TAddIn> _allAddIns;
@@ -35,9 +36,17 @@ namespace Items.Holders
             GetStorage().Reset();
         }
 
-        public override void Progress() => Progress(GetStorage());
+        public override void Progress()
+        {
+            if (IsPlayerHoldingSomething())
+            {
+                return;
+            }
+            
+            Progress(GetStorage());
+        }
 
-        protected override bool TryGetInitialItem(out object initialItem)
+        protected override bool TryGetInitialItem(out IItem initialItem)
         {
             initialItem = new AddInStorage<TAddIn>
             {
@@ -46,6 +55,8 @@ namespace Items.Holders
             };
             return true;
         }
+
+        private bool IsPlayerHoldingSomething() => !hand.IsEmpty();
 
         private AddInStorage<TAddIn> GetStorage() => Value as AddInStorage<TAddIn>;
 

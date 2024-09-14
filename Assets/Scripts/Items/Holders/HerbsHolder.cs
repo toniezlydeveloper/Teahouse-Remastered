@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Items.Holders
 {
-    public class HerbsHolder : AddInItemHolder<HerbType>
+    public class HerbsHolder : AAddInItemHolder<HerbType>
     {
         [SerializeField] private AddInsConfig config;
         [SerializeField] private Renderer[] models;

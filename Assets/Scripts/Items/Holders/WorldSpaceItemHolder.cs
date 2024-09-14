@@ -22,14 +22,14 @@ namespace Items.Holders
     
     public class WorldSpaceItemHolder : ADependencyElement<IManageableItemHolder>, IItemHolder, IManageableItemHolder
     {
-        public event Action<object> OnChanged;
+        public event Action<IItem> OnChanged;
         
         [field:SerializeField] public ModifierType ModifierType { get; set; }
         [field:SerializeField] public InitialItemType InitialItemType { get; set; }
 
-        private object _value;
+        private IItem _value;
         
-        public object Value
+        public IItem Value
         {
             get => GetItem();
             set => SetItem(value);
@@ -37,7 +37,7 @@ namespace Items.Holders
         
         public void SetInitial()
         {
-            if (!TryGetInitialItem(out object initialItem))
+            if (!TryGetInitialItem(out IItem initialItem))
                 return;
             
             SetItem(initialItem);
@@ -57,7 +57,7 @@ namespace Items.Holders
         {
         }
         
-        protected virtual bool TryGetInitialItem(out object initialItem)
+        protected virtual bool TryGetInitialItem(out IItem initialItem)
         {
             initialItem = InitialItemType switch
             {
@@ -71,15 +71,15 @@ namespace Items.Holders
             return initialItem != null;
         }
 
-        private object GetItem() => _value;
+        private IItem GetItem() => _value;
 
-        private void SetItem(object value)
+        private void SetItem(IItem value)
         {
             OverrideItem(value);
             NotifyAboutChange();
         }
 
-        private void OverrideItem(object value) => _value = value;
+        private void OverrideItem(IItem value) => _value = value;
 
         private void NotifyAboutChange() => OnChanged?.Invoke(_value);
     }

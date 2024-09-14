@@ -1,11 +1,12 @@
 using System;
+using Items.Implementations;
 
 namespace Items.Holders
 {
     public interface IItemHolder
     {
-        event Action<object> OnChanged; 
+        event Action<IItem> OnChanged; 
         
-        object Value { get; set; }
+        IItem Value { get; set; }
     }
 }

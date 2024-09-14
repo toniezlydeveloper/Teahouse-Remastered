@@ -7,8 +7,10 @@ namespace Items.Implementations
         Lavender
     }
     
-    public class Teabag : ITeabagItem
+    public class Teabag : ITeabagItem, IItem
     {
         public TeabagType TeabagType { get; set; }
+        
+        public string Name => "Teabag";
     }
 }

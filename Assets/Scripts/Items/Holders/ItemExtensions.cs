@@ -1,3 +1,5 @@
+using Items.Implementations;
+
 namespace Items.Holders
 {
     // ReSharper disable once ConvertIfStatementToReturnStatement
@@ -15,7 +17,7 @@ namespace Items.Holders
 
         public static bool Holds<TItem>(this IItemHolder holder) => holder.Value is TItem;
 
-        public static void Refresh(this IItemHolder holder, object item) => holder.Value = item;
+        public static void Refresh(this IItemHolder holder, IItem item) => holder.Value = item;
 
         public static void Refresh(this IItemHolder holder) => holder.Value = holder.Value;
 

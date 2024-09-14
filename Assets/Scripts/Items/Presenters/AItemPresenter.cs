@@ -1,6 +1,7 @@
 using Internal.Dependencies.Core;
 using Internal.Pooling;
 using Items.Holders;
+using Items.Implementations;
 using Items.Models;
 using UnityEngine;
 
@@ -19,7 +20,7 @@ namespace Items.Presenters
 
         protected void RemoveCallback(IItemHolder itemHolder) => itemHolder.OnChanged -= ModifyModel;
 
-        private void ModifyModel(object item)
+        private void ModifyModel(IItem item)
         {
             if (TryGetTypeName(item, out string itemTypeName))
                 ChangeModel(itemTypeName);
@@ -33,9 +34,9 @@ namespace Items.Presenters
             TryGettingModel(itemTypeName);
         }
         
-        private bool TryGetTypeName(object item, out string itemTypeName)
+        private bool TryGetTypeName(IItem item, out string itemTypeName)
         {
-            itemTypeName = item != null ? $"P_{item.GetType().Name}" : null;
+            itemTypeName = item != null ? $"P_{item.Name}" : null;
             _hasItem = item != null;
             return _itemTypeName != itemTypeName;
         }

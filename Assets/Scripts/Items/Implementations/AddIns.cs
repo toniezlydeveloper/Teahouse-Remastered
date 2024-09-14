@@ -3,9 +3,12 @@ using UnityEngine;
 
 namespace Items.Implementations
 {
-    public class AddInStorage<TAddIn> : IAddInStorage where TAddIn : Enum
+    public class AddInStorage<TAddIn> : IAddInStorage, IAddInProgress where TAddIn : Enum
     {
         private float _processingProgress;
+
+        public float NormalizedProgress => ProcessingProgress / MaxProcessing;
+        public string Name => "AddInStorage";
         
         public bool RequiresProcessing { get; set; }
         public TAddIn Type { get; set; }
@@ -27,22 +30,29 @@ namespace Items.Implementations
 
             return ProcessingProgress >= MaxProcessing;
         }
-
-        public object Get() => new AddIn<TAddIn> { Type = Type };
         
         public void Reset() => ProcessingProgress = 0f;
+
+        public IItem Get() => new AddIn<TAddIn> { Type = Type };
     }
     
-    public class AddIn<TAddIn> where TAddIn : Enum
+    public class AddIn<TAddIn> : IItem where TAddIn : Enum
     {
         public TAddIn Type { get; set; }
+        
+        public string Name => "AddIn";
     }
     
-    public interface IAddInStorage
+    public interface IAddInStorage : IItem
     {
         bool CanGet();
-        object Get();
         void Reset();
+        IItem Get();
+    }
+
+    public interface IAddInProgress
+    {
+        float NormalizedProgress { get; }
     }
     
     public enum HerbType

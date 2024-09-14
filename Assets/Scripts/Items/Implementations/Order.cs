@@ -4,7 +4,7 @@ using UnityEngine;
 namespace Items.Implementations
 {
     [Serializable]
-    public class Order : ITeabagItem
+    public class Order : ITeabagItem, IItem
     {
         [field:SerializeField] public float MinWaterTemperature { get; set; }
         [field:SerializeField] public float MaxWaterTemperature { get; set; }
@@ -13,5 +13,7 @@ namespace Items.Implementations
         public bool WasCompleted { get; set; }
         public bool WasCollected { get; set; }
         public bool WasTaken { get; set; }
+
+        public string Name => "Order";
     }
 }
