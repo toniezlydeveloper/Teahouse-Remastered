@@ -5,7 +5,7 @@ using UnityEngine.UI;
 namespace Items.Effectors
 {
     // ReSharper disable once CompareOfFloatsByEqualityOperator
-    public class ProgressTracker : AEffector<IAddInProgress>
+    public class ProcessingProgressTracker : AEffector<IAddInProgress>
     {
         [SerializeField] private Image processingProgressIndicator;
         
@@ -13,13 +13,9 @@ namespace Items.Effectors
         
         protected override bool TryEffecting(IAddInProgress progress)
         {
-            if (progress == null)
-            {
-                return false;
-            }
-
-            bool hasChanged = _normalizedProgress != progress.NormalizedProgress;
-            _normalizedProgress = progress.NormalizedProgress;
+            float value = progress?.NormalizedProgress ?? 0f;
+            bool hasChanged = _normalizedProgress != value;
+            _normalizedProgress = value;
 
             if (hasChanged)
             {

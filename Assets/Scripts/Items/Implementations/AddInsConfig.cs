@@ -24,7 +24,7 @@ namespace Items.Implementations
     [Serializable]
     public class AddInColor<TAddIn>
     {
-        [field:SerializeField] public TAddIn AddIn { get; set; }
+        [field:SerializeField] public TAddIn AddInType { get; set; }
         [field:SerializeField] public Color Color { get; set; }
     }
 }

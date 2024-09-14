@@ -7,8 +7,6 @@ namespace Editor
 {
     public class GeneralHelper : EditorWindow
     {
-        private string _previousScenePath;
-        
         [MenuItem("Tools/just Adam/General Helper")]
         public static void Open() => CreateWindow<GeneralHelper>("General Helper");
 
@@ -31,11 +29,11 @@ namespace Editor
     [InitializeOnLoad]
     public static class SceneCache
     {
-        private static string _previousScenePath;
-
+        private const string SceneNameKey = "PreviouslyOpenedScene";
+        
         static SceneCache() => EditorApplication.playModeStateChanged += TryRestoringScene;
 
-        public static void CacheScene() => CacheScene(SceneManager.GetActiveScene());
+        public static void CacheScene() => EditorPrefs.SetString(SceneNameKey, GetPath(SceneManager.GetActiveScene()));
         
         private static void TryRestoringScene(PlayModeStateChange change)
         {
@@ -44,22 +42,16 @@ namespace Editor
                 return;
             }
 
-            if (!TryGetCachedScenePath(out string scenePath))
+            if (!EditorPrefs.HasKey(SceneNameKey))
             {
                 return;
             }
             
-            EditorSceneManager.OpenScene(scenePath);
+            EditorSceneManager.OpenScene(EditorPrefs.GetString(SceneNameKey));
         }
 
         private static bool HasExitedPlayMode(PlayModeStateChange change) => change == PlayModeStateChange.EnteredEditMode;
 
-        private static void CacheScene(Scene scene) => _previousScenePath = scene.path;
-
-        private static bool TryGetCachedScenePath(out string scenePath)
-        {
-            scenePath = _previousScenePath;
-            return scenePath != null;
-        }
+        private static string GetPath(Scene scene) => scene.path;
     }
 }

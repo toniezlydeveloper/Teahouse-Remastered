@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 5825123945418612911}
   - component: {fileID: 6822766210306890704}
   - component: {fileID: 2703524118384845607}
+  - component: {fileID: 835207975068166403}
   m_Layer: 0
   m_Name: P_CupboardHerbs
   m_TagString: Untagged
@@ -112,6 +113,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   processingProgressIndicator: {fileID: 3488781593733426814}
+--- !u!114 &835207975068166403
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5825123945418612910}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca565db65a15408094771d8398b28216, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  config: {fileID: 11400000, guid: b6c0dd8f22f4e8541b4dc0e53bfcdf13, type: 2}
+  herb: {fileID: 2369757924050987710}
 --- !u!1 &8560073091867299788
 GameObject:
   m_ObjectHideFlags: 0
@@ -183,7 +198,7 @@ MonoBehaviour:
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 0
-  m_FillAmount: 0
+  m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
@@ -410,6 +425,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 94cb64f912bf6094aaa2d66037756f63, type: 3}
+--- !u!23 &2369757924050987710 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 8085629406533272972, guid: 94cb64f912bf6094aaa2d66037756f63, type: 3}
+  m_PrefabInstance: {fileID: 5825123946494144306}
+  m_PrefabAsset: {fileID: 0}
 --- !u!23 &3050148879125626797 stripped
 MeshRenderer:
   m_CorrespondingSourceObject: {fileID: 8827813258748563615, guid: 94cb64f912bf6094aaa2d66037756f63, type: 3}

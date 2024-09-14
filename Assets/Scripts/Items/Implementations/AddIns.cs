@@ -1,14 +1,17 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Items.Implementations
 {
-    public class AddInStorage<TAddIn> : IAddInStorage, IAddInProgress where TAddIn : Enum
+    // ReSharper disable once StaticMemberInGenericType
+    public class AddInStorage<TAddIn> : IAddInStorage, IAddInProgress, IAddInType<TAddIn> where TAddIn : Enum
     {
         private float _processingProgress;
 
         public float NormalizedProgress => ProcessingProgress / MaxProcessing;
-        public string Name => "AddInStorage";
+        public string Name => NamesByAddInType[typeof(TAddIn)];
+        public TAddIn Value => Type;
         
         public bool RequiresProcessing { get; set; }
         public TAddIn Type { get; set; }
@@ -20,6 +23,12 @@ namespace Items.Implementations
         }
 
         private const float MaxProcessing = 100f;
+
+        private static readonly Dictionary<Type, string> NamesByAddInType = new()
+        {
+            { typeof(HerbType), "HerbStation" },
+            { typeof(FlowerType), "FlowerStation" },
+        };
         
         public bool CanGet()
         {
@@ -36,11 +45,18 @@ namespace Items.Implementations
         public IItem Get() => new AddIn<TAddIn> { Type = Type };
     }
     
+    // ReSharper disable once StaticMemberInGenericType
     public class AddIn<TAddIn> : IItem where TAddIn : Enum
     {
         public TAddIn Type { get; set; }
-        
-        public string Name => "AddIn";
+
+        public string Name => NamesByAddInType[typeof(TAddIn)];
+
+        private static readonly Dictionary<Type, string> NamesByAddInType = new()
+        {
+            { typeof(HerbType), "Herb" },
+            { typeof(FlowerType), "Flower" }
+        };
     }
     
     public interface IAddInStorage : IItem
@@ -53,6 +69,11 @@ namespace Items.Implementations
     public interface IAddInProgress
     {
         float NormalizedProgress { get; }
+    }
+
+    public interface IAddInType<out TAddIn> where TAddIn : Enum
+    {
+        TAddIn Value { get; }
     }
     
     public enum HerbType

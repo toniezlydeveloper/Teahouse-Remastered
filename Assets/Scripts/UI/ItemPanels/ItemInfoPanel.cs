@@ -64,8 +64,8 @@ namespace UI.ItemPanels
                 holderTypeName = _presentedItemHolder.GetType().Name;
             
             holderTypeIconHolder.sprite = icons.FirstOrDefault(icon => holderTypeName.Contains(icon.name.Replace("T_", "")));
-            itemNameTextContainer.text = Regex.Replace(_presentedItemHolder.Value.GetType().Name, "(\\B[A-Z])", " $1");
-            itemTypeIconHolder.sprite = icons.FirstOrDefault(icon => icon.name == $"T_{_presentedItemHolder.Value.GetType().Name}");
+            itemNameTextContainer.text = Regex.Replace(_presentedItemHolder.Value.Name, "(\\B[A-Z])", " $1");
+            itemTypeIconHolder.sprite = icons.FirstOrDefault(icon => icon.name == $"T_{_presentedItemHolder.Value.Name}");
         }
     }
 }
