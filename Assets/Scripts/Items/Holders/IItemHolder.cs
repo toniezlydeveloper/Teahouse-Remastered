@@ -8,5 +8,6 @@ namespace Items.Holders
         event Action<IItem> OnChanged; 
         
         IItem Value { get; set; }
+        string Name { get; }
     }
 }

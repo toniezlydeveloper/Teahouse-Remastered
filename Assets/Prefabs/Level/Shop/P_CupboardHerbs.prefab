@@ -451,6 +451,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7205330678023444862, guid: 94cb64f912bf6094aaa2d66037756f63, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 7205330678023444862, guid: 94cb64f912bf6094aaa2d66037756f63, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.7857139
+      objectReference: {fileID: 0}
+    - target: {fileID: 7205330678023444862, guid: 94cb64f912bf6094aaa2d66037756f63, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 7205330678023444862, guid: 94cb64f912bf6094aaa2d66037756f63, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.392857
+      objectReference: {fileID: 0}
+    - target: {fileID: 7205330678023444862, guid: 94cb64f912bf6094aaa2d66037756f63, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.077
+      objectReference: {fileID: 0}
     - target: {fileID: 8922027477967304117, guid: 94cb64f912bf6094aaa2d66037756f63, type: 3}
       propertyPath: m_Name
       value: 3D_CupboardHerbs

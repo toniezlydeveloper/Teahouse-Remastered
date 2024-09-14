@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 3064861303790718613}
   - component: {fileID: 3064861303790718612}
   - component: {fileID: 3064861303790718610}
-  - component: {fileID: 4103761870960472342}
   - component: {fileID: 3929819610365639772}
   m_Layer: 0
   m_Name: P_Door
@@ -67,20 +66,6 @@ MonoBehaviour:
   highlight: {fileID: 8408257656859179766}
   hints: []
   order: 0
---- !u!114 &4103761870960472342
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3064861303790718609}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bd954975834f4acd9f7d3a6491941628, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  <ModifierType>k__BackingField: 0
-  <InitialItemType>k__BackingField: 0
 --- !u!114 &3929819610365639772
 MonoBehaviour:
   m_ObjectHideFlags: 0

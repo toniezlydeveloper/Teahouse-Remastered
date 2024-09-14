@@ -15,7 +15,9 @@ namespace Items.Holders
 
         private List<TAddIn> _allAddIns;
         private int _selectedIndex;
-        
+
+        public override string Name => GetStorage().Name;
+
         private void Start()
         {
             GetReferences();

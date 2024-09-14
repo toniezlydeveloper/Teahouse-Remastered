@@ -3209,6 +3209,7 @@ MonoBehaviour:
   itemNameTextContainer: {fileID: 898757955}
   holderTypeIconHolder: {fileID: 593986587}
   itemTypeIconHolder: {fileID: 2017550415}
+  itemTypeIconWrapper: {fileID: 1499000463}
   panel: {fileID: 295153112}
   icons:
   - {fileID: 21300000, guid: af903b2fe7a688245b03a5307275cc3c, type: 3}

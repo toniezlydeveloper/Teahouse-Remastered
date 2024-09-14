@@ -7,6 +7,8 @@ namespace Items.Holders
     [CreateAssetMenu(menuName = "Variables/Hand")]
     public class CachedItemHolder : ACachedVariable<IItem>, IItemHolder, IManageableItemHolder
     {
+        public string Name => "Hand";
+        
         public void SetInitial()
         {
         }

@@ -12,6 +12,7 @@ namespace UI.ItemPanels
         [SerializeField] private TextMeshProUGUI itemNameTextContainer;
         [SerializeField] private Image holderTypeIconHolder;
         [SerializeField] private Image itemTypeIconHolder;
+        [SerializeField] private GameObject itemTypeIconWrapper;
         [SerializeField] private GameObject panel;
         [SerializeField] private Sprite[] icons;
 
@@ -49,23 +50,16 @@ namespace UI.ItemPanels
             _presentedItem = itemHolder.Value;
         }
 
-        private void Toggle() => panel.SetActive(_presentedItemHolder?.Value != null);
+        private void Toggle() => panel.SetActive((_presentedItemHolder != null && _presentedItemHolder is not CachedItemHolder) || _presentedItemHolder?.Value != null);
 
         private void TryUpdatingInfo()
         {
-            if (_presentedItemHolder.Value == null)
-                return;
-
-            string holderTypeName;
-            
-            if (_presentedItemHolder is WorldSpaceItemHolder worldSpaceItemHolder)
-                holderTypeName = worldSpaceItemHolder.name.Replace("(Clone)", "");
-            else
-                holderTypeName = _presentedItemHolder.GetType().Name;
-            
-            holderTypeIconHolder.sprite = icons.FirstOrDefault(icon => holderTypeName.Contains(icon.name.Replace("T_", "")));
-            itemNameTextContainer.text = Regex.Replace(_presentedItemHolder.Value.Name, "(\\B[A-Z])", " $1");
-            itemTypeIconHolder.sprite = icons.FirstOrDefault(icon => icon.name == $"T_{_presentedItemHolder.Value.Name}");
+            string holderName = _presentedItemHolder.Name;
+            string text = _presentedItemHolder.Value?.Name ?? holderName;
+            holderTypeIconHolder.sprite = icons.FirstOrDefault(icon => holderName.Contains(icon.name.Replace("T_", "")));
+            itemNameTextContainer.text = Regex.Replace(text.Replace("P_", ""), "(\\B[A-Z])", " $1");
+            itemTypeIconHolder.sprite = icons.FirstOrDefault(icon => icon.name == $"T_{_presentedItemHolder.Value?.Name}");
+            itemTypeIconWrapper.SetActive(itemTypeIconHolder.sprite != null);
         }
     }
 }

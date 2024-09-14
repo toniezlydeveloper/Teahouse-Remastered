@@ -28,6 +28,8 @@ namespace Items.Holders
         [field:SerializeField] public InitialItemType InitialItemType { get; set; }
 
         private IItem _value;
+
+        public virtual string Name => ModifierType.ToString();
         
         public IItem Value
         {
