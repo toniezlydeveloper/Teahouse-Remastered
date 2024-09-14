@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Linq;
 using Internal.Pooling;
 using Organization;
 using UnityEditor;
@@ -15,57 +17,104 @@ namespace Editor
 
         private void OnGUI()
         {
-            _itemToPlace = (PoolItem)EditorGUILayout.ObjectField(_itemToPlace, typeof(PoolItem), false);
-            _angle = EditorGUILayout.IntField(_angle);
-            
+            DrawPlacingSetupFields();
+
             if (GUILayout.Button("Place"))
             {
-                if (TryGetOrganizationPoint(out OrganizationPoint point))
-                {
-                    if (point.GetComponentInChildren<Organizable>())
-                    {
-                        DestroyImmediate(point.GetComponentInChildren<Organizable>().gameObject);
-                    }
-                    
-                    if (_itemToPlace != null)
-                    {
-                        PoolItem x = (PoolItem)PrefabUtility.InstantiatePrefab(_itemToPlace);
-                        x.transform.rotation = Quaternion.Euler(0f, _angle, 0f);
-                        x.transform.parent = point.transform;
-                        x.transform.localPosition = Quaternion.Euler(0f, _angle, 0f) * point.transform.forward * x.GetComponent<Organizable>().ForwardOffset;
-                    }
-                }
+                TryPlacingItems();
+            }
+            
+            GUILayout.Space(20);
+
+            if (GUILayout.Button("Show"))
+            {
+                ShowOrganizationPoints();
             }
 
-            if (GUILayout.Button("Enable"))
+            if (GUILayout.Button("Hide"))
             {
-                foreach (OrganizationPoint organizationPoint in FindObjectsOfType<OrganizationPoint>())
-                {
-                    organizationPoint.transform.Find("Handle").GetComponentInChildren<MeshRenderer>().enabled = true;
-                }
-            }
-
-            if (GUILayout.Button("Disable"))
-            {
-                foreach (OrganizationPoint organizationPoint in FindObjectsOfType<OrganizationPoint>())
-                {
-                    organizationPoint.transform.Find("Handle").GetComponentInChildren<MeshRenderer>().enabled = false;
-                }
+                DisableOrganizationPoints();
             }
 
             if (GUILayout.Button("Clear"))
             {
-                foreach (OrganizationPoint point in FindObjectsOfType<OrganizationPoint>())
-                {
-                    DestroyImmediate(point.gameObject);
-                }
+                ClearOrganizationPoints();
             }
         }
 
-        private bool TryGetOrganizationPoint(out OrganizationPoint point)
+        private void TryPlacingItems()
         {
-            point = Selection.activeGameObject?.GetComponentInParent<OrganizationPoint>();
-            return point != null;
+            foreach (OrganizationPoint point in GetOrganizationPoints())
+            {
+                if (TryGetOrganizable(point, out Organizable organizable))
+                {
+                    DestroyImmediate(organizable.gameObject);
+                }
+
+                TryPlacingItem(point);
+            }
+        }
+
+        private void ShowOrganizationPoints()
+        {
+            foreach (OrganizationPoint point in FindObjectsOfType<OrganizationPoint>())
+            {
+                ToggleRenderer(point, true);
+            }
+        }
+
+        private void DisableOrganizationPoints()
+        {
+            foreach (OrganizationPoint point in FindObjectsOfType<OrganizationPoint>())
+            {
+                ToggleRenderer(point, false);
+            }
+        }
+
+        private static void ClearOrganizationPoints()
+        {
+            foreach (Organizable organizable in FindObjectsOfType<OrganizationPoint>().Select(point => point.GetComponentInChildren<Organizable>()).Where(organizable => organizable != null))
+            {
+                DestroyImmediate(organizable.gameObject);
+            }
+        }
+
+        private void DrawPlacingSetupFields()
+        {
+            _itemToPlace = (PoolItem)EditorGUILayout.ObjectField(_itemToPlace, typeof(PoolItem), false);
+            _angle = EditorGUILayout.IntField(_angle);
+        }
+
+        private OrganizationPoint[] GetOrganizationPoints()
+        {
+            IEnumerable<OrganizationPoint> organizationPoints = Selection.gameObjects.Select(gameObject => gameObject.GetComponentInParent<OrganizationPoint>());
+            return organizationPoints.ToArray();
+        }
+
+        private static bool TryGetOrganizable(OrganizationPoint point, out Organizable organizable)
+        {
+            organizable = point.GetComponentInChildren<Organizable>();
+            return organizable != null;
+        }
+
+        private void TryPlacingItem(OrganizationPoint point)
+        {
+            if (_itemToPlace == null)
+            {
+                return;
+            }
+            
+            PoolItem placedItem = (PoolItem)PrefabUtility.InstantiatePrefab(_itemToPlace);
+            placedItem.transform.rotation = Quaternion.Euler(0f, _angle, 0f);
+            placedItem.transform.parent = point.transform;
+            placedItem.transform.localPosition = Quaternion.Euler(0f, _angle, 0f) * point.transform.forward * placedItem.GetComponent<Organizable>().ForwardOffset;
+        }
+
+        private void ToggleRenderer(OrganizationPoint point, bool state)
+        {
+            Transform handle = point.transform.Find("Handle");
+            Renderer renderer = handle.GetComponentInChildren<MeshRenderer>();
+            renderer.enabled = state;
         }
     }
 }
