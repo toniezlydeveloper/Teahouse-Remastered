@@ -1,9 +1,10 @@
 using System;
+using Saving;
 using Saving.Proxies;
 using UnityEditor;
 using UnityEngine;
 
-namespace Saving.Editor
+namespace Editor
 {
     public class SavingSetupHelper : EditorWindow
     {
@@ -12,7 +13,7 @@ namespace Saving.Editor
 
         private void OnGUI()
         {
-            foreach (SaveType saveType in (SaveType[])Enum.GetValues(typeof(SaveType)))
+            foreach (FileSaveType saveType in (FileSaveType[])Enum.GetValues(typeof(FileSaveType)))
             {
                 foreach (PersistenceType persistenceType in (PersistenceType[])Enum.GetValues(typeof(PersistenceType)))
                 {

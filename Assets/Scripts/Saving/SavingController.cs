@@ -9,7 +9,7 @@ using Object = UnityEngine.Object;
 
 namespace Saving
 {
-    public enum SaveType
+    public enum FileSaveType
     {
         Bedroom,
         Shop,
@@ -24,9 +24,9 @@ namespace Saving
     
     public static class SavingController
     {
-        public static void Save(PersistenceType persistenceType, SaveType saveType) => File.WriteAllText(GetSaveFilePath(persistenceType, saveType), ReadJsonFromScene(saveType));
+        public static void Save(PersistenceType persistenceType, FileSaveType saveType) => File.WriteAllText(GetSaveFilePath(persistenceType, saveType), ReadJsonFromScene(saveType));
 
-        public static void Load(PersistenceType persistenceType, SaveType saveType)
+        public static void Load(PersistenceType persistenceType, FileSaveType saveType)
         {
             string filePath = GetSaveFilePath(persistenceType, saveType);
 
@@ -40,13 +40,13 @@ namespace Saving
 
         public static void ClearVolatile()
         {
-            foreach (SaveType saveType in (SaveType[])Enum.GetValues(typeof(SaveType)))
+            foreach (FileSaveType saveType in (FileSaveType[])Enum.GetValues(typeof(FileSaveType)))
             {
                 Clear(PersistenceType.Volatile, saveType);
             }
         }
 
-        public static void Clear(PersistenceType persistenceType, SaveType saveType)
+        public static void Clear(PersistenceType persistenceType, FileSaveType saveType)
         {
             string filePath = GetSaveFilePath(persistenceType, saveType);
 
@@ -60,13 +60,13 @@ namespace Saving
 
         public static void OverrideVolatileWithPersistent()
         {
-            foreach (SaveType saveType in (SaveType[])Enum.GetValues(typeof(SaveType)))
+            foreach (FileSaveType saveType in (FileSaveType[])Enum.GetValues(typeof(FileSaveType)))
             {
                 OverrideVolatileWithPersistent(saveType);
             }
         }
 
-        private static void OverrideVolatileWithPersistent(SaveType saveType)
+        private static void OverrideVolatileWithPersistent(FileSaveType saveType)
         {
             if (TryGetSaveExistingFilePath(PersistenceType.Persistent, saveType, out string persistentFilePath))
             {
@@ -74,25 +74,25 @@ namespace Saving
             }
             else
             {
-                Clear(PersistenceType.Volatile, SaveType.Shop);
+                Clear(PersistenceType.Volatile, FileSaveType.Shop);
             }
         }
 
-        private static string GetSaveFilePath(PersistenceType persistenceType, SaveType saveType) => Path.Combine(Application.persistentDataPath, $"Teahouse-{persistenceType}-{saveType}.json");
+        private static string GetSaveFilePath(PersistenceType persistenceType, FileSaveType saveType) => Path.Combine(Application.persistentDataPath, $"Teahouse-{persistenceType}-{saveType}.json");
         
-        private static bool TryGetSaveExistingFilePath(PersistenceType persistenceType, SaveType saveType, out string filePath)
+        private static bool TryGetSaveExistingFilePath(PersistenceType persistenceType, FileSaveType saveType, out string filePath)
         {
             filePath = Path.Combine(Application.persistentDataPath, $"Teahouse-{persistenceType}-{saveType}.json");
             return File.Exists(filePath);
         }
 
-        private static string ReadJsonFromScene(SaveType type)
+        private static string ReadJsonFromScene(FileSaveType type)
         {
             Dictionary<string, string> dataById = Object.FindObjectsOfType<ASaveProxy>().Where(proxy => proxy.Type == type).ToDictionary(proxy => proxy.Id, proxy => proxy.Write());
             return JsonConvert.SerializeObject(dataById);
         }
 
-        private static void ReadJsonToScene(SaveType type, string path)
+        private static void ReadJsonToScene(FileSaveType type, string path)
         {
             Dictionary<string, string> dataById = JsonConvert.DeserializeObject<Dictionary<string, string>>(File.ReadAllText(path));
 

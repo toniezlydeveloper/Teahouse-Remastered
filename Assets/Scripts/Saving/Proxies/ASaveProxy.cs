@@ -5,7 +5,7 @@ namespace Saving.Proxies
 {
     public abstract class ASaveProxy : MonoBehaviour
     {
-        [field:SerializeField] public SaveType Type { get; set; }
+        [field:SerializeField] public FileSaveType Type { get; set; }
         [field:SerializeField] public string Id { get; set; }
 
         private void Awake() => Id = string.IsNullOrEmpty(Id) ? Guid.NewGuid().ToString() : Id;

@@ -3,8 +3,8 @@ using UnityEngine;
 
 namespace Trading
 {
-    [CreateAssetMenu(menuName = "Sets/Trade Items")]
-    public class TradeItemSet : ScriptableObject
+    [CreateAssetMenu(menuName = "Setup/Trade Items")]
+    public class TradeItemsConfig : ScriptableObject
     {
         [field:SerializeField] public List<TradeItem> Set { get; set; }
     }

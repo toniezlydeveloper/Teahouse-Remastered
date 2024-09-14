@@ -16,7 +16,7 @@ namespace Saving.Proxies
     
     public class InventorySaveProxy : ASaveProxy
     {
-        [SerializeField] private TradeItemSet itemsForSale;
+        [SerializeField] private TradeItemsConfig itemsForSale;
         
         public override void Read(string json)
         {

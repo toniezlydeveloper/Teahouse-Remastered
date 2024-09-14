@@ -17,12 +17,13 @@ using UnityEngine.InputSystem;
 namespace States
 {
     // 1. Dekoracja pokoju V
-    // 2. Wytwarzanie skladnikow ze skladnikow
+    // 2. Wytwarzanie skladnikow ze skladnikow C
     // 3. Inventory do przekladania rzeczy V
-    // 4. Premie / nocni klienci
+    // 4. Premie / nocni klienci C
     // 5. Splacanie wujka herbaciarza
     // 6. Tutorial
     // 7. Sklep z rzeczami V
+    // 8. 
     public class GameStatesProvider : AStatesProvider
     {
         [Header("General")]
@@ -36,7 +37,7 @@ namespace States
         [Header("Item Shop")]
         [SerializeField] private InputActionReference controls;
         [SerializeField] private InputActionReference back;
-        [SerializeField] private TradeItemSet itemsForSale;
+        [SerializeField] private TradeItemsConfig itemsForSale;
         
         [Header("Bedroom")]
         [SerializeField] private InputActionReference toggle;
@@ -67,6 +68,7 @@ namespace States
         {
             DependencyInjector.AddRecipeElement<IManageableItemHolder>(hand);
             SavingController.OverrideVolatileWithPersistent();
+            SavingController.Load(PersistenceType.Volatile, FileSaveType.Inventory);
         }
 
         private void OnDestroy()

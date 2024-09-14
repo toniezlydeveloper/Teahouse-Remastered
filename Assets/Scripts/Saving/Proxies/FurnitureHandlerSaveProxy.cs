@@ -18,7 +18,7 @@ namespace Saving.Proxies
     
     public class FurnitureHandlerSaveProxy : ASaveProxy
     {
-        [SerializeField] private TradeItemSet itemsForSale;
+        [SerializeField] private TradeItemsConfig itemsForSale;
         
         public override void Read(string json)
         {

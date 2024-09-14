@@ -18,9 +18,9 @@ namespace States
         private InputActionReference _controls;
         private IItemShopPanel _itemShopPanel;
         private InputActionReference _back;
-        private TradeItemSet _tradeItems;
+        private TradeItemsConfig _tradeItems;
 
-        public ItemShopState(TradeItemSet tradeItems, IItemShopPanel itemShopPanel, InputActionReference controls, InputActionReference back, IFurnishingPanel furnishingPanel, ICurrencyHolder currencyHolder)
+        public ItemShopState(TradeItemsConfig tradeItems, IItemShopPanel itemShopPanel, InputActionReference controls, InputActionReference back, IFurnishingPanel furnishingPanel, ICurrencyHolder currencyHolder)
         {
             _furnishingPanel = furnishingPanel;
             _currencyHolder = currencyHolder;
