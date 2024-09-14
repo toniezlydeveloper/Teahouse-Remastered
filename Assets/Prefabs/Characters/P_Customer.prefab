@@ -78,12 +78,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   version: 2
   radius: 0.5
-  height: 2
+  height: 1
   repathRate: 0.5
   canSearch: 1
   canMove: 1
   maxSpeed: 3
-  gravity: {x: NaN, y: NaN, z: NaN}
+  gravity: {x: 0, y: 0, z: 0}
   groundMask:
     serializedVersion: 2
     m_Bits: 64

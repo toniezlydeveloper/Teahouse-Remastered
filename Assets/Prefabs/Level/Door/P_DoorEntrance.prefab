@@ -7,6 +7,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1316417671320119545, guid: 909a7cd80b63b46449e7a9bd2d1bbef6, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.48
+      objectReference: {fileID: 0}
     - target: {fileID: 3064861303790718609, guid: 909a7cd80b63b46449e7a9bd2d1bbef6, type: 3}
       propertyPath: m_Name
       value: P_DoorEntrance
@@ -86,6 +90,10 @@ PrefabInstance:
     - target: {fileID: 3929819610365639772, guid: 909a7cd80b63b46449e7a9bd2d1bbef6, type: 3}
       propertyPath: type
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8408257656859179766, guid: 909a7cd80b63b46449e7a9bd2d1bbef6, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 909a7cd80b63b46449e7a9bd2d1bbef6, type: 3}

@@ -4,6 +4,8 @@ namespace Items.Holders
 {
     public class TeabagJarItemHolder : WorldSpaceItemHolder
     {
+        public override string Name => "Cupboard";
+
         public override void ToggleDown()
         {
             var jar = Value as TeabagJar;
