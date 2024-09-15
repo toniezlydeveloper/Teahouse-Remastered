@@ -19,6 +19,21 @@ MonoBehaviour:
     <Icon>k__BackingField: {fileID: 21300000, guid: 83336268d17dc4048acb244f0cd229cf, type: 3}
   - <TypeName>k__BackingField: TeabagType
     <Icon>k__BackingField: {fileID: 21300000, guid: 18351b5fa0044494dac26f77095a429b, type: 3}
+  - <TypeName>k__BackingField: WaterType
+    <Icon>k__BackingField: {fileID: 21300000, guid: 7e3c65ec9fa74c8408e2d5393dd2078d, type: 3}
+  <WaterColors>k__BackingField:
+  - <AddInType>k__BackingField: 0
+    <Color>k__BackingField: {r: 0.5188679, g: 0.5188679, b: 0.5188679, a: 1}
+    <ModelColor>k__BackingField: {r: 0.4811321, g: 0.4811321, b: 0.4811321, a: 1}
+  - <AddInType>k__BackingField: 1
+    <Color>k__BackingField: {r: 0.504717, g: 1, b: 0.9950983, a: 1}
+    <ModelColor>k__BackingField: {r: 0.2971698, g: 0.6463402, b: 1, a: 1}
+  - <AddInType>k__BackingField: 2
+    <Color>k__BackingField: {r: 0.97259915, g: 1, b: 0.21226418, a: 1}
+    <ModelColor>k__BackingField: {r: 0, g: 0.52929735, b: 1, a: 1}
+  - <AddInType>k__BackingField: 3
+    <Color>k__BackingField: {r: 1, g: 0.15566039, b: 0.15566039, a: 1}
+    <ModelColor>k__BackingField: {r: 0.16509432, g: 0.34654832, b: 1, a: 1}
   <TeabagColors>k__BackingField:
   - <AddInType>k__BackingField: 1
     <Color>k__BackingField: {r: 0.43617374, g: 0, b: 0.8301887, a: 1}

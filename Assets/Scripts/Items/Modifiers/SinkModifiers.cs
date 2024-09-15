@@ -12,11 +12,7 @@ namespace Items.Modifiers
         public void Modify(IItemHolder player, IItemHolder place)
         {
             player.TryGet(out Cup cup);
-            
-            cup.WaterTemperature = 25f;
             cup.HeldAddIns.Clear();
-            cup.HasWater = false;
-            
             player.Refresh();
         }
     }
@@ -30,12 +26,12 @@ namespace Items.Modifiers
             if (!player.TryGet(out Kettle kettle))
                 return false;
             
-            return !kettle.HasWater;
+            return !kettle.Contains<WaterType>();
         }
 
         public void Modify(IItemHolder player, IItemHolder place)
         {
-            player.CastTo<Kettle>().HasWater = true;
+            player.CastTo<Kettle>().AddWater();
             player.Refresh();
         }
     }

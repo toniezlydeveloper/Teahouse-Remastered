@@ -1,3 +1,4 @@
+using Items.Holders;
 using Items.Implementations;
 using TMPro;
 using UnityEngine;
@@ -11,16 +12,17 @@ namespace Items.Effectors
 
         protected override bool TryEffecting(Kettle kettle)
         {
-            temperatureIndicator.text = kettle?.HasWater == true ? $"{(int)kettle.WaterTemperature}\u00b0C" : "";
+            temperatureIndicator.text = kettle?.Contains<WaterType>() == true ? $"{(int)kettle.WaterTemperature}\u00b0C" : "";
             
             if (kettle == null)
                 return false;
             
-            if (!kettle.HasWater)
+            if (!kettle.Contains<WaterType>())
                 return false;
-
+            
             kettle.WaterTemperature += Time.deltaTime * boilingSpeed;
             kettle.WaterTemperature = Mathf.Clamp(kettle.WaterTemperature, 0f, 100f);
+            kettle.Refresh();
             return true;
         }
     }

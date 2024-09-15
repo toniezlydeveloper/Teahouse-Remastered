@@ -24,7 +24,8 @@ namespace UI.ItemPresentation
             HerbType => config.HerbColors.First(herbColor => herbColor.AddInType == (HerbType)value).Color,
             FlowerType => config.FlowerColors.First(flowerColor => flowerColor.AddInType == (FlowerType)value).Color,
             TeabagType => config.TeabagColors.First(teabagColor => teabagColor.AddInType == (TeabagType)value).Color,
-            _ => Color.black
+            WaterType => config.WaterColors.First(waterColor => waterColor.AddInType == (WaterType)value).Color,
+            _ => Color.magenta
         };
 
         private void OverrideIcon(Sprite sprite) => icon.sprite = sprite;

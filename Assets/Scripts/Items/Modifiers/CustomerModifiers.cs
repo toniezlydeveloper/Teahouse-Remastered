@@ -75,10 +75,7 @@ namespace Items.Modifiers
             if (!order.WasTaken)
                 return false;
             
-            if (!cup.HasWater)
-                return false;
-            
-            return cup.WaterTemperature >= order.MinWaterTemperature && cup.WaterTemperature <= order.MaxWaterTemperature;
+            return cup.Contains<WaterType>();
         }
 
         public void Modify(IItemHolder player, IItemHolder place)

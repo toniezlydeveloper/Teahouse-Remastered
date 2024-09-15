@@ -35,7 +35,13 @@ namespace UI.ItemPresentation
         private bool TryGetRequiredAddIns(IAddInsHolder addIn, out List<Enum> requiredAddIns)
         {
             requiredAddIns = addIn != null ? addIn.HeldAddIns : EmptyAddIns;
-            return _presentedAddIns != requiredAddIns || _presentedAddInCount != requiredAddIns.Count;
+
+            if (requiredAddIns != _presentedAddIns)
+            {
+                return true;
+            }
+
+            return !requiredAddIns.All(requiredAddIn => _presentedAddIns.Contains(requiredAddIn));
         }
 
         private void DisableUnusedIcons(List<Enum> requiredAddIns)
@@ -81,7 +87,6 @@ namespace UI.ItemPresentation
                 _usedIcons.Add(addIn, icon);
                 icon.Init(addIn);
             }
-
         }
 
         private void Cache(List<Enum> requiredAddIns)

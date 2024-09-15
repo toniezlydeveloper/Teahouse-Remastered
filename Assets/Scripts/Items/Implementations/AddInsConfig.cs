@@ -8,6 +8,7 @@ namespace Items.Implementations
     public class AddInsConfig : ScriptableObject
     {
         [field:SerializeField] public List<AddInIcon> Icons { get; set; }
+        [field:SerializeField] public List<WaterColor> WaterColors { get; set; }
         [field:SerializeField] public List<TeabagColor> TeabagColors { get; set; }
         [field:SerializeField] public List<HerbColor> HerbColors { get; set; }
         [field:SerializeField] public List<FlowerColor> FlowerColors { get; set; }
@@ -18,6 +19,12 @@ namespace Items.Implementations
     {
         [field:SerializeField] public string TypeName { get; set; }
         [field:SerializeField] public Sprite Icon { get; set; }
+    }
+
+    [Serializable]
+    public class WaterColor : AddInColor<WaterType>
+    {
+        [field:SerializeField] public Color ModelColor { get; set; }
     }
 
     [Serializable]

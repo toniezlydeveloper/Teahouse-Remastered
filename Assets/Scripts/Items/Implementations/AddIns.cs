@@ -46,11 +46,16 @@ namespace Items.Implementations
 
         public IItem Get() => new AddIn<TAddIn> { Type = Type };
     }
+
+    public class Water : AddIn<WaterType>
+    {
+        
+    }
     
     // ReSharper disable once StaticMemberInGenericType
     public class AddIn<TAddIn> : IAddInGenericType, IAddInsHolder, IItem where TAddIn : Enum
     {
-        public TAddIn Type { get; set; }
+        public virtual TAddIn Type { get; set; }
 
         public List<Enum> HeldAddIns => new List<Enum> { Type };
         public string Name => NamesByAddInType[typeof(TAddIn)];
@@ -84,6 +89,19 @@ namespace Items.Implementations
     public interface IAddInGenericType
     {
         Enum GenericType { get; }
+    }
+
+    public interface IAddInsHolder
+    {
+        List<Enum> HeldAddIns { get; }
+    }
+
+    public enum WaterType
+    {
+        None = 0,
+        Low = 1,
+        Medium = 2,
+        Hot = 3
     }
 
     public enum TeabagType

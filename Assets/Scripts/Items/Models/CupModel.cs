@@ -1,3 +1,4 @@
+using System.Linq;
 using Items.Implementations;
 using UnityEngine;
 
@@ -13,8 +14,7 @@ namespace Items.Models
             if (item is not Cup cup)
                 return;
 
-            waterIndicator.GetComponent<Renderer>().material.color = Color.LerpUnclamped(Color.cyan, Color.blue, cup.WaterTemperature / 100f);
-            waterIndicator.SetActive(cup.HasWater);
+            waterIndicator.SetActive(cup.HeldAddIns.Any(addIn => addIn.GetType() == typeof(WaterType)));
             dirtyIndicator.SetActive(cup.IsDirty);
         }
     }

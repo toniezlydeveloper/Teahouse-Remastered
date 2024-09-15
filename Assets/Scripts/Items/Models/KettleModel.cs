@@ -1,3 +1,4 @@
+using System.Linq;
 using Items.Implementations;
 using UnityEngine;
 
@@ -6,15 +7,16 @@ namespace Items.Models
     public class KettleModel : AItemModel
     {
         [SerializeField] private Renderer waterRender;
+        [SerializeField] private AddInsConfig config;
         
         public override void Refresh(object item)
         {
-            if (item is not Kettle kettle)
+            if (item is not AddIn<WaterType> water)
+            {
                 return;
-
-            waterRender.material.color = kettle.HasWater
-                ? Color.LerpUnclamped(Color.cyan, Color.blue, kettle.WaterTemperature / 100f)
-                : Color.gray;
+            }
+            
+            waterRender.material.color = config.WaterColors.First(waterColor => waterColor.AddInType == water.Type).ModelColor;
         }
     }
 }

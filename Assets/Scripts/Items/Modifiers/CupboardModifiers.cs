@@ -25,15 +25,13 @@ namespace Items.Modifiers
             if (!place.TryGet(out Cup cup))
                 return false;
 
-            return !cup.HasWater && kettle.HasWater;
+            return !cup.Contains<WaterType>() && kettle.Contains<WaterType>();
         }
 
         public void Modify(IItemHolder player, IItemHolder place)
         {
-            place.CastTo<Cup>().WaterTemperature = player.CastTo<Kettle>().WaterTemperature;
-            player.CastTo<Kettle>().WaterTemperature = 25f;
-            player.CastTo<Kettle>().HasWater = false;
-            place.CastTo<Cup>().HasWater = true;
+            place.CastTo<Cup>().HeldAddIns.AddRange(player.CastTo<Kettle>().HeldAddIns);
+            player.CastTo<Kettle>().Clear();
             player.Refresh();
             place.Refresh();
         }
