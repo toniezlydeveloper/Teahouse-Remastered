@@ -11,12 +11,12 @@ namespace Items.Models
         
         public override void Refresh(object item)
         {
-            if (item is not AddIn<FlowerType> herb)
+            if (item is not AddIn<FlowerType> flower)
             {
                 return;
             }
             
-            Color color = config.FlowerColors.First(herbColor => herbColor.AddInType == herb.Type).Color;
+            Color color = config.FlowerColors.First(flowerColor => flowerColor.AddInType == flower.Type).Color;
 
             foreach (Renderer petal in petals)
             {

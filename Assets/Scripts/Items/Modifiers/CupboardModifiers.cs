@@ -1,3 +1,4 @@
+using System.Linq;
 using Items.Holders;
 using Items.Implementations;
 
@@ -37,26 +38,25 @@ namespace Items.Modifiers
             place.Refresh();
         }
         
-        public class CupboardTeabagCupModifier : IItemModifier
+        public class CupboardAddInCupModifier : IItemModifier
         {
             public ModifierType Type => ModifierType.Cupboard;
 
             public bool CanModify(IItemHolder player, IItemHolder place)
             {
-                if (!player.Holds<Teabag>())
+                if (!player.TryGet(out IAddInGenericType addIn))
                     return false;
 
                 if (!place.TryGet(out Cup cup))
                     return false;
-                
-                return cup.TeabagType == TeabagType.None;
+
+                return cup.HeldAddIns.All(heldAddIn => heldAddIn.GetType() != addIn.GenericType.GetType());
             }
 
             public void Modify(IItemHolder player, IItemHolder place)
             {
-                place.CastTo<Cup>().TeabagType = player.CastTo<Teabag>().TeabagType;
+                place.CastTo<Cup>().HeldAddIns.Add(player.CastTo<IAddInGenericType>().GenericType);
                 player.Refresh(null);
-                place.Refresh();
             }
         }
     }

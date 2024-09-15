@@ -2,7 +2,7 @@ using Items.Implementations;
 using TMPro;
 using UnityEngine;
 
-namespace UI.ItemPanels
+namespace UI.ItemPresentation
 {
     public class WaterRangeItemPanel : AItemPanel<Order>
     {

@@ -7,8 +7,22 @@ namespace Items.Implementations
     [CreateAssetMenu(menuName = "Config/Add Ins")]
     public class AddInsConfig : ScriptableObject
     {
+        [field:SerializeField] public List<AddInIcon> Icons { get; set; }
+        [field:SerializeField] public List<TeabagColor> TeabagColors { get; set; }
         [field:SerializeField] public List<HerbColor> HerbColors { get; set; }
         [field:SerializeField] public List<FlowerColor> FlowerColors { get; set; }
+    }
+
+    [Serializable]
+    public class AddInIcon
+    {
+        [field:SerializeField] public string TypeName { get; set; }
+        [field:SerializeField] public Sprite Icon { get; set; }
+    }
+
+    [Serializable]
+    public class TeabagColor : AddInColor<TeabagType>
+    {
     }
 
     [Serializable]

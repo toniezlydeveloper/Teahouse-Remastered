@@ -2,7 +2,7 @@ using Internal.Dependencies.Core;
 using Items.Holders;
 using UnityEngine;
 
-namespace UI.ItemPanels
+namespace UI.ItemPresentation
 {
     public interface IItemPanel : IDependency
     {

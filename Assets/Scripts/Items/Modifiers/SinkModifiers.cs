@@ -13,8 +13,8 @@ namespace Items.Modifiers
         {
             player.TryGet(out Cup cup);
             
-            cup.TeabagType = TeabagType.None;
             cup.WaterTemperature = 25f;
+            cup.HeldAddIns.Clear();
             cup.HasWater = false;
             
             player.Refresh();

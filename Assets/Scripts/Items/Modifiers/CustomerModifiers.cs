@@ -78,9 +78,6 @@ namespace Items.Modifiers
             if (!cup.HasWater)
                 return false;
             
-            if (cup.TeabagType != order.TeabagType)
-                return false;
-            
             return cup.WaterTemperature >= order.MinWaterTemperature && cup.WaterTemperature <= order.MaxWaterTemperature;
         }
 

@@ -5,16 +5,17 @@ using UnityEngine;
 namespace Items.Implementations
 {
     // ReSharper disable once StaticMemberInGenericType
-    public class AddInStorage<TAddIn> : IAddInStorage, IAddInProgress, IAddInType<TAddIn> where TAddIn : Enum
+    public class AddInStorage<TAddIn> : IAddInStorage, IAddInProgress, IAddInType<TAddIn>, IAddInGenericType, IAddInsHolder where TAddIn : Enum
     {
         private float _processingProgress;
-
-        public float NormalizedProgress => ProcessingProgress / MaxProcessing;
-        public string Name => NamesByAddInType[typeof(TAddIn)];
-        public TAddIn Value => Type;
         
         public bool RequiresProcessing { get; set; }
         public TAddIn Type { get; set; }
+
+        public float NormalizedProgress => ProcessingProgress / MaxProcessing;
+        public List<Enum> HeldAddIns => new List<Enum> { Type };
+        public string Name => NamesByAddInType[typeof(TAddIn)];
+        public Enum GenericType => Type;
         
         public float ProcessingProgress
         {
@@ -26,8 +27,9 @@ namespace Items.Implementations
 
         private static readonly Dictionary<Type, string> NamesByAddInType = new()
         {
-            { typeof(HerbType), "HerbStation" },
-            { typeof(FlowerType), "FlowerStation" },
+            { typeof(TeabagType), "Teabag" },
+            { typeof(HerbType), "Herb" },
+            { typeof(FlowerType), "Flower" },
         };
         
         public bool CanGet()
@@ -46,14 +48,17 @@ namespace Items.Implementations
     }
     
     // ReSharper disable once StaticMemberInGenericType
-    public class AddIn<TAddIn> : IItem where TAddIn : Enum
+    public class AddIn<TAddIn> : IAddInGenericType, IAddInsHolder, IItem where TAddIn : Enum
     {
         public TAddIn Type { get; set; }
 
+        public List<Enum> HeldAddIns => new List<Enum> { Type };
         public string Name => NamesByAddInType[typeof(TAddIn)];
+        public Enum GenericType => Type;
 
         private static readonly Dictionary<Type, string> NamesByAddInType = new()
         {
+            { typeof(TeabagType), "Teabag" },
             { typeof(HerbType), "Herb" },
             { typeof(FlowerType), "Flower" }
         };
@@ -73,7 +78,19 @@ namespace Items.Implementations
 
     public interface IAddInType<out TAddIn> where TAddIn : Enum
     {
-        TAddIn Value { get; }
+        TAddIn Type { get; }
+    }
+
+    public interface IAddInGenericType
+    {
+        Enum GenericType { get; }
+    }
+
+    public enum TeabagType
+    {
+        None = 0,
+        Lavender = 1,
+        Rose = 2
     }
     
     public enum HerbType

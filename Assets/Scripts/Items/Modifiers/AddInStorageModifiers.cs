@@ -5,7 +5,7 @@ namespace Items.Modifiers
 {
     public class AddInStorageModifiers
     {
-        public class AddInStorageEmptyModifier : IItemModifier
+        public class AddInStorageAnyEmptyModifier : IItemModifier
         {
             public ModifierType Type => ModifierType.AddInStorage;
         

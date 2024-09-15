@@ -2,7 +2,7 @@ using Interaction;
 using Internal.Dependencies.Core;
 using Items.Holders;
 using Player;
-using UI.ItemPanels;
+using UI.ItemPresentation;
 using UnityEngine;
 
 namespace Items.Modification

@@ -16,7 +16,7 @@ namespace Items.Holders
         private List<TAddIn> _allAddIns;
         private int _selectedIndex;
 
-        public override string Name => GetStorage().Name;
+        public override string Name => $"{GetStorage().Name}Holder";
 
         private void Start()
         {
@@ -24,7 +24,9 @@ namespace Items.Holders
             SetupVisuals();
         }
 
-        protected abstract void SetupVisuals();
+        protected virtual void SetupVisuals()
+        {
+        }
 
         public override void ToggleDown()
         {

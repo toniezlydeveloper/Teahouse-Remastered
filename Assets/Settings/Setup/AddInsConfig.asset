@@ -12,6 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43d979bfcc0b40f9aa9e3c7fd3008e57, type: 3}
   m_Name: AddInsConfig
   m_EditorClassIdentifier: 
+  <Icons>k__BackingField:
+  - <TypeName>k__BackingField: FlowerType
+    <Icon>k__BackingField: {fileID: 21300000, guid: d7431ba3a434a7347af3a68c283f7e03, type: 3}
+  - <TypeName>k__BackingField: HerbType
+    <Icon>k__BackingField: {fileID: 21300000, guid: 83336268d17dc4048acb244f0cd229cf, type: 3}
+  - <TypeName>k__BackingField: TeabagType
+    <Icon>k__BackingField: {fileID: 21300000, guid: 18351b5fa0044494dac26f77095a429b, type: 3}
+  <TeabagColors>k__BackingField:
+  - <AddInType>k__BackingField: 1
+    <Color>k__BackingField: {r: 0.43617374, g: 0, b: 0.8301887, a: 1}
+  - <AddInType>k__BackingField: 2
+    <Color>k__BackingField: {r: 1, g: 0.2688679, b: 0.2688679, a: 1}
   <HerbColors>k__BackingField:
   - <AddInType>k__BackingField: 1
     <Color>k__BackingField: {r: 0.3764225, g: 1, b: 0.3726415, a: 1}

@@ -5,7 +5,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace UI.ItemPanels
+namespace UI.ItemPresentation
 {
     public class ItemInfoPanel : AItemPanel<object>
     {
@@ -56,7 +56,7 @@ namespace UI.ItemPanels
         {
             string holderName = _presentedItemHolder.Name;
             string text = _presentedItemHolder.Value?.Name ?? holderName;
-            holderTypeIconHolder.sprite = icons.FirstOrDefault(icon => holderName.Contains(icon.name.Replace("T_", "")));
+            holderTypeIconHolder.sprite = icons.FirstOrDefault(icon => holderName.Equals(icon.name.Replace("T_", "")));
             itemNameTextContainer.text = Regex.Replace(text.Replace("P_", ""), "(\\B[A-Z])", " $1");
             itemTypeIconHolder.sprite = icons.FirstOrDefault(icon => icon.name == $"T_{_presentedItemHolder.Value?.Name}");
             itemTypeIconWrapper.SetActive(itemTypeIconHolder.sprite != null);

@@ -7,9 +7,9 @@ namespace Items.Effectors
     {
         private TAddIn _type;
         
-        protected override bool TryEffecting(IAddInType<TAddIn> addInType)
+        protected override bool TryEffecting(IAddInType<TAddIn> addIn)
         {
-            if (!TryChanging(addInType, out TAddIn type))
+            if (!TryChanging(addIn, out TAddIn type))
             {
                 return false;
             }
@@ -18,17 +18,17 @@ namespace Items.Effectors
             return true;
         }
 
-        private bool TryChanging(IAddInType<TAddIn> addInType, out TAddIn type)
+        private bool TryChanging(IAddInType<TAddIn> addIn, out TAddIn type)
         {
             type = default;
             
-            if (addInType == null)
+            if (addIn == null)
             {
                 return false;
             }
             
-            int comparisonResult = _type.CompareTo(addInType.Value);
-            _type = type = addInType.Value;
+            int comparisonResult = _type.CompareTo(addIn.Type);
+            _type = type = addIn.Type;
             return comparisonResult != 0;
         }
 
