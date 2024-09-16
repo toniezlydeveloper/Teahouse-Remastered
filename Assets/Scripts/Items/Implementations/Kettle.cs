@@ -11,20 +11,11 @@ namespace Items.Implementations
         
         public string Name => "Kettle";
 
-        public void AddWater() => HeldAddIns.Add(WaterTemperature switch
-        {
-            > 75f => WaterType.Hot,
-            > 50f => WaterType.Medium,
-            _ => WaterType.Low
-        });
+        public void AddWater() => HeldAddIns.Add(WaterType.Low);
 
-        public void Refresh() => HeldAddIns[0] = WaterTemperature switch
-        {
-            > 75f => WaterType.Hot,
-            > 50f => WaterType.Medium,
-            _ => WaterType.Low
-        };
-
+        public void ResetTemperature() => WaterTemperature = 0f;
+        
         public void Clear() => HeldAddIns.Clear();
+
     }
 }

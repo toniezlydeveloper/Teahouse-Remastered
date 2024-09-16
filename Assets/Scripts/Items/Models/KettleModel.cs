@@ -8,15 +8,24 @@ namespace Items.Models
     {
         [SerializeField] private Renderer waterRender;
         [SerializeField] private AddInsConfig config;
+
+        private WaterType? _shownWaterType;
         
         public override void Refresh(object item)
         {
-            if (item is not AddIn<WaterType> water)
+            WaterType waterType = item switch
+            {
+                Kettle kettle => kettle.HeldAddIns.Count > 0 ? (WaterType)kettle.HeldAddIns[0] : WaterType.None,
+                _ => WaterType.None
+            };
+
+            if (_shownWaterType == waterType)
             {
                 return;
             }
             
-            waterRender.material.color = config.WaterColors.First(waterColor => waterColor.AddInType == water.Type).ModelColor;
+            waterRender.material.color = config.WaterColors.First(waterColor => waterColor.AddInType == waterType).ModelColor;
+            _shownWaterType = waterType;
         }
     }
 }

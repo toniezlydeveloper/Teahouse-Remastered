@@ -31,6 +31,7 @@ namespace Items.Modifiers
         public void Modify(IItemHolder player, IItemHolder place)
         {
             place.CastTo<Cup>().HeldAddIns.AddRange(player.CastTo<Kettle>().HeldAddIns);
+            player.CastTo<Kettle>().ResetTemperature();
             player.CastTo<Kettle>().Clear();
             player.Refresh();
             place.Refresh();
@@ -55,6 +56,7 @@ namespace Items.Modifiers
             {
                 place.CastTo<Cup>().HeldAddIns.Add(player.CastTo<IAddInGenericType>().GenericType);
                 player.Refresh(null);
+                place.Refresh();
             }
         }
     }

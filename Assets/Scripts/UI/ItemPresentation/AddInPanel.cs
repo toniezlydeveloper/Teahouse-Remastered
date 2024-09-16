@@ -13,8 +13,7 @@ namespace UI.ItemPresentation
 
         private Dictionary<Enum, AddInIcon> _usedIcons = new();
         private List<AddInIcon> _unusedIcons = new();
-        private List<Enum> _presentedAddIns;
-        private int _presentedAddInCount;
+        private List<Enum> _presentedAddIns = new();
 
         private static readonly List<Enum> EmptyAddIns = new();
         
@@ -36,7 +35,7 @@ namespace UI.ItemPresentation
         {
             requiredAddIns = addIn != null ? addIn.HeldAddIns : EmptyAddIns;
 
-            if (requiredAddIns != _presentedAddIns)
+            if (requiredAddIns.Count != _presentedAddIns.Count)
             {
                 return true;
             }
@@ -89,10 +88,6 @@ namespace UI.ItemPresentation
             }
         }
 
-        private void Cache(List<Enum> requiredAddIns)
-        {
-            _presentedAddInCount = requiredAddIns.Count;
-            _presentedAddIns = requiredAddIns;
-        }
+        private void Cache(List<Enum> requiredAddIns) => _presentedAddIns = new List<Enum>(requiredAddIns);
     }
 }
