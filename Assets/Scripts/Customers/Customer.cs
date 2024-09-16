@@ -17,7 +17,6 @@ namespace Customers
     public class Customer : MonoBehaviour
     {
         [SerializeField] private TableSet tables;
-        [SerializeField] private Order order;
 
         private CustomersQueue _customersQueue;
         private Transform _queuePoint;
@@ -25,6 +24,7 @@ namespace Customers
         private int _queueIndex;
         private Table _table;
         private AIPath _aiPath;
+        private Order _order;
 
         private const float SeatRotationDuration = 1f;
         private const float PostOrderInterval = 2.5f;
@@ -82,8 +82,9 @@ namespace Customers
         private IEnumerator ExecuteOrder()
         {
             IItemHolder orderHolder = _table.GetComponentInChildren<IItemHolder>();
-            orderHolder.Value = order;
-            yield return new WaitUntil(() => order.WasCollected);
+            _order = new Order();
+            orderHolder.Value = _order;
+            yield return new WaitUntil(() => _order.WasCollected);
             orderHolder.Value = null;
             yield return new WaitForSeconds(PostOrderInterval);
         }

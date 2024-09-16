@@ -1,3 +1,6 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using Currency;
 using Internal.Dependencies.Core;
 using Items.Holders;
@@ -5,11 +8,11 @@ using Items.Implementations;
 
 namespace Items.Modifiers
 {
-    public class CustomerEmptyCompletedOrderModifier : IItemModifier
+    public class SeatEmptyCompletedOrderModifier : IItemModifier
     {
         private ICurrencyHolder _currencyHolder = DependencyInjector.Get<ICurrencyHolder>();
         
-        public ModifierType Type => ModifierType.Customer;
+        public ModifierType Type => ModifierType.Seat;
 
         public bool CanModify(IItemHolder player, IItemHolder place)
         {
@@ -36,11 +39,11 @@ namespace Items.Modifiers
         }
     }
     
-    public class CustomerEmptyOrderModifier : IItemModifier
+    public class SeatEmptyOrderModifier : IItemModifier
     {
         private ICurrencyHolder _currencyHolder = DependencyInjector.Get<ICurrencyHolder>();
         
-        public ModifierType Type => ModifierType.Customer;
+        public ModifierType Type => ModifierType.Seat;
         
         public bool CanModify(IItemHolder player, IItemHolder place)
         {
@@ -60,9 +63,9 @@ namespace Items.Modifiers
         }
     }
 
-    public class CustomerCupOrderModifier : IItemModifier
+    public class SeatCupOrderModifier : IItemModifier
     {
-        public ModifierType Type => ModifierType.Customer;
+        public ModifierType Type => ModifierType.Seat;
         
         public bool CanModify(IItemHolder player, IItemHolder place)
         {
@@ -75,7 +78,9 @@ namespace Items.Modifiers
             if (!order.WasTaken)
                 return false;
             
-            return cup.Contains<WaterType>();
+            List<Enum> orderNotInCup = order.HeldAddIns.Except(cup.HeldAddIns).ToList();
+            List<Enum> cupNotInOrder = cup.HeldAddIns.Except(order.HeldAddIns).ToList();
+            return !orderNotInCup.Any() && !cupNotInOrder.Any();
         }
 
         public void Modify(IItemHolder player, IItemHolder place)

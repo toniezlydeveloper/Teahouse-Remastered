@@ -14,7 +14,7 @@ namespace UI.Items
         [SerializeField] private Image itemTypeIconHolder;
         [SerializeField] private GameObject itemTypeIconWrapper;
         [SerializeField] private GameObject panel;
-        [SerializeField] private Sprite[] icons;
+        [SerializeField] private ItemIcons icons;
 
         private IItemHolder _presentedItemHolder;
         private object _presentedItem;
@@ -56,9 +56,9 @@ namespace UI.Items
         {
             string holderName = _presentedItemHolder.Name;
             string text = _presentedItemHolder.Value?.Name ?? holderName;
-            holderTypeIconHolder.sprite = icons.FirstOrDefault(icon => holderName.Equals(icon.name.Replace("T_", "")));
+            holderTypeIconHolder.sprite = icons.Value.FirstOrDefault(icon => holderName.Equals(icon.name.Replace("T_", "")));
             itemNameTextContainer.text = Regex.Replace(text.Replace("P_", ""), "(\\B[A-Z])", " $1");
-            itemTypeIconHolder.sprite = icons.FirstOrDefault(icon => icon.name == $"T_{_presentedItemHolder.Value?.Name}");
+            itemTypeIconHolder.sprite = icons.Value.FirstOrDefault(icon => icon.name == $"T_{_presentedItemHolder.Value?.Name}");
             itemTypeIconWrapper.SetActive(itemTypeIconHolder.sprite != null);
         }
     }
