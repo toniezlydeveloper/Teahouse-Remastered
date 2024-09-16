@@ -9,8 +9,7 @@ namespace Items.Holders
     public enum InitialItemType
     {
         None,
-        Kettle,
-        Cup
+        Kettle
     }
 
     public interface IManageableItemHolder : IDependency
@@ -64,7 +63,6 @@ namespace Items.Holders
             {
                 InitialItemType.None => null,
                 InitialItemType.Kettle => new Kettle(),
-                InitialItemType.Cup => new Cup(),
                 _ => throw new ArgumentOutOfRangeException()
             };
 

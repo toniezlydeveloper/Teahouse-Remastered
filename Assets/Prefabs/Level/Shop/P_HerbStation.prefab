@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 475228548885766897}
   - component: {fileID: 8641149756987463417}
   m_Layer: 0
-  m_Name: P_CupboardHerbs
+  m_Name: P_HerbStation
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

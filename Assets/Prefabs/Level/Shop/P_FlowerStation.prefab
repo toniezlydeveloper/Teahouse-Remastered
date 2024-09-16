@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 8176340708956165264}
   - component: {fileID: 3919294768298344814}
   m_Layer: 0
-  m_Name: P_CupboardFlowers
+  m_Name: P_FlowerStation
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

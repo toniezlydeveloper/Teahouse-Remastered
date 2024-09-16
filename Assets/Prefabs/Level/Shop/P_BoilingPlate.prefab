@@ -69,7 +69,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <ModifierType>k__BackingField: 8
-  <InitialItemType>k__BackingField: 0
+  <InitialItemType>k__BackingField: 1
 --- !u!114 &127911979922773360
 MonoBehaviour:
   m_ObjectHideFlags: 0
