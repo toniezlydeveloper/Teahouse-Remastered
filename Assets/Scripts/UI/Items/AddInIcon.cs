@@ -9,12 +9,13 @@ namespace UI.Items
     public class AddInIcon : MonoBehaviour
     {
         [SerializeField] private AddInsConfig config;
+        [SerializeField] private Image background;
         [SerializeField] private Image icon;
 
         public void Init(Enum value)
         {
             OverrideIcon(GetSprite(value));
-            ColorIcon(GetColor(value));
+            ColorBackground(GetColor(value));
         }
 
         private Sprite GetSprite(Enum value) =>  config.Icons.First(addInIcon => addInIcon.TypeName == value.GetType().Name).Icon;
@@ -30,6 +31,6 @@ namespace UI.Items
 
         private void OverrideIcon(Sprite sprite) => icon.sprite = sprite;
 
-        private void ColorIcon(Color color) => icon.color = color;
+        private void ColorBackground(Color color) => background.color = color;
     }
 }

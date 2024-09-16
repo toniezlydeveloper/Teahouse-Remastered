@@ -41,9 +41,15 @@ namespace Items.Modifiers
     
     public class SeatEmptyOrderModifier : IItemModifier
     {
-        private ICurrencyHolder _currencyHolder = DependencyInjector.Get<ICurrencyHolder>();
-        
         public ModifierType Type => ModifierType.Seat;
+
+        private static readonly List<Type> IngredientTypes = new()
+        {
+            typeof(WaterType),
+            typeof(HerbType),
+            typeof(FlowerType),
+            typeof(TeabagType)
+        };
         
         public bool CanModify(IItemHolder player, IItemHolder place)
         {
@@ -59,6 +65,12 @@ namespace Items.Modifiers
         public void Modify(IItemHolder player, IItemHolder place)
         {
             place.CastTo<Order>().WasTaken = true;
+            
+            foreach (Type ingredientType in IngredientTypes)
+            {
+                place.CastTo<Order>().HeldAddIns.Add(Enum.GetValues(ingredientType).OfType<Enum>().Skip(1).OrderBy(_ => Guid.NewGuid()).FirstOrDefault());
+            }
+            
             place.Refresh();
         }
     }

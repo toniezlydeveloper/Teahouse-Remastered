@@ -24,7 +24,6 @@ namespace Customers
         private int _queueIndex;
         private Table _table;
         private AIPath _aiPath;
-        private Order _order;
 
         private const float SeatRotationDuration = 1f;
         private const float PostOrderInterval = 2.5f;
@@ -82,9 +81,8 @@ namespace Customers
         private IEnumerator ExecuteOrder()
         {
             IItemHolder orderHolder = _table.GetComponentInChildren<IItemHolder>();
-            _order = new Order();
-            orderHolder.Value = _order;
-            yield return new WaitUntil(() => _order.WasCollected);
+            orderHolder.Value = new Order();
+            yield return new WaitUntil(() => orderHolder.CastTo<Order>().WasCollected);
             orderHolder.Value = null;
             yield return new WaitForSeconds(PostOrderInterval);
         }
