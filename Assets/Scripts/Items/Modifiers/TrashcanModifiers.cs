@@ -40,10 +40,6 @@ namespace Items.Modifiers
 
         public bool CanModify(IItemHolder player, IItemHolder place) => player.Holds<Cup>();
 
-        public void Modify(IItemHolder player, IItemHolder place)
-        {
-            player.CastTo<Cup>().HeldAddIns.Clear();
-            player.Refresh();
-        }
+        public void Modify(IItemHolder player, IItemHolder place) => player.Refresh(null);
     }
 }
