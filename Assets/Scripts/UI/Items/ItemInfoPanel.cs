@@ -5,7 +5,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace UI.ItemPresentation
+namespace UI.Items
 {
     public class ItemInfoPanel : AItemPanel<object>
     {

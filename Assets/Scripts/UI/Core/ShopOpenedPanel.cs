@@ -5,7 +5,7 @@ using Internal.Dependencies.Core;
 using Internal.Flow.UI;
 using Items.Holders;
 using Player;
-using UI.ItemPresentation;
+using UI.Items;
 using UnityEngine;
 using UnityEngine.UI;
 

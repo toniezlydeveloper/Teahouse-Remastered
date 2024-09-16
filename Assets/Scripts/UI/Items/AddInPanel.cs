@@ -4,7 +4,7 @@ using System.Linq;
 using Items.Implementations;
 using UnityEngine;
 
-namespace UI.ItemPresentation
+namespace UI.Items
 {
     public class AddInPanel : AItemPanel<IAddInsHolder>
     {

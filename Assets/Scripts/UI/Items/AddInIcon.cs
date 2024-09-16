@@ -4,7 +4,7 @@ using Items.Implementations;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace UI.ItemPresentation
+namespace UI.Items
 {
     public class AddInIcon : MonoBehaviour
     {
