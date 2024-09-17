@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace Tutorial
@@ -6,5 +7,8 @@ namespace Tutorial
     public class TutorialConfig : ScriptableObject
     {
         [field:SerializeField] public TutorialStep[] Steps { get; set; }
+        [field:SerializeField] public bool ShouldSkipSteps { get; set; }
+
+        public TutorialStep[] UsedSteps => ShouldSkipSteps ? Array.Empty<TutorialStep>() : Steps;
     }
 }

@@ -31,6 +31,7 @@ namespace States
     // 13. Dodanie customizacji postaci
     // 14. Dodanie elementow multiplayer - odwiedzania i obserwacji
     // 15. Ewentualne dodanie wspolpracy, jesli nie bedzie zbyt czasochlonne
+    // 16. Poprawic model kubka, zeby pokazywal wszystkie dodatki
     public class GameStatesProvider : AStatesProvider
     {
         [Header("Tutorial")]
