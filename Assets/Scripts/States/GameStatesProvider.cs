@@ -8,6 +8,7 @@ using Items.Holders;
 using Player;
 using Saving;
 using Trading;
+using Tutorial;
 using UI.Core;
 using UI.Shared;
 using UnityEngine;
@@ -28,7 +29,7 @@ namespace States
     {
         [Header("Tutorial")]
         [SerializeField] private InputActionReference progressDialog;
-        [SerializeField] private DialogStep[] steps;
+        [SerializeField] private TutorialConfig tutorialConfig;
         
         [Header("General")]
         [SerializeField] private CachedItemHolder hand;
@@ -60,7 +61,7 @@ namespace States
             GetReferences();
             
             AddInitialState(new TutorialBoostrapState());
-            AddState(new TutorialState(progressDialog, _dialogPanel, steps));
+            AddState(new TutorialState(progressDialog, _dialogPanel, tutorialConfig));
             
             AddState(new ShopBootstrapState());
             AddState(new ShopOpenedAtDayState(new CustomerSpawner(_timePanel, customerPrefab, data)));
@@ -89,6 +90,7 @@ namespace States
         {
             DependencyInjector.InjectListRecipe<IManageableItemHolder>();
             DependencyInjector.InjectListRecipe<IFurniturePiece>();
+            DependencyInjector.InjectListRecipe<ITutorialCamera>();
             DependencyInjector.InjectListRecipe<IPoolItem>();
         }
 

@@ -1,30 +1,25 @@
 using System;
+using Internal.Dependencies.Core;
 using Internal.Flow.States;
+using Tutorial;
 using UI.Shared;
-using UnityEngine;
 using UnityEngine.InputSystem;
 
 namespace States
 {
-    [Serializable]
-    public class DialogStep
-    {
-        [field:SerializeField] public Sprite Icon { get; set; }
-        [field:SerializeField] public string Text { get; set; }
-    }
-    
     public class TutorialState : AState
     {
+        private DependencyRecipe<DependencyList<ITutorialCamera>> _tutorialCameras = DependencyInjector.GetRecipe<DependencyList<ITutorialCamera>>();
         private InputAction _progressInput;
         private IDialogPanel _dialogPanel;
+        private TutorialConfig _config;
         private int _currentStepIndex;
-        private DialogStep[] _steps;
 
-        public TutorialState(InputAction progressInput, IDialogPanel dialogPanel, DialogStep[] steps)
+        public TutorialState(InputAction progressInput, IDialogPanel dialogPanel, TutorialConfig config)
         {
             _progressInput = progressInput;
             _dialogPanel = dialogPanel;
-            _steps = steps;
+            _config = config;
         }
 
         public override void OnEnter() => ShowNextStep();
@@ -47,11 +42,16 @@ namespace States
 
         private bool ReceivedProgressInput() => _progressInput.triggered;
 
-        private bool HasRunOutOfSteps() => _currentStepIndex >= _steps.Length;
+        private bool HasRunOutOfSteps() => _currentStepIndex >= _config.Steps.Length;
 
         private void ShowNextStep()
         {
-            DialogStep step = _steps[_currentStepIndex++];
+            TutorialStep step = _config.Steps[_currentStepIndex++];
+            
+            foreach (ITutorialCamera camera in _tutorialCameras.Value)
+            {
+                camera.Toggle(step.CameraType);
+            }
             
             _dialogPanel.Present(new DialogData
             {

@@ -1,0 +1,131 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8753aba395174347b3e028d046811011, type: 3}
+  m_Name: Tutorial
+  m_EditorClassIdentifier: 
+  <Steps>k__BackingField:
+  - <CameraType>k__BackingField: 0
+    <Icon>k__BackingField: {fileID: 21300000, guid: 620bc17a305ea4c40bf8e262f8dafc8a, type: 3}
+    <Text>k__BackingField: Hi there, let me show you around!
+  - <CameraType>k__BackingField: 0
+    <Icon>k__BackingField: {fileID: 21300000, guid: 620bc17a305ea4c40bf8e262f8dafc8a, type: 3}
+    <Text>k__BackingField: This is your dream teahouse you just have opened. You
+      can serve your dear guests tea and with what they pay you, you can build a
+      beautiful cozy bedroom.
+  - <CameraType>k__BackingField: 0
+    <Icon>k__BackingField: {fileID: 21300000, guid: 620bc17a305ea4c40bf8e262f8dafc8a, type: 3}
+    <Text>k__BackingField: Use [WSAD] keys to move around.
+  - <CameraType>k__BackingField: 1
+    <Icon>k__BackingField: {fileID: 21300000, guid: 620bc17a305ea4c40bf8e262f8dafc8a, type: 3}
+    <Text>k__BackingField: You can fully customize kitchen where you prepare tea
+      for those customers of yours.
+  - <CameraType>k__BackingField: 1
+    <Icon>k__BackingField: {fileID: 21300000, guid: 620bc17a305ea4c40bf8e262f8dafc8a, type: 3}
+    <Text>k__BackingField: You can pick the furniture up and place it down using
+      [Space] key.
+  - <CameraType>k__BackingField: 1
+    <Icon>k__BackingField: {fileID: 21300000, guid: 620bc17a305ea4c40bf8e262f8dafc8a, type: 3}
+    <Text>k__BackingField: When furniture piece is on the ground, it can be rotated
+      with [E] and [Q] keys.
+  - <CameraType>k__BackingField: 1
+    <Icon>k__BackingField: {fileID: 21300000, guid: 620bc17a305ea4c40bf8e262f8dafc8a, type: 3}
+    <Text>k__BackingField: You'll know if you interact with furniture piece, because
+      it will be highlighted.
+  - <CameraType>k__BackingField: 2
+    <Icon>k__BackingField: {fileID: 21300000, guid: 620bc17a305ea4c40bf8e262f8dafc8a, type: 3}
+    <Text>k__BackingField: When you're satisfied with your kitchen setup, you can
+      approach the entrance door.
+  - <CameraType>k__BackingField: 2
+    <Icon>k__BackingField: {fileID: 21300000, guid: 620bc17a305ea4c40bf8e262f8dafc8a, type: 3}
+    <Text>k__BackingField: By pressing [Space] in its' range, you'll open shop for
+      the day.
+  - <CameraType>k__BackingField: 2
+    <Icon>k__BackingField: {fileID: 21300000, guid: 620bc17a305ea4c40bf8e262f8dafc8a, type: 3}
+    <Text>k__BackingField: This will make customers come to your teahouse!
+  - <CameraType>k__BackingField: 3
+    <Icon>k__BackingField: {fileID: 21300000, guid: 620bc17a305ea4c40bf8e262f8dafc8a, type: 3}
+    <Text>k__BackingField: They'll sit by the tables where you can take their orders.
+  - <CameraType>k__BackingField: 3
+    <Icon>k__BackingField: {fileID: 21300000, guid: 620bc17a305ea4c40bf8e262f8dafc8a, type: 3}
+    <Text>k__BackingField: To take it, approach them and press [Space] key.
+  - <CameraType>k__BackingField: 3
+    <Icon>k__BackingField: {fileID: 21300000, guid: 620bc17a305ea4c40bf8e262f8dafc8a, type: 3}
+    <Text>k__BackingField: In the left lower corner, you'll see the list of the ingredients
+      your customers want.
+  - <CameraType>k__BackingField: 1
+    <Icon>k__BackingField: {fileID: 21300000, guid: 620bc17a305ea4c40bf8e262f8dafc8a, type: 3}
+    <Text>k__BackingField: In the kitchen, you'll see the same ingredients in the
+      left lower corner.
+  - <CameraType>k__BackingField: 1
+    <Icon>k__BackingField: {fileID: 21300000, guid: 620bc17a305ea4c40bf8e262f8dafc8a, type: 3}
+    <Text>k__BackingField: Knowing what ingredients they want in their tea, you can
+      make them a cup of tea.
+  - <CameraType>k__BackingField: 1
+    <Icon>k__BackingField: {fileID: 21300000, guid: 620bc17a305ea4c40bf8e262f8dafc8a, type: 3}
+    <Text>k__BackingField: And to make it, interact with your kitchen using [Space],
+      [E] and [Q] keys.
+  - <CameraType>k__BackingField: 1
+    <Icon>k__BackingField: {fileID: 21300000, guid: 620bc17a305ea4c40bf8e262f8dafc8a, type: 3}
+    <Text>k__BackingField: When you're done, you can bring it to them and serve the
+      tea using the [Space] key.
+  - <CameraType>k__BackingField: 1
+    <Icon>k__BackingField: {fileID: 21300000, guid: 620bc17a305ea4c40bf8e262f8dafc8a, type: 3}
+    <Text>k__BackingField: You can then collect money and dirty cup from them using
+      the [Space] key.
+  - <CameraType>k__BackingField: 0
+    <Icon>k__BackingField: {fileID: 21300000, guid: 620bc17a305ea4c40bf8e262f8dafc8a, type: 3}
+    <Text>k__BackingField: That's it for the shop part, now let me show you around
+      your bedroom.
+  - <CameraType>k__BackingField: 6
+    <Icon>k__BackingField: {fileID: 21300000, guid: 620bc17a305ea4c40bf8e262f8dafc8a, type: 3}
+    <Text>k__BackingField: You can enter it by approaching door in the back and pressing
+      the [Space] key.
+  - <CameraType>k__BackingField: 5
+    <Icon>k__BackingField: {fileID: 21300000, guid: 620bc17a305ea4c40bf8e262f8dafc8a, type: 3}
+    <Text>k__BackingField: You'll be teleported to your bedroom - it looks like that.
+  - <CameraType>k__BackingField: 4
+    <Icon>k__BackingField: {fileID: 21300000, guid: 620bc17a305ea4c40bf8e262f8dafc8a, type: 3}
+    <Text>k__BackingField: You can buy furniture for you bedroom by interacting with
+      this phone.
+  - <CameraType>k__BackingField: 4
+    <Icon>k__BackingField: {fileID: 21300000, guid: 620bc17a305ea4c40bf8e262f8dafc8a, type: 3}
+    <Text>k__BackingField: Approach it and press [Space] key, then buy all the things
+      you want and can afford.
+  - <CameraType>k__BackingField: 5
+    <Icon>k__BackingField: {fileID: 21300000, guid: 620bc17a305ea4c40bf8e262f8dafc8a, type: 3}
+    <Text>k__BackingField: Then by pressing [T] key, you can enter modification mode,
+      where you can place items you just bought.
+  - <CameraType>k__BackingField: 5
+    <Icon>k__BackingField: {fileID: 21300000, guid: 620bc17a305ea4c40bf8e262f8dafc8a, type: 3}
+    <Text>k__BackingField: You can place them and pick them up by pressing [Space]
+      key.
+  - <CameraType>k__BackingField: 5
+    <Icon>k__BackingField: {fileID: 21300000, guid: 620bc17a305ea4c40bf8e262f8dafc8a, type: 3}
+    <Text>k__BackingField: You can rotate them with [E] and [Q] keys.
+  - <CameraType>k__BackingField: 5
+    <Icon>k__BackingField: {fileID: 21300000, guid: 620bc17a305ea4c40bf8e262f8dafc8a, type: 3}
+    <Text>k__BackingField: The furniture will give you boosts to your work during
+      the day.
+  - <CameraType>k__BackingField: 5
+    <Icon>k__BackingField: {fileID: 21300000, guid: 620bc17a305ea4c40bf8e262f8dafc8a, type: 3}
+    <Text>k__BackingField: You can interact with some furniture pieces by pressing
+      [Space] key.
+  - <CameraType>k__BackingField: 5
+    <Icon>k__BackingField: {fileID: 21300000, guid: 620bc17a305ea4c40bf8e262f8dafc8a, type: 3}
+    <Text>k__BackingField: And that's pretty much it, all the controls will be shown
+      in the right bottom corner, so you won't forget them.
+  - <CameraType>k__BackingField: 5
+    <Icon>k__BackingField: {fileID: 21300000, guid: 620bc17a305ea4c40bf8e262f8dafc8a, type: 3}
+    <Text>k__BackingField: And you'll be interacting with stuff that is highlighted.
+  - <CameraType>k__BackingField: 5
+    <Icon>k__BackingField: {fileID: 21300000, guid: 620bc17a305ea4c40bf8e262f8dafc8a, type: 3}
+    <Text>k__BackingField: Have fun!

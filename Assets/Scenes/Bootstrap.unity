@@ -1279,9 +1279,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   progressDialog: {fileID: -688405445266427128, guid: 66336f1aba36c584aa036f1400048593, type: 3}
-  steps:
-  - <Icon>k__BackingField: {fileID: 21300000, guid: 620bc17a305ea4c40bf8e262f8dafc8a, type: 3}
-    <Text>k__BackingField: Hello there, let me show you around!
+  tutorialConfig: {fileID: 11400000, guid: 2d8575663ba0c3c428698c1b5b9eb684, type: 2}
   hand: {fileID: 11400000, guid: d064fd1e490aeec418092251174c58b4, type: 2}
   uiParent: {fileID: 1431542015}
   customerPrefab: {fileID: 2697796917733245322, guid: 5205c294bcbab514181fc95aa74e0d9b, type: 3}
