@@ -34,7 +34,7 @@ namespace Items.Effectors
             kettle.WaterTemperature = Mathf.Clamp(kettle.WaterTemperature + Time.deltaTime * boilingSpeed, 0f, MaxTemperature);
             kettle.HeldAddIns[0] = kettle.WaterTemperature switch
             {
-                > 75f => WaterType.Hot,
+                > 99.5f => WaterType.Boiling,
                 > 50f => WaterType.Medium,
                 _ => WaterType.Low
             };

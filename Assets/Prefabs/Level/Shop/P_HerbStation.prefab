@@ -115,6 +115,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   processingProgressIndicator: {fileID: 3488781593733426814}
+  config: {fileID: 11400000, guid: b84f575d9fe76754e90dea6f80750a01, type: 2}
 --- !u!114 &835207975068166403
 MonoBehaviour:
   m_ObjectHideFlags: 0

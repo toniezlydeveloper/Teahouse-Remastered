@@ -101,7 +101,7 @@ namespace Items.Implementations
         None = 0,
         Low = 1,
         Medium = 2,
-        Hot = 3
+        Boiling = 3
     }
 
     public enum TeabagType

@@ -8,6 +8,7 @@ namespace Items.Effectors
     public class ProcessingProgressTracker : AEffector<IAddInProgress>
     {
         [SerializeField] private Image processingProgressIndicator;
+        [SerializeField] private EffectorsConfig config;
         
         private float _normalizedProgress = -1f;
         
@@ -17,12 +18,14 @@ namespace Items.Effectors
             bool hasChanged = _normalizedProgress != value;
             _normalizedProgress = value;
 
-            if (hasChanged)
+            if (!hasChanged)
             {
-                processingProgressIndicator.fillAmount = _normalizedProgress;
+                return false;
             }
             
-            return hasChanged;
+            processingProgressIndicator.color = value < 1f ? config.ProcessingColor : config.ProcessedColor;
+            processingProgressIndicator.fillAmount = _normalizedProgress;
+            return true;
         }
     }
 }
