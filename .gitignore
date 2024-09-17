@@ -72,3 +72,4 @@ crashlytics-build.properties
 /[Aa]ssets/[Ss]treamingAssets/aa/*
 /.idea
 Assets/Resources/EditorDevelopmentConfig.asset
+Assets/Resources/EditorDevelopmentConfig.asset.meta
