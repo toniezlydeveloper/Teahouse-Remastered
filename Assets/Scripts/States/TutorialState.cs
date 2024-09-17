@@ -40,13 +40,15 @@ namespace States
             return null;
         }
 
+        protected override void AddConditions() => AddCondition<ShopBootstrapState>(ShouldSkipTutorial);
+
         private bool ReceivedProgressInput() => _progressInput.triggered;
 
-        private bool HasRunOutOfSteps() => _currentStepIndex >= _config.UsedSteps.Length;
+        private bool HasRunOutOfSteps() => _currentStepIndex >= _config.Steps.Length;
 
         private void ShowNextStep()
         {
-            TutorialStep step = _config.UsedSteps[_currentStepIndex++];
+            TutorialStep step = _config.Steps[_currentStepIndex++];
             
             foreach (ITutorialCamera camera in _tutorialCameras.Value)
             {
@@ -59,5 +61,7 @@ namespace States
                 Text = step.Text
             });
         }
+
+        private bool ShouldSkipTutorial() => _config.ShouldSkipSteps;
     }
 }

@@ -129,3 +129,4 @@ MonoBehaviour:
   - <CameraType>k__BackingField: 5
     <Icon>k__BackingField: {fileID: 21300000, guid: 620bc17a305ea4c40bf8e262f8dafc8a, type: 3}
     <Text>k__BackingField: Have fun!
+  <ShouldSkipSteps>k__BackingField: 0

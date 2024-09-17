@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 namespace Tutorial
@@ -8,7 +7,5 @@ namespace Tutorial
     {
         [field:SerializeField] public TutorialStep[] Steps { get; set; }
         [field:SerializeField] public bool ShouldSkipSteps { get; set; }
-
-        public TutorialStep[] UsedSteps => ShouldSkipSteps ? Array.Empty<TutorialStep>() : Steps;
     }
 }
