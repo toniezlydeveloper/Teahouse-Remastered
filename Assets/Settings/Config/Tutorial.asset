@@ -73,11 +73,11 @@ MonoBehaviour:
     <Icon>k__BackingField: {fileID: 21300000, guid: 620bc17a305ea4c40bf8e262f8dafc8a, type: 3}
     <Text>k__BackingField: And to make it, interact with your kitchen using [Space],
       [E] and [Q] keys.
-  - <CameraType>k__BackingField: 1
+  - <CameraType>k__BackingField: 3
     <Icon>k__BackingField: {fileID: 21300000, guid: 620bc17a305ea4c40bf8e262f8dafc8a, type: 3}
     <Text>k__BackingField: When you're done, you can bring it to them and serve the
       tea using the [Space] key.
-  - <CameraType>k__BackingField: 1
+  - <CameraType>k__BackingField: 3
     <Icon>k__BackingField: {fileID: 21300000, guid: 620bc17a305ea4c40bf8e262f8dafc8a, type: 3}
     <Text>k__BackingField: You can then collect money and dirty cup from them using
       the [Space] key.
