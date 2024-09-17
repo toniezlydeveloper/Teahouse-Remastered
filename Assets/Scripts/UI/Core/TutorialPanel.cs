@@ -1,0 +1,8 @@
+using Internal.Flow.UI;
+
+namespace UI.Core
+{
+    public class TutorialPanel : AUIPanel
+    {
+    }
+}

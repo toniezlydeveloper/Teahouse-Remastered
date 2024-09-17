@@ -7,6 +7,7 @@ namespace Player
     [Flags]
     public enum PlayerMode
     {
+        None = 0,
         Organization = 1 << 0,
         Modification = 1 << 1
     }

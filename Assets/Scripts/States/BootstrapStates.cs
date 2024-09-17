@@ -17,6 +17,11 @@ namespace States
 
         public override void OnExit() => SavingController.Load(PersistenceType.Volatile, FileSaveType.Shop);
     }
+    
+    public class TutorialBoostrapState : ABootstrapState<TutorialState>
+    {
+        protected override string LevelName => "Tutorial";
+    }
 
     public abstract class ABootstrapState<TTargetState> : AState where TTargetState : AState
     {

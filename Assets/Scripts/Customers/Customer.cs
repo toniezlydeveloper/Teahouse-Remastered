@@ -82,7 +82,7 @@ namespace Customers
         {
             IItemHolder orderHolder = _table.GetComponentInChildren<IItemHolder>();
             orderHolder.Value = new Order();
-            yield return new WaitUntil(() => orderHolder.CastTo<Order>().WasCollected);
+            yield return new WaitUntil(() => orderHolder.CastTo<Order>()?.WasCollected != true);
             orderHolder.Value = null;
             yield return new WaitForSeconds(PostOrderInterval);
         }

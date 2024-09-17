@@ -26,6 +26,10 @@ namespace States
     // 9. Dodanie systemu zamowien na podstawie rasy zwierzecia
     public class GameStatesProvider : AStatesProvider
     {
+        [Header("Tutorial")]
+        [SerializeField] private InputActionReference progressDialog;
+        [SerializeField] private DialogStep[] steps;
+        
         [Header("General")]
         [SerializeField] private CachedItemHolder hand;
         [SerializeField] private GameObject uiParent;
@@ -46,6 +50,7 @@ namespace States
         private IFurnishingPanel _furnishingPanel;
         private ICurrencyHolder _currencyHolder;
         private IItemShopPanel _itemShopPanel;
+        private IDialogPanel _dialogPanel;
         private ITimePanel _timePanel;
         
         private void Awake()
@@ -54,7 +59,10 @@ namespace States
             InitListRecipes();
             GetReferences();
             
-            AddInitialState(new ShopBootstrapState());
+            AddInitialState(new TutorialBoostrapState());
+            AddState(new TutorialState(progressDialog, _dialogPanel, steps));
+            
+            AddState(new ShopBootstrapState());
             AddState(new ShopOpenedAtDayState(new CustomerSpawner(_timePanel, customerPrefab, data)));
             AddState(new ShopClosedState());
             
@@ -99,6 +107,7 @@ namespace States
             _currencyHolder = GetFromScene<ICurrencyHolder>();
             _furnishingPanel = GetFromUI<IFurnishingPanel>();
             _itemShopPanel = GetFromUI<IItemShopPanel>();
+            _dialogPanel = GetFromUI<IDialogPanel>();
             _timePanel = GetFromUI<ITimePanel>();
         }
         
