@@ -21,10 +21,16 @@ namespace States
     // 3. Inventory do przekladania rzeczy V
     // 4. Premie / nocni klienci C
     // 5. Splacanie wujka herbaciarza
-    // 6. Tutorial
+    // 6. Tutorial V
     // 7. Sklep z rzeczami V
     // 8. Dodanie skladnikow z ChatGPT
     // 9. Dodanie systemu zamowien na podstawie rasy zwierzecia
+    // 10. Poprawienie tutorialu
+    // 11. Dodanie minimalistycznej fabuly
+    // 12. Dodanie buffow do prowadzenia sklepu za kupione przedmioty do sypialni
+    // 13. Dodanie customizacji postaci
+    // 14. Dodanie elementow multiplayer - odwiedzania i obserwacji
+    // 15. Ewentualne dodanie wspolpracy, jesli nie bedzie zbyt czasochlonne
     public class GameStatesProvider : AStatesProvider
     {
         [Header("Tutorial")]
