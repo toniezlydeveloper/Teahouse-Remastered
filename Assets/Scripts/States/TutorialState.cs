@@ -1,9 +1,11 @@
 using System;
 using Internal.Dependencies.Core;
 using Internal.Flow.States;
+using Saving;
 using Tutorial;
 using UI.Shared;
 using UnityEngine.InputSystem;
+using Utilities;
 
 namespace States
 {
@@ -22,7 +24,11 @@ namespace States
             _config = config;
         }
 
-        public override void OnEnter() => ShowNextStep();
+        public override void OnEnter()
+        {
+            SavingController.Save(PersistenceType.Persistent, FileSaveType.Shop);
+            ShowNextStep();
+        }
 
         public override Type OnUpdate()
         {
@@ -40,7 +46,7 @@ namespace States
             return null;
         }
 
-        protected override void AddConditions() => AddCondition<ShopBootstrapState>(ShouldSkipTutorial);
+        protected override void AddConditions() => AddCondition<ShopBootstrapState>(() => DevelopmentConfig.Instance.ShouldSkipTutorial);
 
         private bool ReceivedProgressInput() => _progressInput.triggered;
 
@@ -61,7 +67,5 @@ namespace States
                 Text = step.Text
             });
         }
-
-        private bool ShouldSkipTutorial() => _config.ShouldSkipSteps;
     }
 }
