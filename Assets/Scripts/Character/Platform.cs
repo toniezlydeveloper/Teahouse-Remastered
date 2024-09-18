@@ -14,7 +14,6 @@ namespace Character
 
         private ICharacterPanel _characterPanel = DependencyInjector.Get<ICharacterPanel>();
         private GameObject _characterModel;
-        private GameObject _outfitModel;
         private Species _species;
         private Outfit _outfit;
 
@@ -42,41 +41,42 @@ namespace Character
 
         private void SelectNextOutfit() => SelectOutfit(SelectNext(_outfit));
 
-        private void SelectColor(Color color)
-        {
-            foreach (Renderer characterRenderer in _characterModel.GetComponentsInChildren<Renderer>())
-            {
-                characterRenderer.material.color = color;
-            }
-        }
-
         private void SelectSpecies(Species species)
         {
-            SpeciesModel model = config.SpeciesModels.First(model => model.Type == species);
-
-            if (_characterModel != null)
+            if (IsShowingModelAlready())
             {
                 Destroy(_characterModel);
             }
 
-            Instantiate(model.Prefab, spawnPoint);
-            
-            _species = species;
+            Cache(Instantiate(GetModel(species).Prefab, spawnPoint));
+            Cache(species);
         }
 
         private void SelectOutfit(Outfit outfit)
         {
-            OutfitModel model = config.OutfitModels.First(model => model.Type == outfit);
-
-            if (_outfitModel != null)
-            {
-                Destroy(_outfitModel);
-            }
-
-            Instantiate(model.Prefab, spawnPoint);
-            
-            _outfit = outfit;
+            ToggleModels(outfit);
+            Cache(outfit);
         }
+
+        private void SelectColor(Color color) => _characterModel.GetComponent<CharacterModel>().ColorRenderers(color);
+
+        private bool IsShowingModelAlready() => _characterModel != null;
+
+        private SpeciesModel GetModel(Species species) => config.SpeciesModels.First(model => model.Type == species);
+
+        private void ToggleModels(Outfit outfit)
+        {
+            foreach (OutfitModel model in _characterModel.GetComponentsInChildren<OutfitModel>())
+            {
+                model.Toggle(outfit);
+            }
+        }
+
+        private void Cache(GameObject characterModel) => _characterModel = characterModel;
+
+        private void Cache(Species species) => _species = species;
+
+        private void Cache(Outfit outfit) => _outfit = outfit;
 
         private TType SelectPrevious<TType>(TType type) where TType : Enum
         {

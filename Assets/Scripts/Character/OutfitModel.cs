@@ -1,12 +1,20 @@
-using System;
 using UnityEngine;
 
 namespace Character
 {
-    [Serializable]
-    public class OutfitModel
+    public class OutfitModel : MonoBehaviour
     {
-        [field: SerializeField] public GameObject Prefab { get; set; }
-        [field: SerializeField] public Outfit Type { get; set; }
+        [SerializeField] private Outfit presentedOutfit;
+        [SerializeField] private string outfitName;
+        
+        public void Toggle(Outfit outfit) => GetModel().SetActive(ShouldEnable(outfit));
+
+        private GameObject GetModel()
+        {
+            Transform model = transform.Find(outfitName);
+            return model.gameObject;
+        }
+
+        private bool ShouldEnable(Outfit outfit) => outfit == presentedOutfit;
     }
 }

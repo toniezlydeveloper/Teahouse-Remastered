@@ -12,16 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40caabcde39f48808f6529f18c0290e6, type: 3}
   m_Name: CharactersConfig
   m_EditorClassIdentifier: 
+  <SpeciesModels>k__BackingField:
+  - <Prefab>k__BackingField: {fileID: 2652426621816295786, guid: 147da1a2d542469488766ba8188d929a, type: 3}
+    <Type>k__BackingField: 0
+  - <Prefab>k__BackingField: {fileID: 2652426621816295786, guid: a8a9a6d2ac2562d49a72de7a90bc0db0, type: 3}
+    <Type>k__BackingField: 1
   <DefaultSpecies>k__BackingField: 0
   <DefaultOutfit>k__BackingField: 0
   <DefaultColor>k__BackingField: {r: 0.6489172, g: 1, b: 0.4198113, a: 1}
-  <SpeciesModels>k__BackingField:
-  - <Prefab>k__BackingField: {fileID: 8903274845301581912, guid: 7ec5e62ccd05a8c4a852f89e10ebdbb2, type: 3}
-    <Type>k__BackingField: 0
-  - <Prefab>k__BackingField: {fileID: 3794063396839041605, guid: f9f17421c1b10b949891e7c209b7dd19, type: 3}
-    <Type>k__BackingField: 1
-  <OutfitModels>k__BackingField:
-  - <Prefab>k__BackingField: {fileID: 6792359705718022086, guid: 20349f1804a3a1844b9ac4c51f7f95d9, type: 3}
-    <Type>k__BackingField: 0
-  - <Prefab>k__BackingField: {fileID: 8571874188115718308, guid: f91cd7f9f2321e843b7163d6493b1f5a, type: 3}
-    <Type>k__BackingField: 1
