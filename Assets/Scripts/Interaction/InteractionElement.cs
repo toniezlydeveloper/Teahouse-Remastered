@@ -9,10 +9,10 @@ namespace Interaction
     [Serializable]
     public class ModeHints
     {
-        [field:SerializeField] public PlayerMode CorrespondingMode { get; set; }
-        [field:SerializeField] public string SpaceHint { get; set; }
-        [field:SerializeField] public string EHint { get; set; }
-        [field:SerializeField] public string QHint { get; set; }
+        [field: SerializeField] public PlayerMode CorrespondingMode { get; set; }
+        [field: SerializeField] public string SpaceHint { get; set; }
+        [field: SerializeField] public string EHint { get; set; }
+        [field: SerializeField] public string QHint { get; set; }
     }
     
     public class InteractionElement : MonoBehaviour

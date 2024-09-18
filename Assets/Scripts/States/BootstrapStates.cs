@@ -22,6 +22,11 @@ namespace States
     {
         protected override string LevelName => "Tutorial";
     }
+    
+    public class CharacterBoostrapState : ABootstrapState<CharacterState>
+    {
+        protected override string LevelName => "Character";
+    }
 
     public abstract class ABootstrapState<TTargetState> : AState where TTargetState : AState
     {

@@ -17,11 +17,11 @@ namespace Furniture
     [Serializable]
     public class FurniturePiece : IFurniturePiece
     {
-        [field:SerializeField] public GridDimensions Dimensions { get; set; }
-        [field:SerializeField] public GameObject Prefab { get; set; }
-        [field:SerializeField] public Vector3 Offset { get; set; }
-        [field:SerializeField] public Sprite Icon { get; set; }
-        [field:SerializeField] public int Count { get; set; }
+        [field: SerializeField] public GridDimensions Dimensions { get; set; }
+        [field: SerializeField] public GameObject Prefab { get; set; }
+        [field: SerializeField] public Vector3 Offset { get; set; }
+        [field: SerializeField] public Sprite Icon { get; set; }
+        [field: SerializeField] public int Count { get; set; }
         
         public FurniturePiece(IFurniturePiece piece)
         {

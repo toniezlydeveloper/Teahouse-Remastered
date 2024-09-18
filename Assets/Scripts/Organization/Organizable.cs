@@ -4,7 +4,7 @@ namespace Organization
 {
     public class Organizable : MonoBehaviour
     {
-        [field:SerializeField] public float ForwardOffset { get; set; }
+        [field: SerializeField] public float ForwardOffset { get; set; }
         
         public string Name => gameObject.name.Replace("(Clone)", "");
         public Quaternion Rotation => transform.localRotation;

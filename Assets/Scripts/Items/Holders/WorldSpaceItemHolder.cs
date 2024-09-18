@@ -22,8 +22,8 @@ namespace Items.Holders
     {
         public event Action<IItem> OnChanged;
         
-        [field:SerializeField] public ModifierType ModifierType { get; set; }
-        [field:SerializeField] public InitialItemType InitialItemType { get; set; }
+        [field: SerializeField] public ModifierType ModifierType { get; set; }
+        [field: SerializeField] public InitialItemType InitialItemType { get; set; }
 
         private IItem _value;
 

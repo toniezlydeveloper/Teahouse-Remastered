@@ -12,8 +12,8 @@ namespace Customers
     
     public class EnvironmentSetup : ADependency<IEnvironmentSetup>, IEnvironmentSetup
     {
-        [field:SerializeField] public Transform QueuePoint { get; set; }
-        [field:SerializeField] public Transform SpawnPoint { get; set; }
-        [field:SerializeField] public Transform ExitPoint { get; set; }
+        [field: SerializeField] public Transform QueuePoint { get; set; }
+        [field: SerializeField] public Transform SpawnPoint { get; set; }
+        [field: SerializeField] public Transform ExitPoint { get; set; }
     }
 }

@@ -67,7 +67,10 @@ namespace States
             InitListRecipes();
             GetReferences();
             
-            AddInitialState(new TutorialBoostrapState());
+            AddInitialState(new CharacterBoostrapState());
+            AddState(new CharacterState());
+            
+            AddState(new TutorialBoostrapState());
             AddState(new TutorialState(progressDialog, _dialogPanel, tutorialConfig));
             
             AddState(new ShopBootstrapState());

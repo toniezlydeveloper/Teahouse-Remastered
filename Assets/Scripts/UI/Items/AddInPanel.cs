@@ -65,27 +65,44 @@ namespace UI.Items
         {
             foreach (Enum addIn in requiredAddIns)
             {
-                if (_usedIcons.ContainsKey(addIn))
+                if (IsAlreadyShowing(addIn))
                 {
                     continue;
                 }
 
-                AddInIcon icon;
-
-                if (_unusedIcons.Count > 0)
+                if (TryGetCachedIcon(out AddInIcon icon))
                 {
-                    icon = _unusedIcons.First();
-                    _unusedIcons.Remove(icon);
-                    icon.gameObject.SetActive(true);
+                    Init(addIn, icon);
                 }
                 else
                 {
-                    icon = Instantiate(addInIconPrefab, addInIconsParent);
+                    Init(addIn, Instantiate(addInIconPrefab, addInIconsParent));
                 }
                 
-                _usedIcons.Add(addIn, icon);
-                icon.Init(addIn);
             }
+        }
+
+        private bool IsAlreadyShowing(Enum addIn) => _usedIcons.ContainsKey(addIn);
+
+        private bool TryGetCachedIcon(out AddInIcon icon)
+        {
+            icon = null;
+            
+            if (_unusedIcons.Count < 1)
+            {
+                return false;
+            }
+            
+            icon = _unusedIcons.First();
+            icon.gameObject.SetActive(true);
+            _unusedIcons.Remove(icon);
+            return true;
+        }
+
+        private void Init(Enum addIn, AddInIcon icon)
+        {
+            _usedIcons.Add(addIn, icon);
+            icon.Init(addIn);
         }
 
         private void Cache(List<Enum> requiredAddIns) => _presentedAddIns = new List<Enum>(requiredAddIns);

@@ -9,7 +9,7 @@ namespace Items.Holders
         [Serializable]
         public class Petals
         {
-            [field:SerializeField] public Renderer[] Value { get; set; }
+            [field: SerializeField] public Renderer[] Value { get; set; }
         }
         
         [SerializeField] private AddInsConfig config;
