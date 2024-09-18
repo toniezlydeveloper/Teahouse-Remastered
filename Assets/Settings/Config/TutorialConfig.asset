@@ -59,8 +59,8 @@ MonoBehaviour:
       interacting with this phone.
   - <CameraType>k__BackingField: 5
     <Icon>k__BackingField: {fileID: 21300000, guid: 620bc17a305ea4c40bf8e262f8dafc8a, type: 3}
-    <Text>k__BackingField: Then you can use [T] to switch between interaction and
-      building modes.
+    <Text>k__BackingField: Then you can use [T] key to switch between interaction
+      and building modes.
   - <CameraType>k__BackingField: 5
     <Icon>k__BackingField: {fileID: 21300000, guid: 620bc17a305ea4c40bf8e262f8dafc8a, type: 3}
     <Text>k__BackingField: When in interaction mode, you can interact with some furniture
@@ -74,4 +74,4 @@ MonoBehaviour:
     <Text>k__BackingField: To leave room, make sure you are in the interaction mode.
   - <CameraType>k__BackingField: 5
     <Icon>k__BackingField: {fileID: 21300000, guid: 620bc17a305ea4c40bf8e262f8dafc8a, type: 3}
-    <Text>k__BackingField: Anaad that's it, have fun!
+    <Text>k__BackingField: Aaand that's it, have fun!
