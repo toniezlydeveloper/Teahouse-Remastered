@@ -29,10 +29,6 @@ MonoBehaviour:
     <Icon>k__BackingField: {fileID: 21300000, guid: 620bc17a305ea4c40bf8e262f8dafc8a, type: 3}
     <Text>k__BackingField: You'll know which thing you interact with, because you'll
       see red-ish underglow below it.
-  - <CameraType>k__BackingField: 1
-    <Icon>k__BackingField: {fileID: 21300000, guid: 620bc17a305ea4c40bf8e262f8dafc8a, type: 3}
-    <Text>k__BackingField: You'll know which thing you interact with, because you'll
-      see red-ish underglow below it.
   - <CameraType>k__BackingField: 2
     <Icon>k__BackingField: {fileID: 21300000, guid: 620bc17a305ea4c40bf8e262f8dafc8a, type: 3}
     <Text>k__BackingField: You can open/close your shop by interacting with the entrance
