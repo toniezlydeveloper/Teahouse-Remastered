@@ -12,6 +12,7 @@ namespace UI.Core
             AddTranslation<CharacterState, CharacterPanel>();
             AddTranslation<TutorialState, TutorialPanel>();
             AddTranslation<ItemShopState, ItemShopPanel>();
+            AddTranslation<MainMenuState, MainMenuPanel>();
             AddTranslation<BedroomState, BedroomPanel>();
         }
     }

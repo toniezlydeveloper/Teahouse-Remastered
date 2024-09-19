@@ -78,14 +78,14 @@ namespace Saving
                 Clear(PersistenceType.Volatile, saveType);
             }
         }
-
-        private static string GetSaveFilePath(PersistenceType persistenceType, FileSaveType saveType) => Path.Combine(Application.persistentDataPath, $"Teahouse-{persistenceType}-{saveType}.json");
         
         private static bool TryGetSaveExistingFilePath(PersistenceType persistenceType, FileSaveType saveType, out string filePath)
         {
-            filePath = Path.Combine(Application.persistentDataPath, $"Teahouse-{persistenceType}-{saveType}.json");
+            filePath = GetSaveFilePath(persistenceType, saveType);
             return File.Exists(filePath);
         }
+        
+        private static string GetSaveFilePath(PersistenceType persistenceType, FileSaveType saveType) => Path.Combine(Application.persistentDataPath, $"Teahouse-{persistenceType}-{saveType}.json");
 
         private static string ReadJsonFromScene(FileSaveType type)
         {

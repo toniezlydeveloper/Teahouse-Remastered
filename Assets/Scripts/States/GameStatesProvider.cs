@@ -67,7 +67,10 @@ namespace States
             InitListRecipes();
             GetReferences();
             
-            AddInitialState(new CharacterBoostrapState());
+            AddInitialState(new MainMenuBootstrapState());
+            AddState(new MainMenuState());
+            
+            AddState(new CharacterBoostrapState());
             AddState(new CharacterState());
             
             AddState(new TutorialBoostrapState());

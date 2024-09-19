@@ -28,6 +28,11 @@ namespace States
         protected override string LevelName => "Character";
     }
 
+    public class MainMenuBootstrapState : ABootstrapState<MainMenuState>
+    {
+        protected override string LevelName => "MainMenu";
+    }
+
     public abstract class ABootstrapState<TTargetState> : AState where TTargetState : AState
     {
         protected abstract string LevelName { get; }

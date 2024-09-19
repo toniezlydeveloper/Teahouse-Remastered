@@ -36,6 +36,7 @@ namespace UI.Core
         [SerializeField] private Button previousColorButton;
         [SerializeField] private Button nextColorButton;
         [SerializeField] private Button continueButton;
+        [SerializeField] private Button backButton;
         [SerializeField] private TextMeshProUGUI speciesTextContainer;
         [SerializeField] private TextMeshProUGUI outfitTextContainer;
         [SerializeField] private Image colorImage;
@@ -62,6 +63,7 @@ namespace UI.Core
             previousColorButton.onClick.AddListener(RaisePreviousColorCallback);
             nextColorButton.onClick.AddListener(RaiseNextColorCallback);
             continueButton.onClick.AddListener(RequestTransition<ShopBootstrapState>);
+            backButton.onClick.AddListener(RequestTransition<MainMenuBootstrapState>);
         }
 
         private void Update()
