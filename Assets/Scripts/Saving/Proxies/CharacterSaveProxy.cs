@@ -26,11 +26,11 @@ namespace Saving.Proxies
 
         public override string Write()
         {
-            SpeciesModel speciesModel = SpeciesModelVariableName.GetComponent<SpeciesModel, Platform>(FindObjectOfType<Platform>());
+            SpeciesModel speciesModel = SpeciesModelVariableName.GetComponent<SpeciesModel, CustomizationPlatform>(FindObjectOfType<CustomizationPlatform>());
             CharacterSaveData data = new CharacterSaveData
             {
-                OutfitIndex = speciesModel.Outfits.IndexOf(OutfitVariableName.GetComponent<string, Platform>(FindObjectOfType<Platform>())),
-                ColorIndex = speciesModel.Colors.IndexOf(ColorVariableName.GetComponent<Color, Platform>(FindObjectOfType<Platform>())),
+                OutfitIndex = speciesModel.Outfits.IndexOf(OutfitVariableName.GetComponent<string, CustomizationPlatform>(FindObjectOfType<CustomizationPlatform>())),
+                ColorIndex = speciesModel.Colors.IndexOf(ColorVariableName.GetComponent<Color, CustomizationPlatform>(FindObjectOfType<CustomizationPlatform>())),
                 SpeciesIndex = config.SpeciesModels.IndexOf(speciesModel)
             };
 

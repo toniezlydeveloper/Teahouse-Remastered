@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace Character
 {
-    public class Platform : MonoBehaviour
+    public class CustomizationPlatform : MonoBehaviour
     {
         [SerializeField] private CharactersConfig config;
         [SerializeField] private Transform spawnPoint;
@@ -31,7 +31,10 @@ namespace Character
                 PreviousOutfitCallback = SelectPreviousOutfit,
                 NextOutfitCallback = SelectNextOutfit,
                 PreviousColorCallback = SelectPreviousColor,
-                NextColorCallback = SelectNextColor
+                NextColorCallback = SelectNextColor,
+                SelectedOutfitCallback = GetSelectedOutfit,
+                SelectedSpeciesCallback = GetSelectedSpecies,
+                SelectedColorCallback = GetSelectedColor
             });
         }
 
@@ -142,5 +145,11 @@ namespace Character
             int index = (_allSpecies.IndexOf(type) + _allSpecies.Count + 1) % _allSpecies.Count;
             return _allSpecies[index];
         }
+
+        private Species GetSelectedSpecies() => _species;
+
+        private string GetSelectedOutfit() => _outfit;
+
+        private Color GetSelectedColor() => _color;
     }
 }
