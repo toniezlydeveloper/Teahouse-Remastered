@@ -17,7 +17,8 @@ namespace UI.Core
         public Action NextSpeciesCallback { get; set; }
         public Action PreviousOutfitCallback { get; set; }
         public Action NextOutfitCallback { get; set; }
-        public Action<Color> ColorCallback { get; set; }
+        public Action PreviousColorCallback { get; set; }
+        public Action NextColorCallback { get; set; }
     }
     
     public class CharacterPanel : AUIPanel, ICharacterPanel
@@ -26,12 +27,15 @@ namespace UI.Core
         [SerializeField] private Button nextSpeciesButton;
         [SerializeField] private Button previousOutfitButton;
         [SerializeField] private Button nextOutfitButton;
+        [SerializeField] private Button previousColorButton;
+        [SerializeField] private Button nextColorButton;
 
         private Action _previousSpeciesCallback;
         private Action _nextSpeciesCallback;
         private Action _previousOutfitCallback;
         private Action _nextOutfitCallback;
-        private Action<Color> _colorCallback;
+        private Action _previousColorCallback;
+        private Action _nextColorCallback;
 
         private void Start()
         {
@@ -39,6 +43,8 @@ namespace UI.Core
             nextSpeciesButton.onClick.AddListener(() => _nextSpeciesCallback?.Invoke());
             previousOutfitButton.onClick.AddListener(() => _previousOutfitCallback?.Invoke());
             nextOutfitButton.onClick.AddListener(() => _nextOutfitCallback?.Invoke());
+            previousColorButton.onClick.AddListener(() => _previousColorCallback?.Invoke());
+            nextColorButton.onClick.AddListener(() => _nextColorCallback?.Invoke());
         }
 
         public void Init(CharacterData data)
@@ -47,10 +53,8 @@ namespace UI.Core
             _nextSpeciesCallback = data.NextSpeciesCallback;
             _previousOutfitCallback = data.PreviousOutfitCallback;
             _nextOutfitCallback = data.NextOutfitCallback;
-            _colorCallback = data.ColorCallback;
+            _previousColorCallback = data.PreviousColorCallback;
+            _nextColorCallback = data.NextColorCallback;
         }
-
-        // This method is invoked by outside UnityEvent callback.
-        public void ChangeColor(Color color) => _colorCallback?.Invoke(color);
     }
 }
