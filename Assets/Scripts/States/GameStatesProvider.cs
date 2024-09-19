@@ -34,13 +34,14 @@ namespace States
     // 16. Poprawic model kubka, zeby pokazywal wszystkie dodatki
     public class GameStatesProvider : AStatesProvider
     {
+        [Header("General")]
+        [SerializeField] private InputActionReference pause;
+        [SerializeField] private CachedItemHolder hand;
+        [SerializeField] private GameObject uiParent;
+        
         [Header("Tutorial")]
         [SerializeField] private InputActionReference progressDialog;
         [SerializeField] private TutorialConfig tutorialConfig;
-        
-        [Header("General")]
-        [SerializeField] private CachedItemHolder hand;
-        [SerializeField] private GameObject uiParent;
 
         [Header("Opened At Day")]
         [SerializeField] private Customer customerPrefab;
@@ -59,6 +60,7 @@ namespace States
         private ICurrencyHolder _currencyHolder;
         private IItemShopPanel _itemShopPanel;
         private IDialogPanel _dialogPanel;
+        private IPausePanel _pausePanel;
         private ITimePanel _timePanel;
         
         private void Awake()
@@ -74,16 +76,18 @@ namespace States
             AddState(new CharacterState());
             
             AddState(new TutorialBoostrapState());
-            AddState(new TutorialState(progressDialog, _dialogPanel, tutorialConfig));
+            AddState(new TutorialState(progressDialog, _dialogPanel, tutorialConfig, pause, _pausePanel));
             
             AddState(new ShopBootstrapState());
-            AddState(new ShopOpenedAtDayState(new CustomerSpawner(_timePanel, customerPrefab, data)));
-            AddState(new ShopClosedState());
+            AddState(new ShopOpenedAtDayState(new CustomerSpawner(_timePanel, customerPrefab, data), pause, _pausePanel));
+            AddState(new ShopClosedState(pause, _pausePanel));
             
             AddState(new BedroomBoostrapState());
-            AddState(new BedroomState(toggle, playerMode, _furnishingPanel));
+            AddState(new BedroomState(toggle, playerMode, _furnishingPanel, pause, _pausePanel));
             
             AddState(new ItemShopState(itemsForSale, _itemShopPanel, controls, back, _furnishingPanel, _currencyHolder));
+            
+            AddState(new QuitState());
         }
 
         private void Start()
@@ -123,6 +127,7 @@ namespace States
             _furnishingPanel = GetFromUI<IFurnishingPanel>();
             _itemShopPanel = GetFromUI<IItemShopPanel>();
             _dialogPanel = GetFromUI<IDialogPanel>();
+            _pausePanel = GetFromUI<IPausePanel>();
             _timePanel = GetFromUI<ITimePanel>();
         }
         

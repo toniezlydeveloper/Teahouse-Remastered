@@ -10,6 +10,8 @@ namespace Internal.Flow
 {
     public class GameManager : MonoBehaviour
     {
+        [SerializeField] private GameObject uiPanel;
+        
         private AUIPanelsProvider _panelsProvider;
         private AStatesProvider _statesProvider;
         private AUIPanel _currentPanel;
@@ -54,7 +56,7 @@ namespace Internal.Flow
 
         private void InitUITransitions()
         {
-            foreach (AUIPanel panel in _panelsProvider.PanelsByStateType.Values)
+            foreach (AUIPanel panel in uiPanel.GetComponentsInChildren<AUIPanel>())
             {
                 panel.OnTransitionRequested += TogglePanel;
                 panel.OnTransitionRequested += EnterState;

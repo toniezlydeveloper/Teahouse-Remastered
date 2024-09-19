@@ -6,6 +6,7 @@ namespace Utilities
     public class DevelopmentConfig : ScriptableObject
     {
         [field: SerializeField] public bool ShouldSkipCharacterCustomization { get; set; }
+        [field: SerializeField] public bool ShouldSkipMainMenu { get; set; }
         [field: SerializeField] public bool ShouldSkipTutorial { get; set; }
         
         public static DevelopmentConfig Instance => Resources.Load<DevelopmentConfig>(InstancePath);

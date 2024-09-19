@@ -32,7 +32,11 @@ namespace Internal.Flow.UI
         {
             foreach (AUIPanel panel in PanelsParent.GetComponentsInChildren<AUIPanel>())
             {
-                Type stateType = _stateTypeByPanelTypes[panel.GetType()];
+                if (!_stateTypeByPanelTypes.TryGetValue(panel.GetType(), out Type stateType))
+                {
+                    continue;
+                }
+                
                 PanelsByStateType.Add(stateType, panel);
             }
         }

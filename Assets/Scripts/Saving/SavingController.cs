@@ -38,6 +38,16 @@ namespace Saving
             
             ReadJsonToScene(saveType, filePath);
         }
+        
+        public static bool HasFile(PersistenceType persistenceType, FileSaveType saveType) => File.Exists(GetSaveFilePath(persistenceType, saveType));
+
+        public static void ClearPersistent()
+        {
+            foreach (FileSaveType saveType in (FileSaveType[])Enum.GetValues(typeof(FileSaveType)))
+            {
+                Clear(PersistenceType.Persistent, saveType);
+            }
+        }
 
         public static void ClearVolatile()
         {
@@ -67,6 +77,14 @@ namespace Saving
             }
         }
 
+        public static void OverridePersistentWithVolatile()
+        {
+            foreach (FileSaveType saveType in (FileSaveType[])Enum.GetValues(typeof(FileSaveType)))
+            {
+                OverridePersistentWithVolatile(saveType);
+            }
+        }
+
         private static void OverrideVolatileWithPersistent(FileSaveType saveType)
         {
             if (TryGetSaveExistingFilePath(PersistenceType.Persistent, saveType, out string persistentFilePath))
@@ -77,6 +95,16 @@ namespace Saving
             {
                 Clear(PersistenceType.Volatile, saveType);
             }
+        }
+
+        private static void OverridePersistentWithVolatile(FileSaveType saveType)
+        {
+            if (!TryGetSaveExistingFilePath(PersistenceType.Volatile, saveType, out string volatileFilePath))
+            {
+                return;
+            }
+            
+            File.WriteAllText(GetSaveFilePath(PersistenceType.Persistent, saveType), File.ReadAllText(volatileFilePath));
         }
         
         private static bool TryGetSaveExistingFilePath(PersistenceType persistenceType, FileSaveType saveType, out string filePath)

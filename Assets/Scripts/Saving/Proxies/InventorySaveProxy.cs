@@ -35,8 +35,8 @@ namespace Saving.Proxies
         {
             List<InventorySaveData> data = DependencyInjector.GetRecipe<DependencyList<IFurniturePiece>>().Value.Select(piece => new InventorySaveData
             {
-                PieceIndex = itemsForSale.Set.FindIndex(item => item.Piece.Prefab == piece.Prefab),
-                Count = piece.Count
+                PieceIndex = piece != null ? itemsForSale.Set.FindIndex(item => item.Piece.Prefab == piece.Prefab) : -1,
+                Count = piece?.Count ?? 0
             }).ToList();
             
             return JsonConvert.SerializeObject(data);

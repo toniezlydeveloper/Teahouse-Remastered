@@ -1,6 +1,6 @@
 using System;
+using System.Collections.Generic;
 using Internal.Dependencies.Core;
-using Internal.Flow.States;
 using Player;
 using Saving;
 using Transitions;
@@ -9,14 +9,20 @@ using UnityEngine.InputSystem;
 
 namespace States
 {
-    public class BedroomState : AState
+    public class BedroomState : APauseAllowedState
     {
         private DependencyRecipe<IPlayerModeToggle> _playerModeToggle = DependencyInjector.GetRecipe<IPlayerModeToggle>();
         private InputActionReference _toggleInput;
         private IFurnishingPanel _furnishingPanel;
         private PlayerModeProxy _playerMode;
 
-        public BedroomState(InputActionReference toggleInput, PlayerModeProxy playerMode, IFurnishingPanel furnishingPanel)
+        protected override List<FileSaveType> TypesToSave => new List<FileSaveType>
+        {
+            FileSaveType.Inventory,
+            FileSaveType.Bedroom
+        };
+
+        public BedroomState(InputActionReference toggleInput, PlayerModeProxy playerMode, IFurnishingPanel furnishingPanel, InputActionReference pauseInput, IPausePanel pausePanel) : base(pauseInput, pausePanel)
         {
             _furnishingPanel = furnishingPanel;
             _toggleInput = toggleInput;
@@ -32,6 +38,7 @@ namespace States
         public override Type OnUpdate()
         {
             HandleModeToggling();
+            HandlePause();
             return null;
         }
 

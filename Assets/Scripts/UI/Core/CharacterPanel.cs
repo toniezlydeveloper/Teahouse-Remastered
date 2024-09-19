@@ -62,7 +62,7 @@ namespace UI.Core
             nextOutfitButton.onClick.AddListener(RaiseNextOutfitCallback);
             previousColorButton.onClick.AddListener(RaisePreviousColorCallback);
             nextColorButton.onClick.AddListener(RaiseNextColorCallback);
-            continueButton.onClick.AddListener(RequestTransition<ShopBootstrapState>);
+            continueButton.onClick.AddListener(RequestTransition<TutorialBoostrapState>);
             backButton.onClick.AddListener(RequestTransition<MainMenuBootstrapState>);
         }
 

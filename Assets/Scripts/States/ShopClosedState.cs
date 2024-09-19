@@ -1,24 +1,43 @@
+using System;
+using System.Collections.Generic;
 using Customers;
 using Internal.Dependencies.Core;
-using Internal.Flow.States;
 using Internal.Pooling;
 using Player;
 using Saving;
 using Transitions;
+using UI.Shared;
+using UnityEngine.InputSystem;
 
 namespace States
 {
-    public class ShopClosedState : AState
+    public class ShopClosedState : APauseAllowedState
     {
         private DependencyRecipe<DependencyList<IPoolItem>> _poolItems = DependencyInjector.GetRecipe<DependencyList<IPoolItem>>();
         private DependencyRecipe<IPlayerModeToggle> _playerModeToggle = DependencyInjector.GetRecipe<IPlayerModeToggle>();
         private DependencyRecipe<IDoorHinge> _doorHinge = DependencyInjector.GetRecipe<IDoorHinge>();
+
+        protected override List<FileSaveType> TypesToSave => new List<FileSaveType>
+        {
+            FileSaveType.Inventory,
+            FileSaveType.Shop
+        };
+
+        public ShopClosedState(InputActionReference pauseInput, IPausePanel pausePanel) : base(pauseInput, pausePanel)
+        {
+        }
         
         public override void OnEnter()
         {
             SavingController.Load(PersistenceType.Persistent, FileSaveType.Character);
             InitOrganization();
             ToggleDoorHinge(false);
+        }
+
+        public override Type OnUpdate()
+        {
+            HandlePause();
+            return null;
         }
 
         protected override void AddConditions()
