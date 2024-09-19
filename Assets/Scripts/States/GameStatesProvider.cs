@@ -28,10 +28,11 @@ namespace States
     // 10. Poprawienie tutorialu
     // 11. Dodanie minimalistycznej fabuly
     // 12. Dodanie buffow do prowadzenia sklepu za kupione przedmioty do sypialni
-    // 13. Dodanie customizacji postaci
+    // 13. Dodanie customizacji postaci V
     // 14. Dodanie elementow multiplayer - odwiedzania i obserwacji
     // 15. Ewentualne dodanie wspolpracy, jesli nie bedzie zbyt czasochlonne
     // 16. Poprawic model kubka, zeby pokazywal wszystkie dodatki
+    // 17. Dodac auto-save
     public class GameStatesProvider : AStatesProvider
     {
         [Header("General")]

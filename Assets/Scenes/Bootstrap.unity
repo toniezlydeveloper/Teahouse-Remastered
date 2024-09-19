@@ -243,6 +243,7 @@ GameObject:
   - component: {fileID: 34683934}
   - component: {fileID: 34683935}
   - component: {fileID: 34683936}
+  - component: {fileID: 34683937}
   m_Layer: 0
   m_Name: SaveProxies
   m_TagString: Untagged
@@ -324,6 +325,20 @@ MonoBehaviour:
   <Type>k__BackingField: 3
   <Id>k__BackingField: 0b43a5a0-a664-463a-8093-5160f9707dbb
   config: {fileID: 11400000, guid: ffb7f5b42a56fb743b379853c1613826, type: 2}
+--- !u!114 &34683937
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 34683931}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c59010f7ce5943cbbe2248640c6e6899, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <Type>k__BackingField: 2
+  <Id>k__BackingField: 90bd217d-56a5-44c6-9e8c-1a7916f245fd
 --- !u!1 &35840964
 GameObject:
   m_ObjectHideFlags: 0

@@ -55,6 +55,6 @@ namespace Saving.Proxies
             }).ToList();
         }
         
-        private List<PlacedFurniture> GetPlacedFurniture() => PlacedFurnitureVariableName.GetComponent<FurnitureHandler, List<PlacedFurniture>>(FindObjectOfType<FurnitureHandler>());
+        private List<PlacedFurniture> GetPlacedFurniture() => PlacedFurnitureVariableName.GetValue<FurnitureHandler, List<PlacedFurniture>>(FindObjectOfType<FurnitureHandler>());
     }
 }
