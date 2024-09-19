@@ -85,7 +85,6 @@ public class FlexibleColorPicker : MonoBehaviour {
     private BufferedColor bufferedColor;
     private Picker focusedPicker;
     private PickerType focusedPickerType;
-    private MainPickingMode lastUpdatedMode;
     private bool typeUpdate;
     private bool triggeredStaticMode;
     private bool materialsSeperated;
@@ -246,7 +245,6 @@ public class FlexibleColorPicker : MonoBehaviour {
         }
         triggeredStaticMode = staticMode;
         UpdateTextures();
-        MakeModeOptions();
         UpdateMarkers();
         UpdateHex();
         onColorChange.Invoke(startingColor);
@@ -254,8 +252,6 @@ public class FlexibleColorPicker : MonoBehaviour {
 
     private void Update() {
         typeUpdate = false;
-        if(lastUpdatedMode != mode)
-            ChangeMode(mode);
 
         if(staticMode != triggeredStaticMode) {
             UpdateTextures();
@@ -315,25 +311,6 @@ public class FlexibleColorPicker : MonoBehaviour {
 
         UpdateTextures();
         UpdateMarkers();
-    }
-
-    /// <summary>
-    /// Change mode of the main, 2D picking image
-    /// </summary>
-    public void ChangeMode(int newMode) {
-        ChangeMode((MainPickingMode)newMode);
-    }
-
-    /// <summary>
-    /// Change mode of the main, 2D picking image
-    /// </summary>
-    public void ChangeMode(MainPickingMode mode) {
-        this.mode = mode;
-
-        triggeredStaticMode = false;
-        UpdateTextures();
-        UpdateMarkers();
-        UpdateMode(mode);
     }
 
     private void SeperateMaterials() {
@@ -786,45 +763,6 @@ public class FlexibleColorPicker : MonoBehaviour {
             else
                 startingColor = newColor;
         }
-    }
-
-
-
-
-
-
-
-
-
-
-
-
-    /*----------------------------------------------------------
-    * ---------------------- MODE UPDATING ---------------------
-    * ----------------------------------------------------------
-    * 
-    * Allows user to change the 'Main picking mode' which determines 
-    * the values shown on the main, 2D picking image.
-    */
-
-    private void MakeModeOptions() {
-        if(modeDropdown == null || !modeDropdown.gameObject.activeInHierarchy)
-            return;
-
-        modeDropdown.ClearOptions();
-        List<string> options = new List<string>();
-        foreach(MainPickingMode mode in Enum.GetValues(typeof(MainPickingMode)))
-            options.Add(mode.ToString());
-        modeDropdown.AddOptions(options);
-
-        UpdateMode(this.mode);
-    }
-
-    private void UpdateMode(MainPickingMode mode) {
-        lastUpdatedMode = mode;
-        if(modeDropdown == null || !modeDropdown.gameObject.activeInHierarchy)
-            return;
-        modeDropdown.value = (int)mode;
     }
 
 
