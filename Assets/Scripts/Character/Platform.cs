@@ -13,21 +13,27 @@ namespace Character
         [SerializeField] private Transform spawnPoint;
 
         private ICharacterPanel _characterPanel = DependencyInjector.Get<ICharacterPanel>();
+        private CharacterModel _characterModel;
         private SpeciesModel _speciesModel;
-        private GameObject _characterModel;
+        private List<Species> _allSpecies;
         private Species _species;
         private string _outfit;
         private Color _color;
 
-        private void Awake() => _characterPanel.Init(new CharacterData
+        private void Awake()
         {
-            PreviousSpeciesCallback = SelectPreviousSpecies,
-            NextSpeciesCallback = SelectNextSpecies,
-            PreviousOutfitCallback = SelectPreviousOutfit,
-            NextOutfitCallback = SelectNextOutfit,
-            PreviousColorCallback = SelectPreviousColor,
-            NextColorCallback = SelectNextColor
-        });
+            _allSpecies = ((Species[])Enum.GetValues(typeof(Species))).ToList();
+            
+            _characterPanel.Init(new CharacterData
+            {
+                PreviousSpeciesCallback = SelectPreviousSpecies,
+                NextSpeciesCallback = SelectNextSpecies,
+                PreviousOutfitCallback = SelectPreviousOutfit,
+                NextOutfitCallback = SelectNextOutfit,
+                PreviousColorCallback = SelectPreviousColor,
+                NextColorCallback = SelectNextColor
+            });
+        }
 
         private void Start()
         {
@@ -59,7 +65,7 @@ namespace Character
         {
             if (IsShowingModelAlready())
             {
-                Destroy(_characterModel);
+                Destroy(GetModelObject());
             }
 
             SelectModel(GetModel(species));
@@ -69,8 +75,8 @@ namespace Character
 
         private void RefreshModel()
         {
-            SelectOutfit(_speciesModel.DefaultOutfit);
-            SelectColor(_speciesModel.DefaultColor);
+            SelectOutfit(_speciesModel.Outfits[_speciesModel.DefaultOutfitIndex]);
+            SelectColor(_speciesModel.Colors[_speciesModel.DefaultColorIndex]);
         }
 
         private void SelectOutfit(string outfit)
@@ -79,33 +85,37 @@ namespace Character
             Cache(outfit);
         }
 
-        private void SelectColor(Color color) => _characterModel.GetComponent<CharacterModel>().ColorRenderers(color);
-
         private void SelectModel(SpeciesModel model)
         {
             Cache(Instantiate(model.Prefab, spawnPoint));
             Cache(model);
         }
 
+        private void SelectColor(Color color)
+        {
+            ColorRenderers(color);
+            Cache(color);
+        }
+
+        private GameObject GetModelObject() => _characterModel.gameObject;
+
         private bool IsShowingModelAlready() => _characterModel != null;
 
         private SpeciesModel GetModel(Species species) => config.SpeciesModels.First(model => model.Type == species);
 
-        private void ToggleModels(string outfit)
-        {
-            foreach (OutfitModel model in _characterModel.GetComponentsInChildren<OutfitModel>())
-            {
-                model.Toggle(outfit);
-            }
-        }
+        private void ColorRenderers(Color color) => _characterModel.ColorRenderers(color);
 
-        private void Cache(GameObject characterModel) => _characterModel = characterModel;
+        private void ToggleModels(string outfit) => _characterModel.ToggleOutfits(outfit);
+
+        private void Cache(CharacterModel characterModel) => _characterModel = characterModel;
 
         private void Cache(SpeciesModel speciesModel) => _speciesModel = speciesModel;
         
         private void Cache(Species species) => _species = species;
 
         private void Cache(string outfit) => _outfit = outfit;
+
+        private void Cache(Color color) => _color = color;
 
         private TValue SelectPrevious<TValue>(List<TValue> values, ref TValue value)
         {
@@ -123,16 +133,14 @@ namespace Character
         
         private Species SelectPrevious(Species type)
         {
-            List<Species> values = ((Species[])Enum.GetValues(typeof(Species))).ToList();
-            int index = (values.IndexOf(type) + values.Count - 1) % values.Count;
-            return values[index];
+            int index = (_allSpecies.IndexOf(type) + _allSpecies.Count - 1) % _allSpecies.Count;
+            return _allSpecies[index];
         }
 
         private Species SelectNext(Species type)
         {
-            List<Species> values = ((Species[])Enum.GetValues(typeof(Species))).ToList();
-            int index = (values.IndexOf(type) + values.Count + 1) % values.Count;
-            return values[index];
+            int index = (_allSpecies.IndexOf(type) + _allSpecies.Count + 1) % _allSpecies.Count;
+            return _allSpecies[index];
         }
     }
 }

@@ -1,11 +1,11 @@
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 using Furniture;
 using Grids;
 using Newtonsoft.Json;
 using Trading;
 using UnityEngine;
+using Utilities;
 
 namespace Saving.Proxies
 {
@@ -19,16 +19,20 @@ namespace Saving.Proxies
     public class FurnitureHandlerSaveProxy : ASaveProxy
     {
         [SerializeField] private TradeItemsConfig itemsForSale;
+
+        private const string PlacedFurnitureVariableName = "_placedFurniture";
+        private const string AddRangeMethodName = "AddRange";
+        private const string ClearMethodName = "Clear";
         
         public override void Read(string json)
         {
-            Clear(GetList<PlacedFurniture>());
-            AddRange(GetList<PlacedFurniture>(), GetPlacedFurniture(json));
+            ClearMethodName.CallMethod(GetPlacedFurniture());
+            AddRangeMethodName.CallMethod(GetPlacedFurniture(), GetPlacedFurniture(json));
         }
 
         public override string Write()
         {
-            List<PlacedFurnitureSaveData> data = GetList<PlacedFurniture>().Select(furniture => new PlacedFurnitureSaveData
+            List<PlacedFurnitureSaveData> data = GetPlacedFurniture().Select(furniture => new PlacedFurnitureSaveData
             {
                 PieceIndex = itemsForSale.Set.FindIndex(item => item.Piece.Prefab == furniture.Piece.Prefab),
                 ModelId = furniture.Model.GetComponent<FurniturePieceSaveProxy>().Id,
@@ -45,29 +49,12 @@ namespace Saving.Proxies
             
             return data.Select(furnitureData => new PlacedFurniture
             {
-                Model = proxies.First(d => d.Id == furnitureData.ModelId).GameObject,
+                Model = proxies.First(proxy => proxy.Id == furnitureData.ModelId).GameObject,
                 Piece = itemsForSale.Set[furnitureData.PieceIndex].Piece,
                 Cells = furnitureData.Cells
             }).ToList();
         }
-
-        private static List<TItem> GetList<TItem>()
-        {
-            FurnitureHandler furnitureHandler = FindObjectOfType<FurnitureHandler>();
-            FieldInfo fieldInfo = typeof(FurnitureHandler).GetField("_placedFurniture", BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
-            return fieldInfo!.GetValue(furnitureHandler) as List<TItem>;
-        }
-
-        private static void Clear<TItem>(IEnumerable<TItem> list)
-        {
-            MethodInfo clearMethod = typeof(List<TItem>).GetMethod("Clear", BindingFlags.Public | BindingFlags.Instance);
-            clearMethod!.Invoke(list, null);
-        }
-
-        private static void AddRange<TItem>(object list, IEnumerable<TItem> items)
-        {
-            MethodInfo addRangeMethod = typeof(List<TItem>).GetMethod("AddRange", BindingFlags.Public | BindingFlags.Instance);
-            addRangeMethod!.Invoke(list, new object[] { items });
-        }
+        
+        private List<PlacedFurniture> GetPlacedFurniture() => PlacedFurnitureVariableName.GetComponent<List<PlacedFurniture>, FurnitureHandler>(FindObjectOfType<FurnitureHandler>());
     }
 }

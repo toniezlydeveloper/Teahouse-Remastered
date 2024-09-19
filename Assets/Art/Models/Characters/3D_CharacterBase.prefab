@@ -10,8 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 9095398503691326754}
   - component: {fileID: 5574291295772337557}
-  - component: {fileID: 3892032622183708709}
-  - component: {fileID: 7972318363550038908}
   m_Layer: 0
   m_Name: 3D_CharacterBase
   m_TagString: Untagged
@@ -49,34 +47,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   colorableRenderers: []
---- !u!114 &3892032622183708709
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1079990696657945655}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 567d0b7a84e1498ba98b45b779625527, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  presentedOutfit: 0
-  outfitName: 3D_Outfit1
---- !u!114 &7972318363550038908
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1079990696657945655}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 567d0b7a84e1498ba98b45b779625527, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  presentedOutfit: 1
-  outfitName: 3D_Outfit2
+  outfitNames:
+  - 3D_Outfit1
+  - 3D_Outfit2
 --- !u!1001 &1693351869545291127
 PrefabInstance:
   m_ObjectHideFlags: 0

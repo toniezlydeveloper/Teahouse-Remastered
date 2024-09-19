@@ -1,6 +1,7 @@
 using System;
 using Internal.Dependencies.Core;
 using Internal.Flow.UI;
+using States;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -29,6 +30,7 @@ namespace UI.Core
         [SerializeField] private Button nextOutfitButton;
         [SerializeField] private Button previousColorButton;
         [SerializeField] private Button nextColorButton;
+        [SerializeField] private Button continueButton;
 
         private Action _previousSpeciesCallback;
         private Action _nextSpeciesCallback;
@@ -39,12 +41,13 @@ namespace UI.Core
 
         private void Start()
         {
-            previousSpeciesButton.onClick.AddListener(() => _previousSpeciesCallback?.Invoke());
-            nextSpeciesButton.onClick.AddListener(() => _nextSpeciesCallback?.Invoke());
-            previousOutfitButton.onClick.AddListener(() => _previousOutfitCallback?.Invoke());
-            nextOutfitButton.onClick.AddListener(() => _nextOutfitCallback?.Invoke());
-            previousColorButton.onClick.AddListener(() => _previousColorCallback?.Invoke());
-            nextColorButton.onClick.AddListener(() => _nextColorCallback?.Invoke());
+            previousSpeciesButton.onClick.AddListener(RaisePreviousSpeciesCallback);
+            nextSpeciesButton.onClick.AddListener(RaiseNextSpeciesCallback);
+            previousOutfitButton.onClick.AddListener(RaisePreviousOutfitCallback);
+            nextOutfitButton.onClick.AddListener(RaiseNextOutfitCallback);
+            previousColorButton.onClick.AddListener(RaisePreviousColorCallback);
+            nextColorButton.onClick.AddListener(RaiseNextColorCallback);
+            continueButton.onClick.AddListener(RequestTransition<ShopBootstrapState>);
         }
 
         public void Init(CharacterData data)
@@ -56,5 +59,17 @@ namespace UI.Core
             _previousColorCallback = data.PreviousColorCallback;
             _nextColorCallback = data.NextColorCallback;
         }
+
+        private void RaisePreviousSpeciesCallback() => _previousSpeciesCallback?.Invoke();
+
+        private void RaiseNextSpeciesCallback() => _nextSpeciesCallback?.Invoke();
+
+        private void RaisePreviousOutfitCallback() => _previousOutfitCallback?.Invoke();
+
+        private void RaiseNextOutfitCallback() => _nextOutfitCallback?.Invoke();
+
+        private void RaisePreviousColorCallback() => _previousColorCallback?.Invoke();
+
+        private void RaiseNextColorCallback() => _nextColorCallback?.Invoke();
     }
 }

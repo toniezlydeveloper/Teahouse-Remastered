@@ -23,7 +23,11 @@ namespace States
             _playerMode = playerMode;
         }
 
-        public override void OnEnter() => InitModification();
+        public override void OnEnter()
+        {
+            SavingController.Load(PersistenceType.Persistent, FileSaveType.Character);
+            InitModification();
+        }
 
         public override Type OnUpdate()
         {

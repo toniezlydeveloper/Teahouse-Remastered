@@ -22,10 +22,14 @@ namespace Saving.Proxies
         public override void Read(string json)
         {
             if (TryGetOrganizable(out Organizable organizable))
+            {
                 Destroy(organizable.gameObject);
+            }
 
             if (string.IsNullOrEmpty(json))
+            {
                 return;
+            }
             
             ReadData(json);
         }
@@ -33,7 +37,9 @@ namespace Saving.Proxies
         public override string Write()
         {
             if (!TryGetOrganizable(out Organizable organizable))
+            {
                 return string.Empty;
+            }
 
             return WriteData(organizable);
         }
@@ -47,7 +53,9 @@ namespace Saving.Proxies
         private void ReadData(string json)
         {
             OrganizableSaveData data = JsonConvert.DeserializeObject<OrganizableSaveData>(json);
-            _poolsProxy.Get(data.PrefabName, new Vector3(data.XPosition, data.YPosition, data.ZPosition), Quaternion.Euler(0f, data.YRotation, 0f), transform);
+            Vector3 position = new Vector3(data.XPosition, data.YPosition, data.ZPosition);
+            Quaternion rotation = Quaternion.Euler(0f, data.YRotation, 0f);
+            _poolsProxy.Get(data.PrefabName, position, rotation, transform);
         }
 
         private static string WriteData(Organizable organizable)

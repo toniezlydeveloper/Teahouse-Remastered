@@ -426,7 +426,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1079990696657945655, guid: 5fd53ccfb5219484295a88ac495fd928, type: 3}
       propertyPath: m_Name
-      value: 3D_Frog 1
+      value: 3D_Axolotl
       objectReference: {fileID: 0}
     - target: {fileID: 5574291295772337557, guid: 5fd53ccfb5219484295a88ac495fd928, type: 3}
       propertyPath: colorableRenderers.Array.size

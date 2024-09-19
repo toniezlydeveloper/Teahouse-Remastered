@@ -16,6 +16,7 @@ namespace States
         
         public override void OnEnter()
         {
+            SavingController.Load(PersistenceType.Persistent, FileSaveType.Character);
             InitOrganization();
             ToggleDoorHinge(false);
         }

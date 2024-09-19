@@ -13,7 +13,8 @@ namespace Saving
     {
         Bedroom,
         Shop,
-        Inventory
+        Inventory,
+        Character
     }
 
     public enum PersistenceType
