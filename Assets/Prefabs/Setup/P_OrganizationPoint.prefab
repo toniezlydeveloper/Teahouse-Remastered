@@ -159,6 +159,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   modeProxy: {fileID: 11400000, guid: e80d591c18778ab4b9dff2ddc5d7e633, type: 2}
   handledMode: 1
+  handledDayTime: 1
   highlight: {fileID: 8017129073314576021}
   hints:
   - <CorrespondingMode>k__BackingField: 1

@@ -21,6 +21,6 @@ namespace Bedroom
 
         private void Setup() => Setup(timeProxy.Value);
 
-        private void Setup(DayTime dayTime) => _light.color = dayTime == DayTime.Day ? dayColor : nightColor;
+        private void Setup(DayTime dayTime) => _light.color = dayTime == DayTime.Night ? nightColor : dayColor;
     }
 }

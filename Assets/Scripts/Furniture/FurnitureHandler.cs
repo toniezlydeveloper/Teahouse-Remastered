@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Bedroom;
 using Grids;
 using Interaction;
 using Player;
@@ -34,7 +35,8 @@ namespace Furniture
         private FurniturePicker _picker;
 
         public override PlayerMode HandledModes => PlayerMode.Organization;
-        
+        public override DayTime HandledDayTime => DayTime.Night;
+
         public GridItemOrientation Orientation => _rotator.Orientation;
         public GridDimensions Dimensions => _selector.Dimensions;
 

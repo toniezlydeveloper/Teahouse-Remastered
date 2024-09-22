@@ -11,7 +11,7 @@ using UnityEngine.InputSystem;
 
 namespace States
 {
-    public class ShopClosedState : APauseAllowedState
+    public class ShopClosedAtDayState : APauseAllowedState
     {
         private DependencyRecipe<DependencyList<IPoolItem>> _poolItems = DependencyInjector.GetRecipe<DependencyList<IPoolItem>>();
         private DependencyRecipe<IPlayerModeToggle> _playerModeToggle = DependencyInjector.GetRecipe<IPlayerModeToggle>();
@@ -23,7 +23,7 @@ namespace States
             FileSaveType.Shop
         };
 
-        public ShopClosedState(InputActionReference pauseInput, IPausePanel pausePanel) : base(pauseInput, pausePanel)
+        public ShopClosedAtDayState(InputActionReference pauseInput, IPausePanel pausePanel) : base(pauseInput, pausePanel)
         {
         }
         
@@ -44,7 +44,7 @@ namespace States
         {
             AddCondition<ShopOpenedAtDayState>(() =>
             {
-                if (!Transition.ShouldToggle(TransitionType.OpenCloseShop))
+                if (!Transition.ShouldToggle(TransitionType.OpenShop))
                     return false;
                 
                 ToggleDoorHinge(true);

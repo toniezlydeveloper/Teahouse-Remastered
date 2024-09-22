@@ -9,15 +9,18 @@ namespace Bedroom
         [SerializeField] private DayTimeProxy timeProxy;
         
         public override PlayerMode HandledModes => PlayerMode.Modification | PlayerMode.Organization;
+        public override DayTime HandledDayTime => DayTime.Night;
 
         public override void HandleInteractionInput(InteractionElement element)
         {
             if (!TryGetInteractionComponent(element, out DayTimeToggle _))
+            {
                 return;
+            }
             
-            Toggle();
+            GoToDay();
         }
         
-        private void Toggle() => timeProxy.Value = timeProxy.Value == DayTime.Day ? DayTime.Night : DayTime.Day;
+        private void GoToDay() => timeProxy.Value = DayTime.Day;
     }
 }

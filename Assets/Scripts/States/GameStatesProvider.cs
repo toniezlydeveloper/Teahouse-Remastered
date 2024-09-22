@@ -1,3 +1,4 @@
+using Bedroom;
 using Currency;
 using Customers;
 using Furniture;
@@ -38,6 +39,7 @@ namespace States
         [Header("General")]
         [SerializeField] private InputActionReference pause;
         [SerializeField] private CachedItemHolder hand;
+        [SerializeField] private DayTimeProxy dayTime;
         [SerializeField] private GameObject uiParent;
         
         [Header("Tutorial")]
@@ -79,12 +81,14 @@ namespace States
             AddState(new TutorialBoostrapState());
             AddState(new TutorialState(progressDialog, _dialogPanel, tutorialConfig, pause, _pausePanel));
             
-            AddState(new ShopBootstrapState());
-            AddState(new ShopOpenedAtDayState(new CustomerSpawner(_timePanel, customerPrefab, data), pause, _pausePanel));
-            AddState(new ShopClosedState(pause, _pausePanel));
+            AddState(new ShopDayBootstrapState());
+            AddState(new ShopNightBootstrapState());
+            AddState(new ShopOpenedAtDayState(new CustomerSpawner(_timePanel, customerPrefab, data)));
+            AddState(new ShopClosedAtDayState(pause, _pausePanel));
+            AddState(new ShopClosedAtNightState(dayTime, pause, _pausePanel));
             
             AddState(new BedroomBoostrapState());
-            AddState(new BedroomState(toggle, playerMode, _furnishingPanel, pause, _pausePanel));
+            AddState(new BedroomState(toggle, playerMode, dayTime, _furnishingPanel, pause, _pausePanel));
             
             AddState(new ItemShopState(itemsForSale, _itemShopPanel, controls, back, _furnishingPanel, _currencyHolder));
             

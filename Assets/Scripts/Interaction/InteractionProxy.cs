@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Bedroom;
 using Internal.Dependencies.Core;
 using Player;
 using UI.Shared;
@@ -15,6 +16,7 @@ namespace Interaction
         [SerializeField] private InputActionReference interactUpInput;
         [SerializeField] private InputActionReference interactInput;
         [SerializeField] private PlayerModeProxy playerMode;
+        [SerializeField] private DayTimeProxy dayTime;
         
         private IHintsPanel _hintsPanel = DependencyInjector.Get<IHintsPanel>();
 
@@ -79,13 +81,15 @@ namespace Interaction
         private void Remove(InteractionElement interactionElement) => _elementsInRange.Remove(interactionElement);
 
         private void Present(PlayerMode _) => Present();
+
+        private void Present(DayTime _) => Present();
         
         private void Present()
         {
             if (_highlightedElement != null)
                 _highlightedElement.Highlight(false);
 
-            _highlightedElement = _elementsInRange.Where(hint => hint != null).OrderBy(hint => hint.Order).FirstOrDefault(hint => hint.HandledMode.HasFlag(playerMode.Value));
+            _highlightedElement = _elementsInRange.Where(hint => hint != null).OrderBy(hint => hint.Order).FirstOrDefault(hint => hint.HandledMode.HasFlag(playerMode.Value) && hint.HandledDayTime.HasFlag(dayTime.Value));
             
             if (_interactionHandlers.ContainsKey(playerMode.Value))
                 _interactionHandlers[playerMode.Value].ForEach(handler => handler.Present(_highlightedElement));
@@ -125,6 +129,7 @@ namespace Interaction
             interactUpInput.action.performed += InteractUp;
             interactInput.action.performed += Interact;
             playerMode.OnChanged += Present;
+            dayTime.OnChanged += Present;
         }
 
         private void RemoveCallbacks()
@@ -133,6 +138,7 @@ namespace Interaction
             interactUpInput.action.performed -= InteractUp;
             interactInput.action.performed -= Interact;
             playerMode.OnChanged -= Present;
+            dayTime.OnChanged -= Present;
         }
     }
 }

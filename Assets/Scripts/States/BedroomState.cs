@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Bedroom;
 using Internal.Dependencies.Core;
 using Player;
 using Saving;
@@ -15,6 +16,7 @@ namespace States
         private InputActionReference _toggleInput;
         private IFurnishingPanel _furnishingPanel;
         private PlayerModeProxy _playerMode;
+        private DayTimeProxy _dayTime;
 
         protected override List<FileSaveType> TypesToSave => new List<FileSaveType>
         {
@@ -22,11 +24,12 @@ namespace States
             FileSaveType.Bedroom
         };
 
-        public BedroomState(InputActionReference toggleInput, PlayerModeProxy playerMode, IFurnishingPanel furnishingPanel, InputActionReference pauseInput, IPausePanel pausePanel) : base(pauseInput, pausePanel)
+        public BedroomState(InputActionReference toggleInput, PlayerModeProxy playerMode, DayTimeProxy dayTime, IFurnishingPanel furnishingPanel, InputActionReference pauseInput, IPausePanel pausePanel) : base(pauseInput, pausePanel)
         {
             _furnishingPanel = furnishingPanel;
             _toggleInput = toggleInput;
             _playerMode = playerMode;
+            _dayTime = dayTime;
         }
 
         public override void OnEnter()
@@ -45,15 +48,39 @@ namespace States
         protected override void AddConditions()
         {
             AddCondition<ItemShopState>(() => Transition.ShouldToggle(TransitionType.ItemShop));
-            AddCondition<ShopBootstrapState>(() =>
+            AddCondition<ShopDayBootstrapState>(() =>
             {
-                if (!Transition.ShouldToggle(TransitionType.Shop))
+                if (!Is(DayTime.Day))
+                {
                     return false;
+                }
+                
+                if (!Transition.ShouldToggle(TransitionType.Shop))
+                {
+                    return false;
+                }
+
+                SavingController.Save(PersistenceType.Volatile, FileSaveType.Bedroom);
+                return true;
+            });
+            AddCondition<ShopNightBootstrapState>(() =>
+            {
+                if (!Is(DayTime.Night))
+                {
+                    return false;
+                }
+                
+                if (!Transition.ShouldToggle(TransitionType.Shop))
+                {
+                    return false;
+                }
 
                 SavingController.Save(PersistenceType.Volatile, FileSaveType.Bedroom);
                 return true;
             });
         }
+
+        private bool Is(DayTime dayTime) => _dayTime.Value == dayTime;
 
         private void InitModification()
         {
@@ -64,7 +91,9 @@ namespace States
         private void HandleModeToggling()
         {
             if (!_toggleInput.action.triggered)
+            {
                 return;
+            }
             
             _playerModeToggle.Value.Toggle(_playerMode.Value == PlayerMode.Modification ? PlayerMode.Organization : PlayerMode.Modification);
             _furnishingPanel.Present(_playerMode.Value == PlayerMode.Organization);

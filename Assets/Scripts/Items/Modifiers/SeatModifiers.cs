@@ -84,10 +84,16 @@ namespace Items.Modifiers
             if (!player.TryGet(out Cup cup))
                 return false;
 
+            if (cup.IsDirty)
+                return false;
+
             if (!place.TryGet(out Order order))
                 return false;
 
             if (!order.WasTaken)
+                return false;
+
+            if (order.WasCompleted)
                 return false;
             
             List<Enum> orderNotInCup = order.HeldAddIns.Except(cup.HeldAddIns).ToList();

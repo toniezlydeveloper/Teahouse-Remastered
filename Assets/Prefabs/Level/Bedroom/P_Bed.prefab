@@ -80,6 +80,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   modeProxy: {fileID: 11400000, guid: e80d591c18778ab4b9dff2ddc5d7e633, type: 2}
   handledMode: 2
+  handledDayTime: 2
   highlight: {fileID: 3001056940231999748}
   hints:
   - <CorrespondingMode>k__BackingField: 2
@@ -111,6 +112,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06953258352148b9bde6d30fe884a331, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <Type>k__BackingField: 0
   <Id>k__BackingField: 
 --- !u!114 &4327239040887438604
 MonoBehaviour:

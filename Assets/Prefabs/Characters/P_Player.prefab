@@ -116,6 +116,7 @@ MonoBehaviour:
   interactUpInput: {fileID: 4019998940808226789, guid: 66336f1aba36c584aa036f1400048593, type: 3}
   interactInput: {fileID: -688405445266427128, guid: 66336f1aba36c584aa036f1400048593, type: 3}
   playerMode: {fileID: 11400000, guid: e80d591c18778ab4b9dff2ddc5d7e633, type: 2}
+  dayTime: {fileID: 11400000, guid: 20504ba66115c8f49917e37fbaf3b526, type: 2}
 --- !u!114 &6566487373560333613
 MonoBehaviour:
   m_ObjectHideFlags: 0

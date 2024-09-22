@@ -1,3 +1,4 @@
+using Bedroom;
 using Player;
 using UnityEngine;
 
@@ -6,6 +7,7 @@ namespace Interaction
     public abstract class AInteractionHandler : MonoBehaviour
     {
         public abstract PlayerMode HandledModes { get; }
+        public abstract DayTime HandledDayTime { get; }
 
         public virtual void HandleInteractionDownInput(InteractionElement element)
         {

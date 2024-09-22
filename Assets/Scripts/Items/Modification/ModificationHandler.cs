@@ -1,3 +1,4 @@
+using Bedroom;
 using Interaction;
 using Internal.Dependencies.Core;
 using Items.Holders;
@@ -15,6 +16,7 @@ namespace Items.Modification
         private ModificationPreviewer _itemPreviewer;
 
         public override PlayerMode HandledModes => PlayerMode.Modification;
+        public override DayTime HandledDayTime => DayTime.Day;
 
         public override void HandleInteractionDownInput(InteractionElement element)
         {

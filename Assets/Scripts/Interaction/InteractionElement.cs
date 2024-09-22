@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Bedroom;
 using Player;
 using UnityEngine;
 
@@ -19,12 +20,14 @@ namespace Interaction
     {
         [SerializeField] private PlayerModeProxy modeProxy;
         [SerializeField] private PlayerMode handledMode;
+        [SerializeField] private DayTime handledDayTime;
         [SerializeField] private GameObject highlight;
         [SerializeField] private ModeHints[] hints;
         [SerializeField] private int order;
         
         public Dictionary<PlayerMode, ModeHints> HintsByMode { get; private set; }
 
+        public DayTime HandledDayTime => handledDayTime;
         public PlayerMode HandledMode => handledMode;
         public int Order => order;
 

@@ -1,3 +1,4 @@
+using Bedroom;
 using Interaction;
 using Internal.Dependencies.Core;
 using Internal.Pooling;
@@ -13,6 +14,7 @@ namespace Organization
         private string _organizableName;
 
         public override PlayerMode HandledModes => PlayerMode.Organization;
+        public override DayTime HandledDayTime => DayTime.Day;
 
         public override void HandleInteractionDownInput(InteractionElement element)
         {

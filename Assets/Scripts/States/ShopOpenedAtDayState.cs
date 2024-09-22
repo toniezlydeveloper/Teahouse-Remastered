@@ -1,22 +1,16 @@
-using System;
-using System.Collections.Generic;
 using System.Linq;
 using Customers;
 using Internal.Dependencies.Core;
+using Internal.Flow.States;
 using Internal.Pooling;
 using Internal.Utilities;
 using Items.Holders;
 using Player;
-using Saving;
-using Transitions;
-using UI.Shared;
-using UnityEditor;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 namespace States
 {
-    public class ShopOpenedAtDayState : APauseAllowedState
+    public class ShopOpenedAtDayState : AState
     {
         private DependencyRecipe<DependencyList<IManageableItemHolder>> _itemHolders = DependencyInjector.GetRecipe<DependencyList<IManageableItemHolder>>();
         private DependencyRecipe<DependencyList<IPoolItem>> _poolItems = DependencyInjector.GetRecipe<DependencyList<IPoolItem>>();
@@ -25,13 +19,7 @@ namespace States
         private CustomerSpawner _customerSpawner;
         private Coroutine _spawnCoroutine;
 
-        protected override List<FileSaveType> TypesToSave => new List<FileSaveType>
-        {
-            FileSaveType.Inventory,
-            FileSaveType.Shop
-        };
-
-        public ShopOpenedAtDayState(CustomerSpawner customerSpawner, InputActionReference pauseInput, IPausePanel pausePanel) : base(pauseInput, pausePanel)
+        public ShopOpenedAtDayState(CustomerSpawner customerSpawner)
         {
             _customerSpawner = customerSpawner;
         }
@@ -50,19 +38,7 @@ namespace States
             DeinitPooledItems();
         }
 
-        public override Type OnUpdate()
-        {
-            HandlePause();
-            return null;
-        }
-
-        protected override void AddConditions() => AddCondition<ShopClosedState>(() =>
-        {
-            if (Transition.ShouldToggle(TransitionType.OpenCloseShop))
-                return true;
-
-            return HasFinishedLevel();
-        });
+        protected override void AddConditions() => AddCondition<ShopClosedAtNightState>(HasFinishedLevel);
 
         private void InitModification() => _playerModeToggle.Value.Toggle(PlayerMode.Modification);
 

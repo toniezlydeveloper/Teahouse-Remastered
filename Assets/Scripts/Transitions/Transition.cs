@@ -5,7 +5,7 @@ namespace Transitions
     public enum TransitionType
     {
         None = 0,
-        OpenCloseShop = 1,
+        OpenShop = 1,
         Shop = 2,
         Bedroom = 4,
         ItemShop = 5

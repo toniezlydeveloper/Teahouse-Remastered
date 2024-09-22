@@ -16,6 +16,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3064861303790718610, guid: 909a7cd80b63b46449e7a9bd2d1bbef6, type: 3}
+      propertyPath: handledDayTime
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3064861303790718610, guid: 909a7cd80b63b46449e7a9bd2d1bbef6, type: 3}
       propertyPath: hints.Array.size
       value: 1
       objectReference: {fileID: 0}

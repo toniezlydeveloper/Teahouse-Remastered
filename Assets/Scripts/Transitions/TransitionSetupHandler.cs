@@ -1,3 +1,4 @@
+using Bedroom;
 using Interaction;
 using Player;
 
@@ -6,6 +7,7 @@ namespace Transitions
     public class TransitionSetupHandler : AInteractionHandler
     {
         public override PlayerMode HandledModes => PlayerMode.Modification | PlayerMode.Organization;
+        public override DayTime HandledDayTime => DayTime.Night | DayTime.Day;
 
         public override void HandleInteractionInput(InteractionElement element)
         {

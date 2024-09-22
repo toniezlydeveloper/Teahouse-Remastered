@@ -11,7 +11,14 @@ namespace States
         public override void OnExit() => SavingController.Load(PersistenceType.Volatile, FileSaveType.Bedroom);
     }
     
-    public class ShopBootstrapState : ABootstrapState<ShopClosedState>
+    public class ShopDayBootstrapState : ABootstrapState<ShopClosedAtDayState>
+    {
+        protected override string LevelName => "Shop";
+
+        public override void OnExit() => SavingController.Load(PersistenceType.Volatile, FileSaveType.Shop);
+    }
+    
+    public class ShopNightBootstrapState : ABootstrapState<ShopClosedAtNightState>
     {
         protected override string LevelName => "Shop";
 
