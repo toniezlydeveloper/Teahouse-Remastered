@@ -5,6 +5,6 @@ namespace States
 {
     public class MainMenuState : AState
     {
-        protected override void AddConditions() => AddCondition<ShopDayBootstrapState>(() => DevelopmentConfig.Instance.ShouldSkipMainMenu);
+        protected override void AddConditions() => AddCondition<BedroomBoostrapState>(() => DevelopmentConfig.Instance.ShouldSkipMainMenu);
     }
 }

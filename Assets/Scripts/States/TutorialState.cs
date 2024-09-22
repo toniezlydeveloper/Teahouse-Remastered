@@ -44,14 +44,14 @@ namespace States
 
             if (HasRunOutOfSteps())
             {
-                return typeof(ShopDayBootstrapState);
+                return typeof(BedroomBoostrapState);
             }
 
             ShowNextStep();
             return null;
         }
 
-        protected override void AddConditions() => AddCondition<ShopDayBootstrapState>(() => DevelopmentConfig.Instance.ShouldSkipTutorial);
+        protected override void AddConditions() => AddCondition<BedroomBoostrapState>(() => DevelopmentConfig.Instance.ShouldSkipTutorial);
 
         private bool ReceivedProgressInput() => _progressInput.triggered;
 

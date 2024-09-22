@@ -36,11 +36,18 @@ namespace States
         {
             SavingController.Load(PersistenceType.Persistent, FileSaveType.Character);
             InitModification();
+            AddCallbacks();
         }
+
+        public override void OnExit() => RemoveCallbacks();
 
         public override Type OnUpdate()
         {
-            HandleModeToggling();
+            if (Is(DayTime.Night))
+            {
+                HandleModeToggling();
+            }
+            
             HandlePause();
             return null;
         }
@@ -80,6 +87,8 @@ namespace States
             });
         }
 
+        private void DisableOrganization(DayTime _) => InitModification();
+
         private bool Is(DayTime dayTime) => _dayTime.Value == dayTime;
 
         private void InitModification()
@@ -98,5 +107,9 @@ namespace States
             _playerModeToggle.Value.Toggle(_playerMode.Value == PlayerMode.Modification ? PlayerMode.Organization : PlayerMode.Modification);
             _furnishingPanel.Present(_playerMode.Value == PlayerMode.Organization);
         }
+
+        private void AddCallbacks() => _dayTime.OnChanged += DisableOrganization;
+
+        private void RemoveCallbacks() => _dayTime.OnChanged -= DisableOrganization;
     }
 }

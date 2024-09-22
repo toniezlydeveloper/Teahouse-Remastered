@@ -278,7 +278,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 295746269}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &34683934
 MonoBehaviour:
@@ -415,6 +415,51 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 35840964}
   m_CullTransparentMesh: 1
+--- !u!1 &48634499
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 48634500}
+  - component: {fileID: 48634501}
+  m_Layer: 0
+  m_Name: DayTimeInitializer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &48634500
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 48634499}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 295746269}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &48634501
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 48634499}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a573add0cf74902bf686d8f0c588722, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  proxy: {fileID: 11400000, guid: 20504ba66115c8f49917e37fbaf3b526, type: 2}
 --- !u!1 &66402544
 GameObject:
   m_ObjectHideFlags: 0
@@ -445,7 +490,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 295746269}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &66402546
 MonoBehaviour:
@@ -1484,6 +1529,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 48634500}
   - {fileID: 66402545}
   - {fileID: 34683933}
   - {fileID: 1834013147}
@@ -1531,6 +1577,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pause: {fileID: 1528418383925921763, guid: 66336f1aba36c584aa036f1400048593, type: 3}
   hand: {fileID: 11400000, guid: d064fd1e490aeec418092251174c58b4, type: 2}
+  dayTime: {fileID: 11400000, guid: 20504ba66115c8f49917e37fbaf3b526, type: 2}
   uiParent: {fileID: 1431542015}
   progressDialog: {fileID: -688405445266427128, guid: 66336f1aba36c584aa036f1400048593, type: 3}
   tutorialConfig: {fileID: 11400000, guid: c8e3582e3318caa43ad21c8951f30b25, type: 2}
@@ -1543,7 +1590,6 @@ MonoBehaviour:
   itemsForSale: {fileID: 11400000, guid: eced42cd2d8da8b43bdb70590a7ddb56, type: 2}
   toggle: {fileID: 2855096636729473866, guid: 66336f1aba36c584aa036f1400048593, type: 3}
   playerMode: {fileID: 11400000, guid: e80d591c18778ab4b9dff2ddc5d7e633, type: 2}
-  dayTime: {fileID: 11400000, guid: 20504ba66115c8f49917e37fbaf3b526, type: 2}
 --- !u!1001 &332573726
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5678,7 +5724,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 295746269}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1834013148
 MonoBehaviour:
@@ -5740,7 +5786,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 295746269}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1922107726
 MonoBehaviour:

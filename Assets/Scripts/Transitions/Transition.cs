@@ -22,7 +22,9 @@ namespace Transitions
         public static bool ShouldToggle(TransitionType type)
         {
             if (_targetTransitionType != type)
+            {
                 return false;
+            }
 
             _targetTransitionType = TransitionType.None;
             return true;
