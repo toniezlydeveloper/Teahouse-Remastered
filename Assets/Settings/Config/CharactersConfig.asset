@@ -19,22 +19,34 @@ MonoBehaviour:
     - {r: 0.05882353, g: 1, b: 0, a: 1}
     - {r: 0.3176471, g: 1, b: 0.41465703, a: 1}
     - {r: 0.17006247, g: 0.5943396, b: 0, a: 1}
-    <DefaultColor>k__BackingField: {r: 0.05724919, g: 1, b: 0, a: 1}
+    <DefaultColorIndex>k__BackingField: 0
     <Outfits>k__BackingField:
     - 
     - 3D_Outfit1
     - 3D_Outfit2
-    <DefaultOutfit>k__BackingField: 
+    <DefaultOutfitIndex>k__BackingField: 0
   - <Prefab>k__BackingField: {fileID: 7451335613052072136, guid: a8a9a6d2ac2562d49a72de7a90bc0db0, type: 3}
     <Type>k__BackingField: 1
     <Colors>k__BackingField:
     - {r: 1, g: 0.98039216, b: 0, a: 1}
     - {r: 1, g: 0.71980846, b: 0.3176471, a: 1}
     - {r: 1, g: 0.3160377, b: 0.3160377, a: 1}
-    <DefaultColor>k__BackingField: {r: 1, g: 0.9815198, b: 0, a: 1}
+    <DefaultColorIndex>k__BackingField: 0
     <Outfits>k__BackingField:
     - 
     - 3D_Outfit1
     - 3D_Outfit2
-    <DefaultOutfit>k__BackingField: 
+    <DefaultOutfitIndex>k__BackingField: 0
+  - <Prefab>k__BackingField: {fileID: 8391403363425294775, guid: d024525277c0013418b4bc488baeae02, type: 3}
+    <Type>k__BackingField: 2
+    <Colors>k__BackingField:
+    - {r: 1, g: 0.98039216, b: 0, a: 1}
+    - {r: 1, g: 0.71980846, b: 0.3176471, a: 1}
+    - {r: 1, g: 0.3160377, b: 0.3160377, a: 1}
+    <DefaultColorIndex>k__BackingField: 0
+    <Outfits>k__BackingField:
+    - 
+    - 3D_Outfit1
+    - 3D_Outfit2
+    <DefaultOutfitIndex>k__BackingField: 0
   <DefaultSpecies>k__BackingField: 0
