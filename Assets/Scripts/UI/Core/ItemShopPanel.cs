@@ -7,11 +7,13 @@ using UnityEngine;
 
 namespace UI.Core
 {
+    [Obsolete]
     public interface IItemShopPanel : IDependency
     {
         void Present(ItemPreview[] previews);
     }
 
+    [Obsolete]
     public class ItemPreview
     {
         public Func<bool> CanSellCallback { get; set; }

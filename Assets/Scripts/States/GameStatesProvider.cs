@@ -49,6 +49,10 @@ namespace States
         [Header("Opened At Day")]
         [SerializeField] private Customer customerPrefab;
         [SerializeField] private SpawnData data;
+
+        [Header("Opened At Day")]
+        [SerializeField] private InputActionReference controls;
+        [SerializeField] private InputActionReference back;
         
         [Header("Bedroom")]
         [SerializeField] private InputActionReference toggle;
@@ -82,7 +86,7 @@ namespace States
             AddState(new BedroomBoostrapState());
             AddState(new BedroomState(toggle, playerMode, dayTime, pause, _pausePanel));
             
-            AddState(new CallingState(pause));
+            AddState(new CallingState(controls, back));
             
             AddState(new QuitState());
         }
