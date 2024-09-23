@@ -9,21 +9,35 @@ namespace Editor
     {
         [MenuItem("Tools/just Adam/General Helper")]
         public static void Open() => CreateWindow<GeneralHelper>("General Helper");
+        
+        [MenuItem("Tools/just Adam/Start #s")]
+        public static void Start()
+        {
+            SceneCache.CacheScene();
+            EditorSceneManager.OpenScene(SceneUtility.GetScenePathByBuildIndex(0));
+            EditorApplication.EnterPlaymode();
+        }
+        
+        [MenuItem("Tools/just Adam/Exit #e")]
+        public static void Exit() => EditorApplication.ExitPlaymode();
+        
+        [MenuItem("Tools/just Adam/Game View Fullscreen &g")]
+        public static void ToggleMaximizeGameView() => ToggleWindow(GetWindow(System.Type.GetType("UnityEditor.GameView,UnityEditor")));
 
         private void OnGUI()
         {
             if (GUILayout.Button("Start"))
             {
-                SceneCache.CacheScene();
-                EditorSceneManager.OpenScene(SceneUtility.GetScenePathByBuildIndex(0));
-                EditorApplication.EnterPlaymode();
+                Start();
             }
             
-            if (GUILayout.Button("Stop"))
+            if (GUILayout.Button("Exit"))
             {
-                EditorApplication.ExitPlaymode();
+                Exit();
             }
         }
+
+        private static void ToggleWindow(EditorWindow window) => window.maximized = !window.maximized;
     }
 
     [InitializeOnLoad]

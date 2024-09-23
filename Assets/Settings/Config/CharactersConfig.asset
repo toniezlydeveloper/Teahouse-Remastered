@@ -49,4 +49,16 @@ MonoBehaviour:
     - 3D_Outfit1
     - 3D_Outfit2
     <DefaultOutfitIndex>k__BackingField: 0
+  - <Prefab>k__BackingField: {fileID: 8391403363425294775, guid: 462a004c68e086548a70ba5af349a0fa, type: 3}
+    <Type>k__BackingField: 3
+    <Colors>k__BackingField:
+    - {r: 1, g: 0.98039216, b: 0, a: 1}
+    - {r: 1, g: 0.71980846, b: 0.3176471, a: 1}
+    - {r: 1, g: 0.3160377, b: 0.3160377, a: 1}
+    <DefaultColorIndex>k__BackingField: 0
+    <Outfits>k__BackingField:
+    - 
+    - 3D_Outfit1
+    - 3D_Outfit2
+    <DefaultOutfitIndex>k__BackingField: 0
   <DefaultSpecies>k__BackingField: 0
