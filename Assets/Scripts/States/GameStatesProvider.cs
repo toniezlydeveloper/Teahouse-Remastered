@@ -49,19 +49,11 @@ namespace States
         [Header("Opened At Day")]
         [SerializeField] private Customer customerPrefab;
         [SerializeField] private SpawnData data;
-
-        [Header("Item Shop")]
-        [SerializeField] private InputActionReference controls;
-        [SerializeField] private InputActionReference back;
-        [SerializeField] private TradeItemsConfig itemsForSale;
         
         [Header("Bedroom")]
         [SerializeField] private InputActionReference toggle;
         [SerializeField] private PlayerModeProxy playerMode;
 
-        private IFurnishingPanel _furnishingPanel;
-        private ICurrencyHolder _currencyHolder;
-        private IItemShopPanel _itemShopPanel;
         private IDialogPanel _dialogPanel;
         private IPausePanel _pausePanel;
         private ITimePanel _timePanel;
@@ -88,9 +80,9 @@ namespace States
             AddState(new ShopClosedAtNightState(dayTime, pause, _pausePanel));
             
             AddState(new BedroomBoostrapState());
-            AddState(new BedroomState(toggle, playerMode, dayTime, _furnishingPanel, pause, _pausePanel));
+            AddState(new BedroomState(toggle, playerMode, dayTime, pause, _pausePanel));
             
-            AddState(new ItemShopState(itemsForSale, _itemShopPanel, controls, back, _furnishingPanel, _currencyHolder));
+            AddState(new CallingState(pause));
             
             AddState(new QuitState());
         }
@@ -128,9 +120,6 @@ namespace States
         
         private void GetReferences()
         {
-            _currencyHolder = GetFromScene<ICurrencyHolder>();
-            _furnishingPanel = GetFromUI<IFurnishingPanel>();
-            _itemShopPanel = GetFromUI<IItemShopPanel>();
             _dialogPanel = GetFromUI<IDialogPanel>();
             _pausePanel = GetFromUI<IPausePanel>();
             _timePanel = GetFromUI<ITimePanel>();

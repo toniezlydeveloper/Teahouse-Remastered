@@ -11,9 +11,9 @@ namespace UI.Core
             AddTranslation<ShopClosedAtDayState, ShopClosedPanel>();
             AddTranslation<CharacterState, CharacterPanel>();
             AddTranslation<TutorialState, TutorialPanel>();
-            AddTranslation<ItemShopState, ItemShopPanel>();
             AddTranslation<MainMenuState, MainMenuPanel>();
             AddTranslation<BedroomState, BedroomPanel>();
+            AddTranslation<CallingState, CallingPanel>();
         }
     }
 }

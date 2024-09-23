@@ -22,7 +22,8 @@ namespace UI.Core
         public string Name { get; set; }
         public int Cost { get; set; }
     }
-    
+
+    [Obsolete]
     public class ItemShopPanel : AUIPanel, IItemShopPanel
     {
         [SerializeField] private Transform barParent;

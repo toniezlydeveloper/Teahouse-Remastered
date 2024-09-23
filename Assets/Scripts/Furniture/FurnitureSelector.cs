@@ -14,7 +14,6 @@ namespace Furniture
         private readonly PlayerModeProxy _playerMode;
 
         private DependencyRecipe<DependencyList<IFurniturePiece>> _pieces = DependencyInjector.GetRecipe<DependencyList<IFurniturePiece>>();
-        private IFurnishingPanel _furnishingPanel = DependencyInjector.Get<IFurnishingPanel>();
         private DependencyRecipe<IGrid> _grid = DependencyInjector.GetRecipe<IGrid>();
         private GridDimensions _selectedPieceDimensions;
         private IFurniturePiece _selectedPiece;
@@ -39,7 +38,6 @@ namespace Furniture
                 return;
 
             ReadOutput(out selectedPiece);
-            RefreshSelectionUI();
         }
 
         public void RemoveSelection() => _selectedPiece = null;
@@ -66,7 +64,5 @@ namespace Furniture
             _selectedPieceDimensions = _selectedPiece != null ? _selectedPiece.Dimensions : DefaultDimensions;
             return true;
         }
-
-        private void RefreshSelectionUI() => _furnishingPanel.Present(_selectedPieceIndex);
     }
 }

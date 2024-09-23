@@ -1,7 +1,9 @@
+using System;
 using System.Collections.Generic;
 
 namespace UI.Shared
 {
+    [Obsolete]
     public class FurnishingPanelProxy : APanelsProxy<IFurnishingPanel>, IFurnishingPanel
     {
         public void Present(List<FurniturePieceData> pieces)

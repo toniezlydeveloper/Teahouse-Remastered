@@ -12,7 +12,6 @@ namespace Furniture
     public class FurniturePicker
     {
         private DependencyRecipe<DependencyList<IFurniturePiece>> _pieces = DependencyInjector.GetRecipe<DependencyList<IFurniturePiece>>();
-        private IFurnishingPanel _furnishingPanel = DependencyInjector.Get<IFurnishingPanel>();
         private DependencyRecipe<IGrid> _grid = DependencyInjector.GetRecipe<IGrid>();
         private List<PlacedFurniture> _placedFurniture;
         private Material _originalPreviewMaterial;
@@ -67,7 +66,6 @@ namespace Furniture
             {
                 AddToInventory(piece);
                 Clear(furniture);
-                RefreshPiecesUI();
                 return;
             }
 
@@ -76,7 +74,6 @@ namespace Furniture
             
             Clear(furniture);
             AddToInventory(furniture);
-            RefreshPiecesUI();
         }
 
         private bool TryGetPieceInInventory(PlacedFurniture furniture, out IFurniturePiece piece)
@@ -154,7 +151,5 @@ namespace Furniture
         }
 
         private bool ReceivedPickInput() => _pickInput.action.triggered;
-
-        private void RefreshPiecesUI() => _furnishingPanel.Present(_pieces.Value.Select(piece => new FurniturePieceData { Icon = piece?.Icon, Count = piece?.Count ?? 0}).ToList());
     }
 }

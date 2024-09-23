@@ -7,6 +7,7 @@ using Internal.Utilities;
 using Items.Holders;
 using Player;
 using UnityEngine;
+using Utilities;
 
 namespace States
 {
@@ -28,14 +29,26 @@ namespace States
         {
             InitModification();
             InitItemHolders();
+
+            if (DevelopmentConfig.Instance.ShouldSkipCustomers)
+            {
+                return;
+            }
+            
             InitCustomerQueue();
         }
 
         public override void OnExit()
         {
             DeinitItemHolders();
-            DeinitCustomerQueue();
             DeinitPooledItems();
+
+            if (DevelopmentConfig.Instance.ShouldSkipCustomers)
+            {
+                return;
+            }
+            
+            DeinitCustomerQueue();
         }
 
         protected override void AddConditions() => AddCondition<ShopClosedAtNightState>(HasFinishedLevel);
@@ -70,6 +83,6 @@ namespace States
                 poolItem.TryReleasing();
         }
 
-        private bool HasFinishedLevel() => _customerSpawner.IsDone;
+        private bool HasFinishedLevel() => _customerSpawner.IsDone || DevelopmentConfig.Instance.ShouldSkipCustomers;
     }
 }

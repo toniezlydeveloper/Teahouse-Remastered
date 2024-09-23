@@ -13,7 +13,6 @@ namespace Furniture
     public class FurniturePlacer
     {
         private DependencyRecipe<DependencyList<IFurniturePiece>> _pieces = DependencyInjector.GetRecipe<DependencyList<IFurniturePiece>>();
-        private IFurnishingPanel _furnishingPanel = DependencyInjector.Get<IFurnishingPanel>();
         private DependencyRecipe<IGrid> _grid = DependencyInjector.GetRecipe<IGrid>();
         private List<PlacedFurniture> _placedFurniture;
         private Vector3 _worldPositionOffset;
@@ -33,8 +32,11 @@ namespace Furniture
 
         public FurniturePlacer(List<PlacedFurniture> placedFurniture, InputActionReference placeInput, Material previewMaterial, Color invalidSpotColor, Color validSpotColor)
         {
-            GetReferences(placedFurniture, previewMaterial, invalidSpotColor, validSpotColor, placeInput);
-            RefreshPiecesUI();
+            _originalPreviewMaterial = new Material(previewMaterial);
+            _invalidSpotColor = invalidSpotColor;
+            _placedFurniture = placedFurniture;
+            _validSpotColor = validSpotColor;
+            _placeInput = placeInput;
         }
 
         public bool TryPlacing(IFurniturePiece selectedPiece, FurnitureOrientation orientation)
@@ -45,11 +47,7 @@ namespace Furniture
             if (!AreCellsFree())
                 return false;
             
-            if (!TryPlacingPiece(selectedPiece))
-                return false;
-            
-            RefreshPiecesUI();
-            return true;
+            return TryPlacingPiece(selectedPiece);
         }
         
         public void HandlePreview(FurnitureOrientation orientation)
@@ -174,16 +172,5 @@ namespace Furniture
             _preview.transform.forward = orientation.ToForward();
             _preview.transform.position = center;
         }
-
-        private void GetReferences(List<PlacedFurniture> placedFurniture, Material previewMaterial, Color invalidSpotColor, Color validSpotColor, InputActionReference placeInput)
-        {
-            _originalPreviewMaterial = new Material(previewMaterial);
-            _invalidSpotColor = invalidSpotColor;
-            _placedFurniture = placedFurniture;
-            _validSpotColor = validSpotColor;
-            _placeInput = placeInput;
-        }
-
-        private void RefreshPiecesUI() => _furnishingPanel.Present(_pieces.Value.Select(piece => new FurniturePieceData { Icon = piece?.Icon, Count = piece?.Count ?? 0}).ToList());
     }
 }

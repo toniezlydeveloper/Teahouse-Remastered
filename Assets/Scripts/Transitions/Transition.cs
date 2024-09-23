@@ -8,7 +8,7 @@ namespace Transitions
         OpenShop = 1,
         Shop = 2,
         Bedroom = 4,
-        ItemShop = 5
+        Calling = 5
     }
 
     public class Transition : MonoBehaviour

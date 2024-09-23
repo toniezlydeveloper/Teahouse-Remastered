@@ -25671,7 +25671,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5020493583045865499, guid: 4d722cb4eb6b82a488f658a7d5c89533, type: 3}
       propertyPath: m_Name
-      value: P_ItemShop
+      value: P_Phone
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4d722cb4eb6b82a488f658a7d5c89533, type: 3}

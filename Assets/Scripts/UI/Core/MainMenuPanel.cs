@@ -27,7 +27,7 @@ namespace UI.Core
             RequestTransition<CharacterBoostrapState>();
         }
 
-        private void ContinueGame() => RequestTransition<ShopDayBootstrapState>();
+        private void ContinueGame() => RequestTransition<BedroomBoostrapState>();
 
         private void Quit() => RequestTransition<QuitState>();
     }

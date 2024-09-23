@@ -1,9 +1,11 @@
+using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace UI.Helpers
 {
+    [Obsolete]
     public class FurnitureSlot : MonoBehaviour
     {
         [SerializeField] private TextMeshProUGUI countContainer;

@@ -14,7 +14,6 @@ namespace States
     {
         private DependencyRecipe<IPlayerModeToggle> _playerModeToggle = DependencyInjector.GetRecipe<IPlayerModeToggle>();
         private InputActionReference _toggleInput;
-        private IFurnishingPanel _furnishingPanel;
         private PlayerModeProxy _playerMode;
         private DayTimeProxy _dayTime;
 
@@ -24,9 +23,8 @@ namespace States
             FileSaveType.Bedroom
         };
 
-        public BedroomState(InputActionReference toggleInput, PlayerModeProxy playerMode, DayTimeProxy dayTime, IFurnishingPanel furnishingPanel, InputActionReference pauseInput, IPausePanel pausePanel) : base(pauseInput, pausePanel)
+        public BedroomState(InputActionReference toggleInput, PlayerModeProxy playerMode, DayTimeProxy dayTime, InputActionReference pauseInput, IPausePanel pausePanel) : base(pauseInput, pausePanel)
         {
-            _furnishingPanel = furnishingPanel;
             _toggleInput = toggleInput;
             _playerMode = playerMode;
             _dayTime = dayTime;
@@ -54,7 +52,6 @@ namespace States
 
         protected override void AddConditions()
         {
-            AddCondition<ItemShopState>(() => Transition.ShouldToggle(TransitionType.ItemShop));
             AddCondition<ShopDayBootstrapState>(() =>
             {
                 if (!Is(DayTime.Day))
@@ -91,11 +88,7 @@ namespace States
 
         private bool Is(DayTime dayTime) => _dayTime.Value == dayTime;
 
-        private void InitModification()
-        {
-            _playerModeToggle.Value.Toggle(PlayerMode.Modification);
-            _furnishingPanel.Present(false);
-        }
+        private void InitModification() => _playerModeToggle.Value.Toggle(PlayerMode.Modification);
 
         private void HandleModeToggling()
         {
@@ -105,7 +98,6 @@ namespace States
             }
             
             _playerModeToggle.Value.Toggle(_playerMode.Value == PlayerMode.Modification ? PlayerMode.Organization : PlayerMode.Modification);
-            _furnishingPanel.Present(_playerMode.Value == PlayerMode.Organization);
         }
 
         private void AddCallbacks() => _dayTime.OnChanged += DisableOrganization;

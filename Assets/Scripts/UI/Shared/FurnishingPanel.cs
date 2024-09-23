@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Internal.Dependencies.Core;
 using UI.Helpers;
@@ -5,6 +6,7 @@ using UnityEngine;
 
 namespace UI.Shared
 {
+    [Obsolete]
     public interface IFurnishingPanel : IDependency
     {
         void Present(List<FurniturePieceData> pieces);
@@ -12,12 +14,14 @@ namespace UI.Shared
         void Present(bool state);
     }
 
+    [Obsolete]
     public class FurniturePieceData
     {
         public Sprite Icon { get; set; }
         public int Count { get; set; }
     }
     
+    [Obsolete]
     public class FurnishingPanel : MonoBehaviour, IFurnishingPanel
     {
         [SerializeField] private bool shouldPresentSelection;

@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using Currency;
 using Furniture;
@@ -10,6 +11,7 @@ using UnityEngine.InputSystem;
 
 namespace States
 {
+    [Obsolete]
     public class ItemShopState : AState
     {
         private DependencyRecipe<DependencyList<IFurniturePiece>> _pieces = DependencyInjector.GetRecipe<DependencyList<IFurniturePiece>>();
