@@ -1,14 +1,11 @@
 using Bedroom;
-using Currency;
 using Customers;
-using Furniture;
 using Internal.Dependencies.Core;
 using Internal.Flow.States;
 using Internal.Pooling;
 using Items.Holders;
 using Player;
 using Saving;
-using Trading;
 using Tutorial;
 using UI.Core;
 using UI.Shared;
@@ -65,7 +62,6 @@ namespace States
         private void Awake()
         {
             InjectListRecipes();
-            InitListRecipes();
             GetReferences();
             
             AddInitialState(new MainMenuBootstrapState());
@@ -95,7 +91,6 @@ namespace States
         {
             DependencyInjector.AddRecipeElement<IManageableItemHolder>(hand);
             SavingController.OverrideVolatileWithPersistent();
-            SavingController.Load(PersistenceType.Volatile, FileSaveType.Inventory);
         }
 
         private void OnDestroy()
@@ -107,19 +102,8 @@ namespace States
         private void InjectListRecipes()
         {
             DependencyInjector.InjectListRecipe<IManageableItemHolder>();
-            DependencyInjector.InjectListRecipe<IFurniturePiece>();
             DependencyInjector.InjectListRecipe<ITutorialCamera>();
             DependencyInjector.InjectListRecipe<IPoolItem>();
-        }
-
-        private void InitListRecipes()
-        {
-            DependencyList<IFurniturePiece> pieces = DependencyInjector.GetRecipe<DependencyList<IFurniturePiece>>().Value;
-            pieces.Add(null);
-            pieces.Add(null);
-            pieces.Add(null);
-            pieces.Add(null);
-            pieces.Add(null);
         }
         
         private void GetReferences()

@@ -11,10 +11,9 @@ namespace Saving
 {
     public enum FileSaveType
     {
-        Bedroom,
-        Shop,
-        Inventory,
-        Character
+        Bedroom = 0,
+        Shop = 1,
+        Character = 3
     }
 
     public enum PersistenceType

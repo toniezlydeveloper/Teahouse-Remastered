@@ -10,16 +10,23 @@ using UnityEngine.InputSystem;
 
 namespace States
 {
-    public class BedroomState : APauseAllowedState
+    public interface IFurnishingCore : IDependency
+    {
+        bool IsEnabled { get; }
+    }
+    
+    public class BedroomState : APauseAllowedState, IFurnishingCore
     {
         private DependencyRecipe<IPlayerModeToggle> _playerModeToggle = DependencyInjector.GetRecipe<IPlayerModeToggle>();
         private InputActionReference _toggleInput;
         private PlayerModeProxy _playerMode;
         private DayTimeProxy _dayTime;
+        private bool _isEnabled;
+
+        public bool IsEnabled => _isEnabled;
 
         protected override List<FileSaveType> TypesToSave => new List<FileSaveType>
         {
-            FileSaveType.Inventory,
             FileSaveType.Bedroom
         };
 
@@ -37,11 +44,16 @@ namespace States
             AddCallbacks();
         }
 
-        public override void OnExit() => RemoveCallbacks();
+        public override void OnExit()
+        {
+            RemoveCallbacks();
+            Disable();
+        }
 
         public override Type OnUpdate()
         {
-            if (Is(DayTime.Night))
+            // todo: uncomment
+            // if (Is(DayTime.Night))
             {
                 HandleModeToggling();
             }
@@ -98,7 +110,10 @@ namespace States
             }
             
             _playerModeToggle.Value.Toggle(_playerMode.Value == PlayerMode.Modification ? PlayerMode.Organization : PlayerMode.Modification);
+            _isEnabled = _playerMode.Value == PlayerMode.Organization;
         }
+
+        private void Disable() => _isEnabled = false;
 
         private void AddCallbacks() => _dayTime.OnChanged += DisableOrganization;
 

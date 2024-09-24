@@ -1,6 +1,6 @@
 namespace Furniture
 {
-    public enum FurnitureOrientation
+    public enum Orientation
     {
         AgainstColumn,
         AlongColumn,

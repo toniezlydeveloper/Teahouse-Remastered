@@ -19,7 +19,6 @@ namespace States
 
         protected override List<FileSaveType> TypesToSave => new List<FileSaveType>
         {
-            FileSaveType.Inventory,
             FileSaveType.Shop
         };
 

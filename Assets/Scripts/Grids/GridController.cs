@@ -14,8 +14,7 @@ namespace Grids
     
     public interface IGridPointer : IDependency
     {
-        public Vector3 PointerPosition { get; }
-        public Vector3 PlayerPosition { get; }
+        public Vector3 Position { get; }
     }
 
     public interface IGrid : IDependency
@@ -39,22 +38,12 @@ namespace Grids
         private Vector3 _cellWorldPositionDelta;
         private Vector3 _rightUpperCorner;
         private Vector3 _leftLowerCorner;
-        private Vector3 _adjustedPointer;
 
-        private int _adjustedPointerColumn;
-        private int _adjustedPointerRow;
         private int _pointerColumn;
         private int _pointerRow;
-        private int _playerColumn;
-        private int _playerRow;
 
         private List<GridCell> _cells;
         private bool _areCellsValid;
-
-        private bool _isPlayerSameColumn;
-        private bool _isPlayerSameRow;
-        private bool _isPlayerForward;
-        private bool _isPlayerRight;
         
         private const int SafetyRowColumnCount = 10;
 
@@ -63,8 +52,6 @@ namespace Grids
         public bool TryGetInsideCells(out List<GridCell> cells, out Vector3 cellsCenter)
         {
             GetGridPositions();
-            AdjustPointer(GetPointerAdjustment());
-            GetAdjustedPointerPosition();
             GetPointedCells();
             return ReadOutput(out cells, out cellsCenter);
         }
@@ -77,16 +64,8 @@ namespace Grids
 
         private void GetGridPositions()
         {
-            GetColumn(_pointer.Value.PointerPosition, out _pointerColumn);
-            GetRow(_pointer.Value.PointerPosition, out _pointerRow);
-            GetColumn(_pointer.Value.PlayerPosition, out _playerColumn);
-            GetRow(_pointer.Value.PlayerPosition, out _playerRow);
-        }
-
-        private void GetAdjustedPointerPosition()
-        {
-            GetColumn(_adjustedPointer, out _adjustedPointerColumn);
-            GetRow(_adjustedPointer, out _adjustedPointerRow);
+            GetColumn(_pointer.Value.Position, out _pointerColumn);
+            GetRow(_pointer.Value.Position, out _pointerRow);
         }
 
         private void GetValues()
@@ -112,62 +91,6 @@ namespace Grids
             row -= SafetyRowColumnCount;
         }
 
-        private void AdjustPointer(Vector3 pointerAdjustment) => _adjustedPointer = _pointer.Value.PointerPosition + pointerAdjustment;
-        
-        private Vector3 GetPointerAdjustment()
-        {
-            float worldHeight = cellSize * _itemHolder.Value.Dimensions.Height;
-            float worldWidth = cellSize * _itemHolder.Value.Dimensions.Width;
-            float columnFactor = 0;
-            float rowFactor = 0;
-
-            _isPlayerSameColumn = _playerColumn == _pointerColumn;
-            _isPlayerRight = _playerColumn > _pointerColumn;
-            _isPlayerSameRow = _playerRow == _pointerRow;
-            _isPlayerForward = _playerRow > _pointerRow;
-
-            switch (_itemHolder.Value.Orientation)
-            {
-                case GridItemOrientation.ColumnWise:
-                    if (!_isPlayerSameColumn)
-                        columnFactor += _isPlayerRight ? cellSize * 0.5f : -cellSize * 0.5f;
-
-                    if (_isPlayerRight)
-                        columnFactor += worldWidth * 0.5f;
-
-                    if (_isPlayerSameColumn)
-                        columnFactor += worldWidth * 0.25f;
-                    
-                    if (_isPlayerSameColumn)
-                        rowFactor = _isPlayerForward ? worldHeight - cellSize * 0.5f : -cellSize * 0.5f;
-                    else
-                        rowFactor = worldHeight * 0.5f - cellSize * 0.5f;
-                    
-                    break;
-                
-                case GridItemOrientation.RowWise:
-                    if (!_isPlayerSameRow)
-                        rowFactor += _isPlayerForward ? cellSize * 0.5f : -cellSize * 0.5f;
-                    
-                    if (_isPlayerForward)
-                        rowFactor += worldWidth * 0.5f;
-
-                    if (_isPlayerSameRow)
-                        rowFactor += worldWidth * 0.25f;
-
-                    if (_isPlayerSameRow)
-                        columnFactor = _isPlayerRight ? worldHeight - cellSize * 0.5f : -cellSize * 0.5f;
-                    else
-                        columnFactor = worldHeight * 0.5f - cellSize * 0.5f;
-                    
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
-
-            return -rowFactor * Vector3.forward + -columnFactor * Vector3.right;
-        }
-
         private void GetPointedCells()
         {
             _cells = new List<GridCell>();
@@ -179,8 +102,8 @@ namespace Grids
                     for (int j = 0; j < _itemHolder.Value.Dimensions.Width; j++)
                         _cells.Add(new GridCell
                         {
-                            Column = _adjustedPointerColumn + j,
-                            Row = _adjustedPointerRow + i
+                            Column = _pointerColumn + j,
+                            Row = _pointerRow + i
                         });
                     break;
                 case GridItemOrientation.RowWise:
@@ -188,8 +111,8 @@ namespace Grids
                     for (int j = 0; j < _itemHolder.Value.Dimensions.Width; j++)
                         _cells.Add(new GridCell
                         {
-                            Column = _adjustedPointerColumn + i,
-                            Row = _adjustedPointerRow + j
+                            Column = _pointerColumn + i,
+                            Row = _pointerRow + j
                         });
                     break;
                 default:
@@ -226,8 +149,6 @@ namespace Grids
             GetValues();
             
             GetGridPositions();
-            AdjustPointer(GetPointerAdjustment());
-            GetAdjustedPointerPosition();
             GetPointedCells();
             
             DrawGrid();
@@ -266,12 +187,8 @@ namespace Grids
 
         private void DrawPointers()
         {
-            Gizmos.color = Color.yellow;
-            Gizmos.DrawWireSphere(_pointer.Value.PlayerPosition + Vector3.up * center.y * 2f, 0.125f);
             Gizmos.color = Color.red;
-            Gizmos.DrawWireSphere(_pointer.Value.PointerPosition + Vector3.up * center.y * 2f, 0.25f);
-            Gizmos.color = Color.green;
-            Gizmos.DrawWireSphere(_adjustedPointer, 0.125f);
+            Gizmos.DrawWireSphere(_pointer.Value.Position + Vector3.up * center.y * 2f, 0.25f);
         }
 
         private void DrawPointerCells()
@@ -284,7 +201,7 @@ namespace Grids
             
             Gizmos.color = Color.magenta;
             
-            GridCell pointerCell = new GridCell { Column = _adjustedPointerColumn, Row = _adjustedPointerRow };
+            GridCell pointerCell = new GridCell { Column = _pointerColumn, Row = _pointerRow };
             Gizmos.DrawWireCube(calculateWorldPosition.Invoke(pointerCell), new Vector3(cellSize, 0.25f, cellSize));
             
             Gizmos.color = _areCellsValid ? Color.blue : Color.black;

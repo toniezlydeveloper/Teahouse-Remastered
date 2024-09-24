@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using System.Linq;
+using Currency;
 using Grids;
 using Internal.Dependencies.Core;
 using Player;
-using UI.Shared;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -11,12 +11,12 @@ namespace Furniture
 {
     public class FurniturePicker
     {
-        private DependencyRecipe<DependencyList<IFurniturePiece>> _pieces = DependencyInjector.GetRecipe<DependencyList<IFurniturePiece>>();
+        private ICurrencyHolder _currencyHolder = DependencyInjector.Get<ICurrencyHolder>();
         private DependencyRecipe<IGrid> _grid = DependencyInjector.GetRecipe<IGrid>();
+        private Dictionary<Renderer, Material> _originalsByRenderer = new();
         private List<PlacedFurniture> _placedFurniture;
         private Material _originalPreviewMaterial;
         private InputActionReference _pickInput;
-        private Dictionary<Renderer, Material> _originalsByRenderer = new();
         private GameObject _model;
 
         public FurniturePicker(List<PlacedFurniture> placedFurniture, InputActionReference pickInput, Material previewMaterial)
@@ -62,25 +62,12 @@ namespace Furniture
             if (!ReceivedPickInput())
                 return;
             
-            if (TryGetPieceInInventory(furniture, out IFurniturePiece piece))
-            {
-                AddToInventory(piece);
-                Clear(furniture);
-                return;
-            }
-
-            if (HasFullInventory())
-                return;
-            
+            ReturnMoney(furniture);
+            ClearModel(furniture);
             Clear(furniture);
-            AddToInventory(furniture);
         }
 
-        private bool TryGetPieceInInventory(PlacedFurniture furniture, out IFurniturePiece piece)
-        {
-            piece = _pieces.Value.FirstOrDefault(piece => piece?.Prefab == furniture.Piece.Prefab);
-            return piece != null;
-        }
+        private static void ClearModel(PlacedFurniture furniture) => Object.Destroy(furniture.Model);
 
         private bool TryGetFurniture(out PlacedFurniture furniture)
         {
@@ -135,20 +122,9 @@ namespace Furniture
 
         private void ClearModel() => _model = null;
 
-        private bool HasFullInventory() => _pieces.Value.All(piece => piece != null);
+        private void ReturnMoney(PlacedFurniture furniture) => _currencyHolder.Add(furniture.Piece.Cost);
 
-        private static void AddToInventory(IFurniturePiece piece) => piece.Count++;
-
-        private void AddToInventory(PlacedFurniture furniture) => _pieces.Value[_pieces.Value.IndexOf(null)] = new FurniturePiece(furniture.Piece)
-        {
-            Count = 1
-        };
-
-        private void Clear(PlacedFurniture furniture)
-        {
-            _placedFurniture.Remove(furniture);
-            Object.Destroy(furniture.Model);
-        }
+        private void Clear(PlacedFurniture furniture) => _placedFurniture.Remove(furniture);
 
         private bool ReceivedPickInput() => _pickInput.action.triggered;
     }

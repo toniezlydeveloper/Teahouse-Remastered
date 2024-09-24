@@ -2,9 +2,12 @@ using System.Collections.Generic;
 using Bedroom;
 using Grids;
 using Interaction;
+using Internal.Dependencies.Core;
 using Player;
+using States;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Utilities;
 
 namespace Furniture
 {
@@ -17,16 +20,17 @@ namespace Furniture
     
     public class FurnitureHandler : AInteractionHandler, IGridItemHolder
     {
-        [SerializeField] private List<InputActionReference> selectionsInput;
         [SerializeField] private InputActionReference rotateRightInput;
         [SerializeField] private InputActionReference rotateLeftInput;
         [SerializeField] private InputActionReference placeInput;
         [SerializeField] private Material pickPreviewMaterial;
+        [SerializeField] private PurchasableItemsConfig itemsConfig;
         [SerializeField] private PlayerModeProxy playerMode;
         [SerializeField] private Material previewMaterial;
         [SerializeField] private Color invalidSpotColor;
         [SerializeField] private Color validSpotColor;
 
+        private IFurnishingCore _furnishingCore = DependencyInjector.Get<IFurnishingCore>();
         private List<PlacedFurniture> _placedFurniture;
         private IFurniturePiece _selectedPiece;
         private FurnitureSelector _selector;
@@ -35,7 +39,8 @@ namespace Furniture
         private FurniturePicker _picker;
 
         public override PlayerMode HandledModes => PlayerMode.Organization;
-        public override DayTime HandledDayTime => DayTime.Night;
+        // todo: come back to night
+        public override DayTime HandledDayTime => DayTime.Day;
 
         public GridItemOrientation Orientation => _rotator.Orientation;
         public GridDimensions Dimensions => _selector.Dimensions;
@@ -43,7 +48,7 @@ namespace Furniture
         private void Awake()
         {
             _placedFurniture = new List<PlacedFurniture>();
-            _selector = new FurnitureSelector(selectionsInput, playerMode);
+            _selector = new FurnitureSelector(itemsConfig);
             _rotator = new FurnitureRotator(rotateRightInput, rotateLeftInput);
             _placer = new FurniturePlacer(_placedFurniture, placeInput, previewMaterial, invalidSpotColor, validSpotColor);
             _picker = new FurniturePicker(_placedFurniture, placeInput, pickPreviewMaterial);
@@ -63,6 +68,9 @@ namespace Furniture
 
         private void Update()
         {
+            if (UIHelpers.IsPointerOverUI())
+                return;
+            
             if (!ShouldHandleInput())
                 return;
             
@@ -74,7 +82,7 @@ namespace Furniture
             HandlePlacement();
         }
 
-        private bool ShouldHandleInput() => playerMode.Value == PlayerMode.Organization;
+        private bool ShouldHandleInput() => _furnishingCore.IsEnabled && playerMode.Value == PlayerMode.Organization;
 
         private void HandleVisuals()
         {
@@ -89,16 +97,12 @@ namespace Furniture
             if (_selectedPiece == null)
                 return;
             
-            _rotator.HandleOrientation(out FurnitureOrientation orientation);
+            _rotator.HandleOrientation(out Orientation orientation);
             _placer.HandlePreview(orientation);
 
             if (!_placer.TryPlacing(_selectedPiece, orientation))
                 return;
-
-            if (_selectedPiece.Count > 0)
-                return;
             
-            _selector.RemoveSelection();
             _placer.Destroy();
         }
 

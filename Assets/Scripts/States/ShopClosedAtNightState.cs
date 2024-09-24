@@ -19,11 +19,8 @@ namespace States
         private DependencyRecipe<IDoorHinge> _doorHinge = DependencyInjector.GetRecipe<IDoorHinge>();
 
         private DayTimeProxy _timeProxy;
-        
-        protected override List<FileSaveType> TypesToSave => new List<FileSaveType>
-        {
-            FileSaveType.Inventory
-        };
+
+        protected override List<FileSaveType> TypesToSave => new List<FileSaveType>();
         
         public ShopClosedAtNightState(DayTimeProxy timeProxy, InputActionReference pauseInput, IPausePanel pausePanel) : base(pauseInput, pausePanel)
         {

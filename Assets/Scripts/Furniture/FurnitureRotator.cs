@@ -17,7 +17,7 @@ namespace Furniture
             _rotateLeftInput = rotateLeftInput;
         }
 
-        public void HandleOrientation(out FurnitureOrientation orientation)
+        public void HandleOrientation(out Orientation orientation)
         {
             HandleRotationChange();
             ReadOrientation(out orientation);
@@ -35,7 +35,7 @@ namespace Furniture
             _orientationIndex = _orientationIndex.Clamp();
         }
 
-        private void ReadOrientation(out FurnitureOrientation orientation) => orientation = _orientationIndex.ReadFurnitureOrientation();
+        private void ReadOrientation(out Orientation orientation) => orientation = _orientationIndex.ReadFurnitureOrientation();
 
         private void ReadOrientation() => Orientation = _orientationIndex.ReadGridOrientation();
     }

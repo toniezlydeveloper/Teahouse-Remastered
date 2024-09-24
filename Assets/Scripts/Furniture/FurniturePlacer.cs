@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using System.Linq;
+using Currency;
 using Grids;
 using Internal.Dependencies.Core;
 using Player;
-using UI.Shared;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -12,7 +12,7 @@ namespace Furniture
     // This can be simplified by changing methods arrangement
     public class FurniturePlacer
     {
-        private DependencyRecipe<DependencyList<IFurniturePiece>> _pieces = DependencyInjector.GetRecipe<DependencyList<IFurniturePiece>>();
+        private ICurrencyHolder _currencyHolder = DependencyInjector.Get<ICurrencyHolder>();
         private DependencyRecipe<IGrid> _grid = DependencyInjector.GetRecipe<IGrid>();
         private List<PlacedFurniture> _placedFurniture;
         private Vector3 _worldPositionOffset;
@@ -39,7 +39,7 @@ namespace Furniture
             _placeInput = placeInput;
         }
 
-        public bool TryPlacing(IFurniturePiece selectedPiece, FurnitureOrientation orientation)
+        public bool TryPlacing(IFurniturePiece selectedPiece, Orientation orientation)
         {
             if (!TryGettingPlacementData(orientation))
                 return false;
@@ -50,7 +50,7 @@ namespace Furniture
             return TryPlacingPiece(selectedPiece);
         }
         
-        public void HandlePreview(FurnitureOrientation orientation)
+        public void HandlePreview(Orientation orientation)
         {
             if (!HasPreview())
                 return;
@@ -91,7 +91,7 @@ namespace Furniture
 
         private void ClearPreview() => _previewPiece = null;
 
-        private bool TryGettingPlacementData(FurnitureOrientation orientation)
+        private bool TryGettingPlacementData(Orientation orientation)
         {
             if (!_grid.Value.TryGetInsideCells(out _cells, out _position))
                 return false;
@@ -118,11 +118,7 @@ namespace Furniture
                 Model = model
             });
 
-            if (--selectedPiece.Count != 0)
-                return true;
-            
-            _pieces.Value[_pieces.Value.IndexOf(selectedPiece)] = null;
-            return true;
+            return _currencyHolder.TrySpend(selectedPiece.Cost);
         }
 
         private bool HasPreview(IFurniturePiece selectedPiece) => selectedPiece?.Prefab == _previewPiece?.Prefab;
@@ -167,7 +163,7 @@ namespace Furniture
             _originalPreviewMaterial.SetColor(PreviewColorId, isAllowedToPlacePiece ? _validSpotColor : _invalidSpotColor);
         }
 
-        private void MovePreview(Vector3 center, FurnitureOrientation orientation)
+        private void MovePreview(Vector3 center, Orientation orientation)
         {
             _preview.transform.forward = orientation.ToForward();
             _preview.transform.position = center;

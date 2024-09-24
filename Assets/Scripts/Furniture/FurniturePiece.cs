@@ -7,11 +7,11 @@ namespace Furniture
 {
     public interface IFurniturePiece : IDependency
     {
-        public GridDimensions Dimensions { get; set; }
-        public GameObject Prefab { get; set; }
-        public Vector3 Offset { get; set; }
-        public Sprite Icon { get; set; }
-        public int Count { get; set; }
+        public GridDimensions Dimensions { get; }
+        public GameObject Prefab { get; }
+        public Vector3 Offset { get; }
+        public Sprite Icon { get; }
+        public int Cost { get; }
     }
     
     [Serializable]
@@ -21,14 +21,15 @@ namespace Furniture
         [field: SerializeField] public GameObject Prefab { get; set; }
         [field: SerializeField] public Vector3 Offset { get; set; }
         [field: SerializeField] public Sprite Icon { get; set; }
-        [field: SerializeField] public int Count { get; set; }
+        [field: SerializeField] public string Name { get; set; }
+        [field: SerializeField] public int Cost { get; set; }
         
         public FurniturePiece(IFurniturePiece piece)
         {
             Dimensions = piece.Dimensions;
             Prefab = piece.Prefab;
             Offset = piece.Offset;
-            Count = piece.Count;
+            Cost = piece.Cost;
             Icon = piece.Icon;
         }
     }

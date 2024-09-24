@@ -24,7 +24,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "InteractDown",
+                    "name": "InteractDown/RotateLeft",
                     "type": "Button",
                     "id": "b3ecf56f-36d9-4fd7-8ac3-c86a542b5a39",
                     "expectedControlType": "Button",
@@ -33,7 +33,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "InteractUp",
+                    "name": "InteractUp/RotateRight",
                     "type": "Button",
                     "id": "b189e22f-543a-474d-8afc-9f1eaabaddee",
                     "expectedControlType": "Button",
@@ -42,7 +42,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Back",
+                    "name": "Back/Pause",
                     "type": "Button",
                     "id": "0689df33-dd37-4760-a9ce-6bf8a67a9192",
                     "expectedControlType": "Button",
@@ -51,7 +51,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Toggle",
+                    "name": "ToggleMode",
                     "type": "Button",
                     "id": "3605f68e-bc07-4047-8595-d8000967a453",
                     "expectedControlType": "Button",
@@ -60,45 +60,9 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Select1",
+                    "name": "Place/PickUp",
                     "type": "Button",
-                    "id": "61391145-dc2d-46e7-b1fa-520255e15620",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "Select2",
-                    "type": "Button",
-                    "id": "a9559418-e494-41d3-8bbc-9af1aafa3858",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "Select3",
-                    "type": "Button",
-                    "id": "c00c866f-b0d5-4cdf-9d5a-e75921fd8010",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "Select4",
-                    "type": "Button",
-                    "id": "7c67cac7-acce-4a5a-9c4f-b1faa2e41cd2",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "Select5",
-                    "type": "Button",
-                    "id": "dd0fbb5b-c6ad-4dc6-8ff0-6836affeeda5",
+                    "id": "e5ef5f95-73bf-4a4f-9b41-eba18a4b0c1a",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -179,7 +143,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "InteractDown",
+                    "action": "InteractDown/RotateLeft",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -190,62 +154,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "InteractUp",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "ffcdad6f-fc03-4590-9716-2cffc3cd6b25",
-                    "path": "<Keyboard>/1",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Select1",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "aeb2ebe9-3feb-46f7-af5a-d543a8dcdbec",
-                    "path": "<Keyboard>/2",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Select2",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "026a468e-4df4-4f4f-948c-49d400f60d24",
-                    "path": "<Keyboard>/3",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Select3",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "e8e0a347-7275-4811-8527-bf9ecaabc0b0",
-                    "path": "<Keyboard>/4",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Select4",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "7f25f5c0-0ace-4910-9700-dd70854bb728",
-                    "path": "<Keyboard>/5",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Select5",
+                    "action": "InteractUp/RotateRight",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -256,7 +165,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Back",
+                    "action": "Back/Pause",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -267,7 +176,18 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Toggle",
+                    "action": "ToggleMode",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "5b2aecc3-2c9c-46b9-b854-9a1f9a563ff9",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Place/PickUp",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

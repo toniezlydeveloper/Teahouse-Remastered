@@ -3,7 +3,6 @@ using System.Linq;
 using Furniture;
 using Grids;
 using Newtonsoft.Json;
-using Trading;
 using UnityEngine;
 using Utilities;
 
@@ -18,7 +17,7 @@ namespace Saving.Proxies
     
     public class FurnitureHandlerSaveProxy : ASaveProxy
     {
-        [SerializeField] private TradeItemsConfig itemsForSale;
+        [SerializeField] private PurchasableItemsConfig itemsForSale;
 
         private const string PlacedFurnitureVariableName = "_placedFurniture";
         private const string AddRangeMethodName = "AddRange";
@@ -34,7 +33,7 @@ namespace Saving.Proxies
         {
             List<PlacedFurnitureSaveData> data = GetPlacedFurniture().Select(furniture => new PlacedFurnitureSaveData
             {
-                PieceIndex = itemsForSale.Set.FindIndex(item => item.Piece.Prefab == furniture.Piece.Prefab),
+                PieceIndex = itemsForSale.Set.FindIndex(item => item.Prefab == furniture.Piece.Prefab),
                 ModelId = furniture.Model.GetComponent<FurniturePieceSaveProxy>().Id,
                 Cells = furniture.Cells
             }).ToList();
@@ -50,7 +49,7 @@ namespace Saving.Proxies
             return data.Select(furnitureData => new PlacedFurniture
             {
                 Model = proxies.First(proxy => proxy.Id == furnitureData.ModelId).GameObject,
-                Piece = itemsForSale.Set[furnitureData.PieceIndex].Piece,
+                Piece = itemsForSale.Set[furnitureData.PieceIndex],
                 Cells = furnitureData.Cells
             }).ToList();
         }
