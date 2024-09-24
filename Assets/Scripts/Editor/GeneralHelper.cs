@@ -1,53 +1,44 @@
 using UnityEditor;
 using UnityEditor.SceneManagement;
-using UnityEngine;
 using UnityEngine.SceneManagement;
 
 namespace Editor
 {
-    public class GeneralHelper : EditorWindow
+    [InitializeOnLoad]
+    public static class GeneralHelper
     {
-        [MenuItem("Tools/just Adam/General Helper")]
-        public static void Open() => CreateWindow<GeneralHelper>("General Helper");
+        private const string SceneNameKey = "PreviouslyOpenedScene";
+        
+        static GeneralHelper() => EditorApplication.playModeStateChanged += TryRestoringScene;
         
         [MenuItem("Tools/just Adam/Start #s")]
         public static void Start()
         {
-            SceneCache.CacheScene();
-            EditorSceneManager.OpenScene(SceneUtility.GetScenePathByBuildIndex(0));
-            EditorApplication.EnterPlaymode();
+            CacheScene();
+            LoadDefaultBuildScene();
+            Enter();
         }
-        
+
         [MenuItem("Tools/just Adam/Exit #e")]
         public static void Exit() => EditorApplication.ExitPlaymode();
         
         [MenuItem("Tools/just Adam/Game View Fullscreen &g")]
-        public static void ToggleMaximizeGameView() => ToggleWindow(GetWindow(System.Type.GetType("UnityEditor.GameView,UnityEditor")));
-
-        private void OnGUI()
-        {
-            if (GUILayout.Button("Start"))
-            {
-                Start();
-            }
-            
-            if (GUILayout.Button("Exit"))
-            {
-                Exit();
-            }
-        }
-
-        private static void ToggleWindow(EditorWindow window) => window.maximized = !window.maximized;
-    }
-
-    [InitializeOnLoad]
-    public static class SceneCache
-    {
-        private const string SceneNameKey = "PreviouslyOpenedScene";
+        public static void ToggleMaximizeGameView() => ToggleWindow(EditorWindow.GetWindow(System.Type.GetType("UnityEditor.GameView,UnityEditor")));
         
-        static SceneCache() => EditorApplication.playModeStateChanged += TryRestoringScene;
+        [MenuItem("Tools/just Adam/Load Previous Build Scene &e")]
+        public static void LoadPreviousBuildScene() => EditorSceneManager.OpenScene(SceneUtility.GetScenePathByBuildIndex(GetBuildIndex(SceneManager.GetActiveScene(), -1)));
 
-        public static void CacheScene() => EditorPrefs.SetString(SceneNameKey, GetPath(SceneManager.GetActiveScene()));
+        
+        [MenuItem("Tools/just Adam/Load Next Build Scene &q")]
+        public static void LoadNextBuildScene() => EditorSceneManager.OpenScene(SceneUtility.GetScenePathByBuildIndex(GetBuildIndex(SceneManager.GetActiveScene(), 1)));
+
+        
+        [MenuItem("Tools/just Adam/Load Default Build Scene &w")]
+        public static void LoadDefaultBuildScene() => EditorSceneManager.OpenScene(SceneUtility.GetScenePathByBuildIndex(0));
+
+        private static void CacheScene() => EditorPrefs.SetString(SceneNameKey, GetPath(SceneManager.GetActiveScene()));
+
+        private static void Enter() => EditorApplication.EnterPlaymode();
         
         private static void TryRestoringScene(PlayModeStateChange change)
         {
@@ -67,5 +58,13 @@ namespace Editor
         private static bool HasExitedPlayMode(PlayModeStateChange change) => change == PlayModeStateChange.EnteredEditMode;
 
         private static string GetPath(Scene scene) => scene.path;
+
+        private static void ToggleWindow(EditorWindow window) => window.maximized = !window.maximized;
+
+        private static int GetBuildIndex(Scene scene, int delta)
+        {
+            int count = SceneManager.sceneCountInBuildSettings;
+            return (scene.buildIndex + delta + count) % count;
+        }
     }
 }
