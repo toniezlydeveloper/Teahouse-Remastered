@@ -4,7 +4,6 @@ namespace Character
     {
         Frog,
         Axolotl,
-        Raccoon,
-        SmallRaccoon
+        Raccoon
     }
 }
