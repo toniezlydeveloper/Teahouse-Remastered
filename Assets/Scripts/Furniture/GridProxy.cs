@@ -2,6 +2,7 @@ using Grids;
 using Internal.Dependencies.Core;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Utilities;
 
 namespace Furniture
 {
@@ -14,23 +15,24 @@ namespace Furniture
         
         public Vector3 Position => pointer.position;
 
-        private void Start()
-        {
-            _mainCamera = Camera.main;
-        }
+        private static readonly Vector3 DefaultPointerPosition = Vector3.right * 1000f;
+
+        private const float RaycastDistance = 100f;
+
+        private void Start() => _mainCamera = Camera.main;
 
         private void Update()
         {
-            Vector2 x = Pointer.current.position.ReadValue();
-            if (Physics.Raycast(_mainCamera.ScreenPointToRay(x), out RaycastHit hit, 100f, groundLayer))
+            Vector2 pointerPosition = Pointer.current.position.ReadValue();
+            
+            if (UIHelpers.IsPointerOverUI() || !Physics.Raycast(_mainCamera.ScreenPointToRay(pointerPosition), out RaycastHit hit, RaycastDistance, groundLayer))
             {
-                pointer.position = hit.point;
+                pointer.position = DefaultPointerPosition;
             }
             else
             {
-                pointer.position = Vector3.right * 1000f;
+                pointer.position = hit.point;
             }
-                
         }
     }
 }

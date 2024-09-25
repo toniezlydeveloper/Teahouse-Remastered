@@ -13,6 +13,7 @@ namespace Saving
     {
         Bedroom = 0,
         Shop = 1,
+        Inventory = 2,
         Character = 3
     }
 

@@ -20,7 +20,10 @@ namespace States
 
         private DayTimeProxy _timeProxy;
 
-        protected override List<FileSaveType> TypesToSave => new List<FileSaveType>();
+        protected override List<FileSaveType> TypesToSave => new List<FileSaveType>
+        {
+            FileSaveType.Inventory
+        };
         
         public ShopClosedAtNightState(DayTimeProxy timeProxy, InputActionReference pauseInput, IPausePanel pausePanel) : base(pauseInput, pausePanel)
         {
@@ -43,7 +46,7 @@ namespace States
 
         protected override void AddConditions()
         {
-            AddCondition<BedroomBoostrapState>(() =>
+            AddCondition<BedroomNightBoostrapState>(() =>
             {
                 if (!Transition.ShouldToggle(TransitionType.Bedroom))
                     return false;

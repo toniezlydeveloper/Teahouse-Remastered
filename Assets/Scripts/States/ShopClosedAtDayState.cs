@@ -19,6 +19,7 @@ namespace States
 
         protected override List<FileSaveType> TypesToSave => new List<FileSaveType>
         {
+            FileSaveType.Inventory,
             FileSaveType.Shop
         };
 
@@ -50,7 +51,7 @@ namespace States
                 ToggleDoorHinge(true);
                 return true;
             });
-            AddCondition<BedroomBoostrapState>(() =>
+            AddCondition<BedroomDayBoostrapState>(() =>
             {
                 if (!Transition.ShouldToggle(TransitionType.Bedroom))
                     return false;

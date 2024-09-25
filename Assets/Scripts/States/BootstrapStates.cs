@@ -4,7 +4,14 @@ using UnityEngine.SceneManagement;
 
 namespace States
 {
-    public class BedroomBoostrapState : ABootstrapState<BedroomState>
+    public class BedroomDayBoostrapState : ABootstrapState<BedroomDayState>
+    {
+        protected override string LevelName => "Bedroom";
+
+        public override void OnExit() => SavingController.Load(PersistenceType.Volatile, FileSaveType.Bedroom);
+    }
+    
+    public class BedroomNightBoostrapState : ABootstrapState<BedroomNightState>
     {
         protected override string LevelName => "Bedroom";
 

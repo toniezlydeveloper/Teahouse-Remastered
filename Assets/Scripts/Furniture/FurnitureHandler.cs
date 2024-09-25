@@ -31,9 +31,9 @@ namespace Furniture
         [SerializeField] private Color validSpotColor;
 
         private IFurnishingCore _furnishingCore = DependencyInjector.Get<IFurnishingCore>();
+        private IFurnitureSelector _selector = DependencyInjector.Get<IFurnitureSelector>();
         private List<PlacedFurniture> _placedFurniture;
         private IFurniturePiece _selectedPiece;
-        private FurnitureSelector _selector;
         private FurnitureRotator _rotator;
         private FurniturePlacer _placer;
         private FurniturePicker _picker;
@@ -51,9 +51,6 @@ namespace Furniture
 
         private void Update()
         {
-            if (UIHelpers.IsPointerOverUI())
-                return;
-            
             if (!ShouldHandleInput())
                 return;
             
@@ -102,7 +99,6 @@ namespace Furniture
         private void GetReferences()
         {
             _placedFurniture = new List<PlacedFurniture>();
-            _selector = new FurnitureSelector(itemsConfig, playerMode);
             _rotator = new FurnitureRotator(rotateRightInput, rotateLeftInput);
             _placer = new FurniturePlacer(_placedFurniture, placeInput, previewMaterial, invalidSpotColor, validSpotColor);
             _picker = new FurniturePicker(_placedFurniture, placeInput, pickPreviewMaterial);

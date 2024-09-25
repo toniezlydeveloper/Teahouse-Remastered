@@ -27,7 +27,7 @@ namespace UI.Core
         public int Cost { get; set; }
     }
     
-    public class BedroomPanel : AUIPanel, ISelectableFurniturePanel
+    public class BedroomNightPanel : AUIPanel, ISelectableFurniturePanel
     {
         [SerializeField] private SelectionButton selectionButtonPrefab;
         [SerializeField] private Transform selectionButtonsParent;

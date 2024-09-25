@@ -241,7 +241,6 @@ GameObject:
   - component: {fileID: 34683933}
   - component: {fileID: 34683932}
   - component: {fileID: 34683934}
-  - component: {fileID: 34683935}
   - component: {fileID: 34683936}
   - component: {fileID: 34683937}
   m_Layer: 0
@@ -294,21 +293,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <Type>k__BackingField: 0
   <Id>k__BackingField: 7532dae1-e4b4-4afd-9a0a-07faea71e257
-  itemsForSale: {fileID: 11400000, guid: eced42cd2d8da8b43bdb70590a7ddb56, type: 2}
---- !u!114 &34683935
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 34683931}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1410141cd6444ad1ad093b6d8e433368, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  <Type>k__BackingField: 2
-  <Id>k__BackingField: e2f2b410-56ff-478e-869e-fd3acc4b4d60
   itemsForSale: {fileID: 11400000, guid: eced42cd2d8da8b43bdb70590a7ddb56, type: 2}
 --- !u!114 &34683936
 MonoBehaviour:
@@ -1306,6 +1290,7 @@ MonoBehaviour:
     <SpawnCount>k__BackingField: 5
   controls: {fileID: -1653618431344143445, guid: 66336f1aba36c584aa036f1400048593, type: 3}
   back: {fileID: 1528418383925921763, guid: 66336f1aba36c584aa036f1400048593, type: 3}
+  purchasableItems: {fileID: 11400000, guid: eced42cd2d8da8b43bdb70590a7ddb56, type: 2}
   toggle: {fileID: 2855096636729473866, guid: 66336f1aba36c584aa036f1400048593, type: 3}
   playerMode: {fileID: 11400000, guid: e80d591c18778ab4b9dff2ddc5d7e633, type: 2}
 --- !u!1001 &332573726

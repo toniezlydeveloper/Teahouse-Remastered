@@ -24,6 +24,15 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "Toggle",
+                    "type": "Button",
+                    "id": "3605f68e-bc07-4047-8595-d8000967a453",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "InteractDown/RotateLeft",
                     "type": "Button",
                     "id": "b3ecf56f-36d9-4fd7-8ac3-c86a542b5a39",
@@ -45,15 +54,6 @@
                     "name": "Back/Pause",
                     "type": "Button",
                     "id": "0689df33-dd37-4760-a9ce-6bf8a67a9192",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "ToggleMode",
-                    "type": "Button",
-                    "id": "3605f68e-bc07-4047-8595-d8000967a453",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -171,23 +171,23 @@
                 },
                 {
                     "name": "",
-                    "id": "949b88f1-4d1d-43c0-a4c9-99191f0984da",
-                    "path": "<Keyboard>/t",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "ToggleMode",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "5b2aecc3-2c9c-46b9-b854-9a1f9a563ff9",
                     "path": "<Mouse>/leftButton",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
                     "action": "Place/PickUp",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "949b88f1-4d1d-43c0-a4c9-99191f0984da",
+                    "path": "<Keyboard>/tab",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Toggle",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

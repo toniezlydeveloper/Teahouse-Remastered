@@ -1,5 +1,6 @@
 using Bedroom;
 using Customers;
+using Furniture;
 using Internal.Dependencies.Core;
 using Internal.Flow.States;
 using Internal.Pooling;
@@ -52,9 +53,11 @@ namespace States
         [SerializeField] private InputActionReference back;
         
         [Header("Bedroom")]
+        [SerializeField] private PurchasableItemsConfig purchasableItems;
         [SerializeField] private InputActionReference toggle;
         [SerializeField] private PlayerModeProxy playerMode;
 
+        private ISelectableFurniturePanel _selectableFurniturePanel;
         private IDialogPanel _dialogPanel;
         private IPausePanel _pausePanel;
         private ITimePanel _timePanel;
@@ -79,8 +82,10 @@ namespace States
             AddState(new ShopClosedAtDayState(pause, _pausePanel));
             AddState(new ShopClosedAtNightState(dayTime, pause, _pausePanel));
             
-            AddState(new BedroomBoostrapState());
-            AddState(new BedroomState(playerMode, dayTime, pause, _pausePanel));
+            AddState(new BedroomDayBoostrapState());
+            AddState(new BedroomDayState(pause, _pausePanel));
+            AddState(new BedroomNightBoostrapState());
+            AddState(new BedroomNightState(toggle, back, _selectableFurniturePanel, purchasableItems, playerMode, dayTime, pause, _pausePanel));
             
             AddState(new CallingState(controls, back));
             
@@ -109,6 +114,7 @@ namespace States
         
         private void GetReferences()
         {
+            _selectableFurniturePanel = GetFromUI<ISelectableFurniturePanel>();
             _dialogPanel = GetFromUI<IDialogPanel>();
             _pausePanel = GetFromUI<IPausePanel>();
             _timePanel = GetFromUI<ITimePanel>();

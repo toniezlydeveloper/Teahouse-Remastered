@@ -9,10 +9,10 @@ namespace UI.Core
         {
             AddTranslation<ShopOpenedAtDayState, ShopOpenedPanel>();
             AddTranslation<ShopClosedAtDayState, ShopClosedPanel>();
+            AddTranslation<BedroomNightState, BedroomNightPanel>();
             AddTranslation<CharacterState, CharacterPanel>();
             AddTranslation<TutorialState, TutorialPanel>();
             AddTranslation<MainMenuState, MainMenuPanel>();
-            AddTranslation<BedroomState, BedroomPanel>();
             AddTranslation<CallingState, CallingPanel>();
         }
     }
