@@ -1,6 +1,7 @@
 using System;
 using Internal.Dependencies.Core;
 using Internal.Flow.UI;
+using States;
 using TMPro;
 using UI.Helpers;
 using UnityEngine;
@@ -27,26 +28,22 @@ namespace UI.Core
         public int Cost { get; set; }
     }
     
-    public class BedroomNightPanel : AUIPanel, ISelectableFurniturePanel
+    public class BedroomNightPanel : AUIPanel, ISelectableFurniturePanel, IFurnishingListener
     {
         [SerializeField] private SelectionButton selectionButtonPrefab;
+        [SerializeField] private RectTransform[] selectionElements;
         [SerializeField] private Transform selectionButtonsParent;
         [SerializeField] private TextMeshProUGUI costContainer;
         [SerializeField] private TextMeshProUGUI textContainer;
         [SerializeField] private Button toggleButton;
-        [SerializeField] private RectTransform stuff1;
-        [SerializeField] private RectTransform stuff2;
 
         private Action _toggleCallback;
-        private bool _isEnabled;
 
-        private void Start()
-        {
-            AddCallbacks();
-            
-            stuff1.localScale = _isEnabled ? Vector3.one : Vector3.zero;
-            stuff2.localScale = _isEnabled ? Vector3.one : Vector3.zero;
-        }
+        private void Start() => AddCallbacks();
+
+        private void OnEnable() => DependencyInjector.AddRecipeElement(GetComponent<IFurnishingListener>());
+
+        private void OnDisable() => DependencyInjector.RemoveRecipeElement(GetComponent<IFurnishingListener>());
 
         public void Present(FurnishingData data)
         {
@@ -58,16 +55,18 @@ namespace UI.Core
             Cache(data);
         }
 
+        public void Toggle(bool state)
+        {
+            foreach (RectTransform selectionElement in selectionElements)
+            {
+                selectionElement.localScale = state ? Vector3.one : Vector3.zero;
+            }
+
+            toggleButton.transform.localScale = state ? -Vector3.one : Vector3.one;
+        }
+
         private void AddCallbacks() => toggleButton.onClick.AddListener(() => _toggleCallback?.Invoke());
 
-        private void Cache(FurnishingData data) => _toggleCallback = data.ToggleCallback + Toggle;
-
-        // todo: finish panel in general and fix this organization
-        private void Toggle()
-        {
-            _isEnabled = !_isEnabled;
-            stuff1.localScale = _isEnabled ? Vector3.one : Vector3.zero;
-            stuff2.localScale = _isEnabled ? Vector3.one : Vector3.zero;
-        }
+        private void Cache(FurnishingData data) => _toggleCallback = data.ToggleCallback;
     }
 }

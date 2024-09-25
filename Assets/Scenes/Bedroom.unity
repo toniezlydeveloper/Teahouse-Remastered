@@ -532,7 +532,6 @@ MonoBehaviour:
     <Height>k__BackingField: 0
     <Width>k__BackingField: 0
   <Position>k__BackingField: {x: 0, y: 0, z: 0}
-  <PlayerPosition>k__BackingField: {x: 0, y: 0, z: 1.56}
 --- !u!114 &568032717
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -696,8 +695,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 627457840}
-  m_LocalRotation: {x: 0.3504032, y: 0.0039137187, z: 0.0074171447, w: 0.93656147}
-  m_LocalPosition: {x: -3.8135054, y: 5.8241973, z: -6.008256}
+  m_LocalRotation: {x: -0.4545775, y: -0.0008085432, z: 0.00041186222, w: -0.8907068}
+  m_LocalPosition: {x: -4.1409116, y: 8.935195, z: -7.021825}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

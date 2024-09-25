@@ -64,7 +64,7 @@ namespace States
         public override void OnEnter()
         {
             SavingController.Load(PersistenceType.Persistent, FileSaveType.Character);
-            InitModification();
+            DisableFurnishing();
             AddCallbacks();
         }
 
@@ -122,7 +122,7 @@ namespace States
             RefreshState();
         }
 
-        private bool ReceivedDisableInput() => _toggle.action.triggered;
+        private bool ReceivedDisableInput() => _back.action.triggered;
 
         private bool ReceivedToggleInput() => _toggle.action.triggered;
 
