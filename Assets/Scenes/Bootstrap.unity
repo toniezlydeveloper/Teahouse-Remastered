@@ -4932,6 +4932,11 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 8719233683632410008, guid: a7ec3a28b55b2294283af591bc944f9d, type: 3}
   m_PrefabInstance: {fileID: 1531426888}
   m_PrefabAsset: {fileID: 0}
+--- !u!224 &1560543908 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 6646285421924869331, guid: b96cfa48c96fdf844bca753718758445, type: 3}
+  m_PrefabInstance: {fileID: 813198985}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1589570283
 GameObject:
   m_ObjectHideFlags: 0
@@ -5770,6 +5775,7 @@ MonoBehaviour:
   - {fileID: 8176340708956165264, guid: c93a6bb8e08dc3b41857aa5f8142ffb3, type: 3}
   - {fileID: 176993328400334041, guid: 02aec74da6124a44e87275118d5d6596, type: 3}
   - {fileID: 4976463059277847490, guid: 2a85a172a93b0334db96ad57c6c21fe8, type: 3}
+  - {fileID: -6433021783939704355, guid: 71d2f5bfb06d0c944949547e1b03d238, type: 3}
 --- !u!1001 &1923560886
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6038,6 +6044,8 @@ MonoBehaviour:
   costContainer: {fileID: 813198987}
   textContainer: {fileID: 813198988}
   toggleButton: {fileID: 813198990}
+  stuff1: {fileID: 813198989}
+  stuff2: {fileID: 1560543908}
 --- !u!225 &2069785512
 CanvasGroup:
   m_ObjectHideFlags: 0

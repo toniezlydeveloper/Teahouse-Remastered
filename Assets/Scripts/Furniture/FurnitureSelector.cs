@@ -17,6 +17,7 @@ namespace Furniture
         
         private static readonly GridDimensions DefaultDimensions = new GridDimensions { Width = 1, Height = 1 };
         
+        // todo: move this to bedroom state
         public FurnitureSelector(PurchasableItemsConfig config, PlayerModeProxy playerMode) => _selectablePanel.Present(new FurnishingData
         {
             ToggleCallback = () => _playerModeToggle.Value.Toggle(playerMode.Value == PlayerMode.Modification ? PlayerMode.Organization : PlayerMode.Modification),

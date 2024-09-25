@@ -34,10 +34,19 @@ namespace UI.Core
         [SerializeField] private TextMeshProUGUI costContainer;
         [SerializeField] private TextMeshProUGUI textContainer;
         [SerializeField] private Button toggleButton;
+        [SerializeField] private RectTransform stuff1;
+        [SerializeField] private RectTransform stuff2;
 
         private Action _toggleCallback;
+        private bool _isEnabled;
 
-        private void Start() => AddCallbacks();
+        private void Start()
+        {
+            AddCallbacks();
+            
+            stuff1.localScale = _isEnabled ? Vector3.one : Vector3.zero;
+            stuff2.localScale = _isEnabled ? Vector3.one : Vector3.zero;
+        }
 
         public void Present(FurnishingData data)
         {
@@ -51,6 +60,14 @@ namespace UI.Core
 
         private void AddCallbacks() => toggleButton.onClick.AddListener(() => _toggleCallback?.Invoke());
 
-        private void Cache(FurnishingData data) => _toggleCallback = data.ToggleCallback;
+        private void Cache(FurnishingData data) => _toggleCallback = data.ToggleCallback + Toggle;
+
+        // todo: finish panel in general and fix this organization
+        private void Toggle()
+        {
+            _isEnabled = !_isEnabled;
+            stuff1.localScale = _isEnabled ? Vector3.one : Vector3.zero;
+            stuff2.localScale = _isEnabled ? Vector3.one : Vector3.zero;
+        }
     }
 }
