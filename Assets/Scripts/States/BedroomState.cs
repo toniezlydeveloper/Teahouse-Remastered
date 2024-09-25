@@ -10,6 +10,11 @@ using UnityEngine.InputSystem;
 
 namespace States
 {
+    public interface IFurnishingListener : IDependency
+    {
+        void Toggle(bool state);
+    }
+    
     public interface IFurnishingCore : IDependency
     {
         bool IsEnabled { get; }
@@ -17,8 +22,8 @@ namespace States
     
     public class BedroomState : APauseAllowedState, IFurnishingCore
     {
+        private DependencyRecipe<DependencyList<IFurnishingListener>> _furnishingListeners = DependencyInjector.GetRecipe<DependencyList<IFurnishingListener>>();
         private DependencyRecipe<IPlayerModeToggle> _playerModeToggle = DependencyInjector.GetRecipe<IPlayerModeToggle>();
-        private InputActionReference _toggleInput;
         private PlayerModeProxy _playerMode;
         private DayTimeProxy _dayTime;
         private bool _isEnabled;
@@ -30,9 +35,8 @@ namespace States
             FileSaveType.Bedroom
         };
 
-        public BedroomState(InputActionReference toggleInput, PlayerModeProxy playerMode, DayTimeProxy dayTime, InputActionReference pauseInput, IPausePanel pausePanel) : base(pauseInput, pausePanel)
+        public BedroomState(PlayerModeProxy playerMode, DayTimeProxy dayTime, InputActionReference pauseInput, IPausePanel pausePanel) : base(pauseInput, pausePanel)
         {
-            _toggleInput = toggleInput;
             _playerMode = playerMode;
             _dayTime = dayTime;
         }
@@ -47,7 +51,7 @@ namespace States
         public override void OnExit()
         {
             RemoveCallbacks();
-            Disable();
+            Toggle();
         }
 
         public override Type OnUpdate()
@@ -55,7 +59,7 @@ namespace States
             // todo: uncomment
             // if (Is(DayTime.Night))
             {
-                HandleModeToggling();
+                Toggle();
             }
             
             HandlePause();
@@ -102,18 +106,17 @@ namespace States
 
         private void InitModification() => _playerModeToggle.Value.Toggle(PlayerMode.Modification);
 
-        private void HandleModeToggling()
+        private void Toggle()
         {
-            if (!_toggleInput.action.triggered)
-            {
-                return;
-            }
+            bool state = _playerMode.Value == PlayerMode.Organization;
             
-            _playerModeToggle.Value.Toggle(_playerMode.Value == PlayerMode.Modification ? PlayerMode.Organization : PlayerMode.Modification);
-            _isEnabled = _playerMode.Value == PlayerMode.Organization;
-        }
+            foreach (IFurnishingListener listener in _furnishingListeners.Value)
+            {
+                listener.Toggle(state);
+            }
 
-        private void Disable() => _isEnabled = false;
+            _isEnabled = state;
+        }
 
         private void AddCallbacks() => _dayTime.OnChanged += DisableOrganization;
 

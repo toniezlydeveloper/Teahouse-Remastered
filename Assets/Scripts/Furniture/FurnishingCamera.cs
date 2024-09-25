@@ -1,4 +1,3 @@
-using System;
 using Cinemachine;
 using Internal.Dependencies.Core;
 using States;
@@ -6,12 +5,10 @@ using UnityEngine;
 
 namespace Furniture
 {
-    public class FurnishingCamera : MonoBehaviour
+    public class FurnishingCamera : ADependencyElement<IFurnishingListener>, IFurnishingListener
     {
         [SerializeField] private CinemachineVirtualCamera cinemachineCamera;
         
-        private IFurnishingCore _furnishingCore = DependencyInjector.Get<IFurnishingCore>();
-
-        private void Update() => cinemachineCamera.Priority = _furnishingCore.IsEnabled ? 15 : 0;
+        public void Toggle(bool state) => cinemachineCamera.Priority = state ? 15 : 0;
     }
 }

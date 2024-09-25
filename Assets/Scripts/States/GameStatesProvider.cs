@@ -80,7 +80,7 @@ namespace States
             AddState(new ShopClosedAtNightState(dayTime, pause, _pausePanel));
             
             AddState(new BedroomBoostrapState());
-            AddState(new BedroomState(toggle, playerMode, dayTime, pause, _pausePanel));
+            AddState(new BedroomState(playerMode, dayTime, pause, _pausePanel));
             
             AddState(new CallingState(controls, back));
             
@@ -102,6 +102,7 @@ namespace States
         private void InjectListRecipes()
         {
             DependencyInjector.InjectListRecipe<IManageableItemHolder>();
+            DependencyInjector.InjectListRecipe<IFurnishingListener>();
             DependencyInjector.InjectListRecipe<ITutorialCamera>();
             DependencyInjector.InjectListRecipe<IPoolItem>();
         }

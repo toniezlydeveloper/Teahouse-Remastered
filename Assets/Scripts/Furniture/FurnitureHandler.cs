@@ -18,7 +18,7 @@ namespace Furniture
         public GameObject Model { get; set; }
     }
     
-    public class FurnitureHandler : AInteractionHandler, IGridItemHolder
+    public class FurnitureHandler : MonoBehaviour, IGridItemHolder
     {
         [SerializeField] private InputActionReference rotateRightInput;
         [SerializeField] private InputActionReference rotateLeftInput;
@@ -38,33 +38,16 @@ namespace Furniture
         private FurniturePlacer _placer;
         private FurniturePicker _picker;
 
-        public override PlayerMode HandledModes => PlayerMode.Organization;
-        // todo: come back to night
-        public override DayTime HandledDayTime => DayTime.Day;
-
         public GridItemOrientation Orientation => _rotator.Orientation;
         public GridDimensions Dimensions => _selector.Dimensions;
 
-        private void Awake()
+        private void Start()
         {
-            _placedFurniture = new List<PlacedFurniture>();
-            _selector = new FurnitureSelector(itemsConfig);
-            _rotator = new FurnitureRotator(rotateRightInput, rotateLeftInput);
-            _placer = new FurniturePlacer(_placedFurniture, placeInput, previewMaterial, invalidSpotColor, validSpotColor);
-            _picker = new FurniturePicker(_placedFurniture, placeInput, pickPreviewMaterial);
+            GetReferences();
+            AddCallbacks();
         }
 
-        private void OnEnable()
-        {
-            playerMode.OnChanged += _placer.TryTogglingPreview;
-            playerMode.OnChanged += _picker.TryTogglingPreview;
-        }
-
-        private void OnDisable()
-        {
-            playerMode.OnChanged -= _placer.TryTogglingPreview;
-            playerMode.OnChanged -= _picker.TryTogglingPreview;
-        }
+        private void OnDestroy() => RemoveCallbacks();
 
         private void Update()
         {
@@ -114,6 +97,27 @@ namespace Furniture
             _picker.HandlePickUp();
             _placer.Destroy();
             return true;
+        }
+
+        private void GetReferences()
+        {
+            _placedFurniture = new List<PlacedFurniture>();
+            _selector = new FurnitureSelector(itemsConfig, playerMode);
+            _rotator = new FurnitureRotator(rotateRightInput, rotateLeftInput);
+            _placer = new FurniturePlacer(_placedFurniture, placeInput, previewMaterial, invalidSpotColor, validSpotColor);
+            _picker = new FurniturePicker(_placedFurniture, placeInput, pickPreviewMaterial);
+        }
+
+        private void AddCallbacks()
+        {
+            playerMode.OnChanged += _placer.TryTogglingPreview;
+            playerMode.OnChanged += _picker.TryTogglingPreview;
+        }
+
+        private void RemoveCallbacks()
+        {
+            playerMode.OnChanged -= _placer.TryTogglingPreview;
+            playerMode.OnChanged -= _picker.TryTogglingPreview;
         }
     }
 }

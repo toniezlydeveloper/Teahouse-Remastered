@@ -21,3 +21,11 @@ MonoBehaviour:
     <Icon>k__BackingField: {fileID: 21300000, guid: a3dcc8b557b35474a9525a695a91c58c, type: 3}
     <Name>k__BackingField: Bed
     <Cost>k__BackingField: 10
+  - <Dimensions>k__BackingField:
+      <Height>k__BackingField: 1
+      <Width>k__BackingField: 1
+    <Prefab>k__BackingField: {fileID: 3560050670198330452, guid: 71d2f5bfb06d0c944949547e1b03d238, type: 3}
+    <Offset>k__BackingField: {x: 0, y: -0.2225, z: 0}
+    <Icon>k__BackingField: {fileID: 21300000, guid: e9861ff0998b2e346a29df61da3b6f9f, type: 3}
+    <Name>k__BackingField: Kettle
+    <Cost>k__BackingField: 10

@@ -1,13 +1,22 @@
 using System;
 using Internal.Dependencies.Core;
 using Internal.Flow.UI;
+using TMPro;
+using UI.Helpers;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace UI.Core
 {
     public interface ISelectableFurniturePanel : IDependency
     {
-        void Present(SelectableFurniturePieceData[] piecesData);
+        void Present(FurnishingData data);
+    }
+
+    public class FurnishingData
+    {
+        public SelectableFurniturePieceData[] PiecesData { get; set; }
+        public Action ToggleCallback { get; set; }
     }
 
     public class SelectableFurniturePieceData
@@ -20,12 +29,28 @@ namespace UI.Core
     
     public class BedroomPanel : AUIPanel, ISelectableFurniturePanel
     {
-        public void Present(SelectableFurniturePieceData[] piecesData)
+        [SerializeField] private SelectionButton selectionButtonPrefab;
+        [SerializeField] private Transform selectionButtonsParent;
+        [SerializeField] private TextMeshProUGUI costContainer;
+        [SerializeField] private TextMeshProUGUI textContainer;
+        [SerializeField] private Button toggleButton;
+
+        private Action _toggleCallback;
+
+        private void Start() => AddCallbacks();
+
+        public void Present(FurnishingData data)
         {
-            foreach (SelectableFurniturePieceData pieceData in piecesData)
+            foreach (SelectableFurniturePieceData pieceData in data.PiecesData)
             {
-                pieceData.SelectionCallback.Invoke();
+                Instantiate(selectionButtonPrefab, selectionButtonsParent).Init(pieceData);
             }
+            
+            Cache(data);
         }
+
+        private void AddCallbacks() => toggleButton.onClick.AddListener(() => _toggleCallback?.Invoke());
+
+        private void Cache(FurnishingData data) => _toggleCallback = data.ToggleCallback;
     }
 }

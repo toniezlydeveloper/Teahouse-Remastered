@@ -1547,10 +1547,6 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8552520548874474809, guid: f4f594c1726857b458adb176d4035990, type: 3}
-      propertyPath: isAlwaysActive
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f4f594c1726857b458adb176d4035990, type: 3}
 --- !u!224 &332573728 stripped
@@ -2608,6 +2604,44 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 6646285422099860800, guid: b96cfa48c96fdf844bca753718758445, type: 3}
   m_PrefabInstance: {fileID: 813198985}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &813198987 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6646285422159582486, guid: b96cfa48c96fdf844bca753718758445, type: 3}
+  m_PrefabInstance: {fileID: 813198985}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &813198988 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6646285422252495293, guid: b96cfa48c96fdf844bca753718758445, type: 3}
+  m_PrefabInstance: {fileID: 813198985}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!224 &813198989 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 6646285421246925816, guid: b96cfa48c96fdf844bca753718758445, type: 3}
+  m_PrefabInstance: {fileID: 813198985}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &813198990 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6646285421597701465, guid: b96cfa48c96fdf844bca753718758445, type: 3}
+  m_PrefabInstance: {fileID: 813198985}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &886639391
 GameObject:
   m_ObjectHideFlags: 0
@@ -5999,6 +6033,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isInteractable: 1
+  selectionButtonPrefab: {fileID: 7710796953352681288, guid: 447e5891ac3f44944a32ea5f2747871a, type: 3}
+  selectionButtonsParent: {fileID: 813198989}
+  costContainer: {fileID: 813198987}
+  textContainer: {fileID: 813198988}
+  toggleButton: {fileID: 813198990}
 --- !u!225 &2069785512
 CanvasGroup:
   m_ObjectHideFlags: 0
