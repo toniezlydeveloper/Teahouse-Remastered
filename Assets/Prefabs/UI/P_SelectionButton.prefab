@@ -137,6 +137,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   iconContainer: {fileID: 3839547659169040417}
   button: {fileID: 6689018053441663454}
+  background: {fileID: 1136492608764338406}
+  unselectedColor: {r: 1, g: 1, b: 1, a: 1}
+  selectedColor: {r: 0.7505809, g: 1, b: 0.4764151, a: 1}
 --- !u!1 &2055237419728964110
 GameObject:
   m_ObjectHideFlags: 0

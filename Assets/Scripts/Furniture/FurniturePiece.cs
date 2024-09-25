@@ -13,11 +13,20 @@ namespace Furniture
         public Sprite Icon { get; }
         public int Cost { get; }
     }
+
+    public enum FurnitureCategory
+    {
+        Bed,
+        Chair,
+        Wardrobe,
+        Desk
+    }
     
     [Serializable]
     public class FurniturePiece : IFurniturePiece
     {
         [field: SerializeField] public GridDimensions Dimensions { get; set; }
+        [field: SerializeField] public FurnitureCategory Category { get; set; }
         [field: SerializeField] public GameObject Prefab { get; set; }
         [field: SerializeField] public Vector3 Offset { get; set; }
         [field: SerializeField] public Sprite Icon { get; set; }

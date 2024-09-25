@@ -150,6 +150,8 @@ namespace States
             _selectedPieceDimensions = _selectedPiece != null ? _selectedPiece.Dimensions : DefaultDimensions;
         }
 
+        private bool IsSelected(IFurniturePiece piece) => _selectedPiece == piece;
+
         private void ReadOutput(out IFurniturePiece selectedPiece) => selectedPiece = _selectedPiece;
 
         private void GetReferences(PlayerModeProxy playerMode, DayTimeProxy dayTime, InputActionReference toggle, InputActionReference back)
@@ -165,6 +167,9 @@ namespace States
             PiecesData = config.Set.Select(item => new SelectableFurniturePieceData
             {
                 SelectionCallback = () => HandleSelection(item),
+                IsSelectedCallback = () => IsSelected(item),
+                Text = "No bonuses for this item yet.",
+                Name = item.Name,
                 Icon = item.Icon,
                 Cost = item.Cost
             }).ToArray(),
