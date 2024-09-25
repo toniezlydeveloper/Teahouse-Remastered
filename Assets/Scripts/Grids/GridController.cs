@@ -38,7 +38,10 @@ namespace Grids
         private Vector3 _cellWorldPositionDelta;
         private Vector3 _rightUpperCorner;
         private Vector3 _leftLowerCorner;
+        private Vector3 _adjustedPointer;
 
+        private int _adjustedPointerColumn;
+        private int _adjustedPointerRow;
         private int _pointerColumn;
         private int _pointerRow;
 
@@ -52,6 +55,8 @@ namespace Grids
         public bool TryGetInsideCells(out List<GridCell> cells, out Vector3 cellsCenter)
         {
             GetGridPositions();
+            AdjustPointer(GetPointerAdjustment());
+            GetAdjustedPointerPosition();
             GetPointedCells();
             return ReadOutput(out cells, out cellsCenter);
         }
@@ -66,6 +71,12 @@ namespace Grids
         {
             GetColumn(_pointer.Value.Position, out _pointerColumn);
             GetRow(_pointer.Value.Position, out _pointerRow);
+        }
+
+        private void GetAdjustedPointerPosition()
+        {
+            GetColumn(_adjustedPointer, out _adjustedPointerColumn);
+            GetRow(_adjustedPointer, out _adjustedPointerRow);
         }
 
         private void GetValues()
@@ -91,6 +102,32 @@ namespace Grids
             row -= SafetyRowColumnCount;
         }
 
+        private void AdjustPointer(Vector3 pointerAdjustment) => _adjustedPointer = _pointer.Value.Position + pointerAdjustment;
+        
+        private Vector3 GetPointerAdjustment()
+        {
+            float worldHeight = cellSize * (_itemHolder.Value.Dimensions.Height - 1);
+            float worldWidth = cellSize * (_itemHolder.Value.Dimensions.Width - 1);
+            float columnFactor;
+            float rowFactor;
+
+            switch (_itemHolder.Value.Orientation)
+            {
+                case GridItemOrientation.ColumnWise:
+                    columnFactor = worldWidth / 2;
+                    rowFactor = worldHeight / 2;
+                    break;
+                case GridItemOrientation.RowWise:
+                    columnFactor = worldHeight / 2;
+                    rowFactor = worldWidth / 2;
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+
+            return -rowFactor * Vector3.forward + -columnFactor * Vector3.right;
+        }
+
         private void GetPointedCells()
         {
             _cells = new List<GridCell>();
@@ -102,8 +139,8 @@ namespace Grids
                     for (int j = 0; j < _itemHolder.Value.Dimensions.Width; j++)
                         _cells.Add(new GridCell
                         {
-                            Column = _pointerColumn + j,
-                            Row = _pointerRow + i
+                            Column = _adjustedPointerColumn + j,
+                            Row = _adjustedPointerRow + i
                         });
                     break;
                 case GridItemOrientation.RowWise:
@@ -111,8 +148,8 @@ namespace Grids
                     for (int j = 0; j < _itemHolder.Value.Dimensions.Width; j++)
                         _cells.Add(new GridCell
                         {
-                            Column = _pointerColumn + i,
-                            Row = _pointerRow + j
+                            Column = _adjustedPointerColumn + i,
+                            Row = _adjustedPointerRow + j
                         });
                     break;
                 default:
@@ -149,6 +186,8 @@ namespace Grids
             GetValues();
             
             GetGridPositions();
+            AdjustPointer(GetPointerAdjustment());
+            GetAdjustedPointerPosition();
             GetPointedCells();
             
             DrawGrid();
@@ -189,6 +228,8 @@ namespace Grids
         {
             Gizmos.color = Color.red;
             Gizmos.DrawWireSphere(_pointer.Value.Position + Vector3.up * center.y * 2f, 0.25f);
+            Gizmos.color = Color.green;
+            Gizmos.DrawWireSphere(_adjustedPointer, 0.125f);
         }
 
         private void DrawPointerCells()
@@ -201,7 +242,7 @@ namespace Grids
             
             Gizmos.color = Color.magenta;
             
-            GridCell pointerCell = new GridCell { Column = _pointerColumn, Row = _pointerRow };
+            GridCell pointerCell = new GridCell { Column = _adjustedPointerColumn, Row = _adjustedPointerRow };
             Gizmos.DrawWireCube(calculateWorldPosition.Invoke(pointerCell), new Vector3(cellSize, 0.25f, cellSize));
             
             Gizmos.color = _areCellsValid ? Color.blue : Color.black;
