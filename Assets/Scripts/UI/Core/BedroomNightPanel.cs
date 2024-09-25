@@ -33,7 +33,7 @@ namespace UI.Core
         public string Text { get; set; }
         public int Cost { get; set; }
     }
-    
+
     public class BedroomNightPanel : AUIPanel, ISelectableFurniturePanel, IFurnishingListener
     {
         [SerializeField] private CategoryButtonWrapper[] categoryButtonWrappers;
