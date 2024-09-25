@@ -112,8 +112,6 @@ namespace UI.Core
 
         private void SelectCategory(FurnitureCategory category)
         {
-            _selectionButtons.FirstOrDefault(selectionButton => selectionButton.PresentedCategory == category)?.RaiseSelectionCallback();
-            
             foreach (SelectionButton selectionButton in _selectionButtons)
             {
                 selectionButton.gameObject.SetActive(selectionButton.PresentedCategory == category);

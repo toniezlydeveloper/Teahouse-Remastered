@@ -11,6 +11,7 @@ using Transitions;
 using UI.Core;
 using UI.Shared;
 using UnityEngine.InputSystem;
+using Utilities;
 
 namespace States
 {
@@ -104,7 +105,15 @@ namespace States
                 SavingController.Save(PersistenceType.Volatile, FileSaveType.Bedroom);
                 return true;
             });
-            AddCondition<BedroomDayState>(() => Is(DayTime.Day));
+            AddCondition<BedroomDayState>(() =>
+            {
+                if (DevelopmentConfig.Instance.ShouldStartInBuildMode)
+                {
+                    return false;
+                }
+                
+                return Is(DayTime.Day);
+            });
         }
 
         private void DisableOrganization(DayTime _) => InitModification();

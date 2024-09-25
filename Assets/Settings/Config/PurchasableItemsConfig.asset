@@ -13,19 +13,21 @@ MonoBehaviour:
   m_Name: PurchasableItemsConfig
   m_EditorClassIdentifier: 
   <Set>k__BackingField:
-  - <Dimensions>k__BackingField:
+  - <Category>k__BackingField: 0
+    <Dimensions>k__BackingField:
       <Height>k__BackingField: 3
       <Width>k__BackingField: 2
-    <Prefab>k__BackingField: {fileID: 6396824862390078932, guid: 073d1e272ac14714a86f3a2d16a885b0, type: 3}
-    <Offset>k__BackingField: {x: 0, y: 0.2, z: 0}
+    <Prefab>k__BackingField: {fileID: 4956420587519017849, guid: 8093ec14068f91a409bd16552b3f2d6c, type: 3}
+    <Offset>k__BackingField: {x: 0, y: 0, z: 0}
     <Icon>k__BackingField: {fileID: 21300000, guid: a3dcc8b557b35474a9525a695a91c58c, type: 3}
-    <Name>k__BackingField: Bed
-    <Cost>k__BackingField: 10
-  - <Dimensions>k__BackingField:
-      <Height>k__BackingField: 1
-      <Width>k__BackingField: 1
-    <Prefab>k__BackingField: {fileID: 3560050670198330452, guid: 71d2f5bfb06d0c944949547e1b03d238, type: 3}
-    <Offset>k__BackingField: {x: 0, y: -0.2225, z: 0}
-    <Icon>k__BackingField: {fileID: 21300000, guid: e9861ff0998b2e346a29df61da3b6f9f, type: 3}
-    <Name>k__BackingField: Kettle
-    <Cost>k__BackingField: 10
+    <Name>k__BackingField: Bed 1
+    <Cost>k__BackingField: 80
+  - <Category>k__BackingField: 0
+    <Dimensions>k__BackingField:
+      <Height>k__BackingField: 3
+      <Width>k__BackingField: 2
+    <Prefab>k__BackingField: {fileID: 8603734427300325595, guid: 3d4f8223e8a5e1c4e9009ba7d243e1bb, type: 3}
+    <Offset>k__BackingField: {x: 0, y: 0, z: 0}
+    <Icon>k__BackingField: {fileID: 21300000, guid: a3dcc8b557b35474a9525a695a91c58c, type: 3}
+    <Name>k__BackingField: Bed 2
+    <Cost>k__BackingField: 100

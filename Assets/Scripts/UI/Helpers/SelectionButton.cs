@@ -36,7 +36,7 @@ namespace UI.Helpers
 
         public void RefreshSelection() => _background.color = _isSelectedCallback.Invoke() ? selectedColor : unselectedColor;
 
-        public void RaiseSelectionCallback() => _selectionCallback.Invoke();
+        private void RaiseSelectionCallback() => _selectionCallback.Invoke();
 
         private void Cache(SelectableFurniturePieceData pieceData, Action callback)
         {
