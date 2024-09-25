@@ -169,6 +169,7 @@ namespace States
                 SelectionCallback = () => HandleSelection(item),
                 IsSelectedCallback = () => IsSelected(item),
                 Text = "No bonuses for this item yet.",
+                Category = item.Category,
                 Name = item.Name,
                 Icon = item.Icon,
                 Cost = item.Cost
