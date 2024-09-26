@@ -1,8 +1,9 @@
+using System.IO;
+using System.Linq;
 using Furniture;
 using Grids;
 using UnityEditor;
 using UnityEngine;
-using UnityEngine.Windows;
 
 namespace Editor
 {
@@ -10,6 +11,7 @@ namespace Editor
     {
         [SerializeField] private GameObject[] prefabs;
         [SerializeField] private GameObject[] models;
+        [SerializeField] private Sprite[] icons;
 
         private PurchasableItemsCategoryConfig _config;
         private SerializedObject _serializedObject;
@@ -17,6 +19,7 @@ namespace Editor
         private Vector3 _localRotation;
         private Vector3 _localScale;
         private GameObject _prefab;
+        private Vector2 _scroll;
         private int _height;
         private int _width;
 
@@ -29,6 +32,8 @@ namespace Editor
 
         private void OnGUI()
         {
+            _scroll = EditorGUILayout.BeginScrollView(_scroll);
+            
             DrawConversionSetupFields();
 
             if (GUILayout.Button("Convert To Prefabs"))
@@ -42,6 +47,15 @@ namespace Editor
             {
                 OverrideConfig();
             }
+
+            DrawOverrideIconsFields();
+
+            if (GUILayout.Button("Override Icons"))
+            {
+                OverrideIcons();
+            }
+            
+            EditorGUILayout.EndScrollView();
         }
 
         private void ConvertToPrefabs()
@@ -61,6 +75,17 @@ namespace Editor
             foreach (GameObject prefab in prefabs)
             {
                 AddToConfig(prefab);
+            }
+            
+            EditorUtility.SetDirty(_config);
+        }
+
+        private void OverrideIcons()
+        {
+            foreach (Sprite icon in icons)
+            {
+                OverrideIcon(icon);
+                RenameIcon(icon);
             }
             
             EditorUtility.SetDirty(_config);
@@ -107,6 +132,26 @@ namespace Editor
                 Prefab = prefab
             });
         }
+        
+        private void OverrideIcon(Sprite icon)
+        {
+            FurniturePiece matchingPiece = _config.Set.FirstOrDefault(piece => icon.name.EndsWith(piece.Name));
+
+            if (matchingPiece == null)
+            {
+                return;
+            }
+
+            matchingPiece.Icon = icon;
+        }
+
+        private void RenameIcon(Sprite icon)
+        {
+            string newName = Path.GetFileName(AssetDatabase.GetAssetPath(icon.texture)).Replace("P_", "T_");
+            string oldPath = AssetDatabase.GetAssetPath(icon.texture);
+            AssetDatabase.RenameAsset(oldPath, newName);
+            EditorUtility.SetDirty(icon.texture);
+        }
 
         private void DrawConversionSetupFields()
         {
@@ -125,6 +170,14 @@ namespace Editor
             _height = EditorGUILayout.IntField("Model Height", _height);
             _width = EditorGUILayout.IntField("Model Width", _width);
             EditorGUILayout.PropertyField(_serializedObject.FindProperty(nameof(prefabs)));
+            _serializedObject.ApplyModifiedProperties();
+        }
+
+        private void DrawOverrideIconsFields()
+        {
+            GUILayout.Space(20);
+            _config = (PurchasableItemsCategoryConfig)EditorGUILayout.ObjectField("Output Config", _config, typeof(PurchasableItemsCategoryConfig), false);
+            EditorGUILayout.PropertyField(_serializedObject.FindProperty(nameof(icons)));
             _serializedObject.ApplyModifiedProperties();
         }
 
