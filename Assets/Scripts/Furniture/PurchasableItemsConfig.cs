@@ -6,6 +6,6 @@ namespace Furniture
     [CreateAssetMenu(menuName = "Config/Purchasable Items")]
     public class PurchasableItemsConfig : ScriptableObject
     {
-        [field: SerializeField] public List<FurniturePiece> Set { get; set; }
+        [field: SerializeField] public List<PurchasableItemsCategoryConfig> Categories { get; set; }
     }
 }

@@ -173,16 +173,16 @@ namespace States
 
         private void Init(ISelectableFurniturePanel selectablePanel, PurchasableItemsConfig config) => selectablePanel.Present(new FurnishingData
         {
-            PiecesData = config.Set.Select(item => new SelectableFurniturePieceData
+            PiecesData = config.Categories.SelectMany(categoryConfig => categoryConfig.Set.Select(furniturePiece => new SelectableFurniturePieceData
             {
-                SelectionCallback = () => HandleSelection(item),
-                IsSelectedCallback = () => IsSelected(item),
+                SelectionCallback = () => HandleSelection(furniturePiece),
+                IsSelectedCallback = () => IsSelected(furniturePiece),
                 Text = "No bonuses for this item yet.",
-                Category = item.Category,
-                Name = item.Name,
-                Icon = item.Icon,
-                Cost = item.Cost
-            }).ToArray(),
+                Category = categoryConfig.Category,
+                Name = furniturePiece.Name,
+                Icon = furniturePiece.Icon,
+                Cost = furniturePiece.Cost
+            })).ToArray(),
             ToggleCallback = ToggleFurnishing
         });
 

@@ -7,6 +7,7 @@ namespace Furniture
 {
     public interface IFurniturePiece : IDependency
     {
+        public FurnitureCategory Category { get; }
         public GridDimensions Dimensions { get; }
         public GameObject Prefab { get; }
         public Vector3 Offset { get; }
@@ -19,7 +20,8 @@ namespace Furniture
         Bed,
         Chair,
         Wardrobe,
-        Desk
+        Desk,
+        Cabinet
     }
     
     [Serializable]
@@ -40,6 +42,10 @@ namespace Furniture
             Offset = piece.Offset;
             Cost = piece.Cost;
             Icon = piece.Icon;
+        }
+
+        public FurniturePiece()
+        {
         }
     }
 }

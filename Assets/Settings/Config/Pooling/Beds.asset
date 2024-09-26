@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1678fe3e964429a8b20255cb1f47afb, type: 3}
+  m_Name: Beds
+  m_EditorClassIdentifier: 
+  <Prefabs>k__BackingField:
+  - {fileID: 5680686136841888650, guid: c2007e7b62326f840b9777a6caed3efb, type: 3}
+  - {fileID: 2575401776583653022, guid: e824866dd2aa40f4b87df9129fe2150e, type: 3}
+  - {fileID: 5117946265813196563, guid: 109622545e1bc3e4695c9be34f812f94, type: 3}
+  - {fileID: 6611922858890300766, guid: 478678648e5cd54408eee13ece6dbe3b, type: 3}
+  - {fileID: 1191837979075422859, guid: 85256ddedd1f79848b44f1e5d305453c, type: 3}
+  - {fileID: 1418066850945767427, guid: 3d4f8223e8a5e1c4e9009ba7d243e1bb, type: 3}
+  - {fileID: 2306925936696161185, guid: 8093ec14068f91a409bd16552b3f2d6c, type: 3}
+  - {fileID: 7665661969258412707, guid: e761ac0e4df60794cac5c1667a16a6cb, type: 3}
+  - {fileID: 4633479058424994128, guid: 6a9c3bc85f4ffbf46b5d827ac454d06e, type: 3}
+  - {fileID: 4091445664736784473, guid: 0621e2274af934740a5f41c5895a91ed, type: 3}
+  - {fileID: 1965813905644815435, guid: 85991500918a50241aec8e732b9179f4, type: 3}
+  - {fileID: 8506308529427806720, guid: c08f57fef42c26e43a2310e84a7ffab6, type: 3}
+  - {fileID: 2932494115645480515, guid: 258c7e3d2d60f774ea18ba506e2c1130, type: 3}

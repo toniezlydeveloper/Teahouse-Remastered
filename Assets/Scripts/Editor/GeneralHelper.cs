@@ -11,7 +11,7 @@ namespace Editor
         
         static GeneralHelper() => EditorApplication.playModeStateChanged += TryRestoringScene;
         
-        [MenuItem("Tools/just Adam/Start #s")]
+        [MenuItem("Tools/just Adam/Toggle #s")]
         public static void Toggle()
         {
             if (IsInIdle())

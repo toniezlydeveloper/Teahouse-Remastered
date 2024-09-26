@@ -10,9 +10,10 @@ namespace Saving.Proxies
 {
     public class PlacedFurnitureSaveData
     {
-        [JsonProperty("c")] public List<GridCell> Cells { get; set; }
-        [JsonProperty("mI")] public string ModelId { get; set; }
-        [JsonProperty("pI")] public int PieceIndex { get; set; }
+        [JsonProperty("category")] public FurnitureCategory Category { get; set; }
+        [JsonProperty("cells")] public List<GridCell> Cells { get; set; }
+        [JsonProperty("pieceIndex")] public int PieceIndex { get; set; }
+        [JsonProperty("modelId")] public string ModelId { get; set; }
     }
     
     public class FurnitureHandlerSaveProxy : ASaveProxy
@@ -33,8 +34,9 @@ namespace Saving.Proxies
         {
             List<PlacedFurnitureSaveData> data = GetPlacedFurniture().Select(furniture => new PlacedFurnitureSaveData
             {
-                PieceIndex = itemsForSale.Set.FindIndex(item => item.Prefab == furniture.Piece.Prefab),
+                PieceIndex = itemsForSale.Categories.First(item => item.Category == furniture.Piece.Category).Set.FindIndex(item => item.Prefab == furniture.Piece.Prefab),
                 ModelId = furniture.Model.GetComponent<FurniturePieceSaveProxy>().Id,
+                Category = furniture.Piece.Category,
                 Cells = furniture.Cells
             }).ToList();
             
@@ -48,8 +50,8 @@ namespace Saving.Proxies
             
             return data.Select(furnitureData => new PlacedFurniture
             {
+                Piece = itemsForSale.Categories.First(config => config.Category == furnitureData.Category).Set.ElementAt(furnitureData.PieceIndex),
                 Model = proxies.First(proxy => proxy.Id == furnitureData.ModelId).GameObject,
-                Piece = itemsForSale.Set[furnitureData.PieceIndex],
                 Cells = furnitureData.Cells
             }).ToList();
         }

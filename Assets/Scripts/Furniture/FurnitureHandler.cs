@@ -1,13 +1,10 @@
 using System.Collections.Generic;
-using Bedroom;
 using Grids;
-using Interaction;
 using Internal.Dependencies.Core;
 using Player;
 using States;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using Utilities;
 
 namespace Furniture
 {

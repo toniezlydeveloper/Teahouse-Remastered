@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1678fe3e964429a8b20255cb1f47afb, type: 3}
+  m_Name: Kitchen
+  m_EditorClassIdentifier: 
+  <Prefabs>k__BackingField:
+  - {fileID: 5429352832864528944, guid: 74227cc0fbb9eb048abb2f1f66ca7893, type: 3}
+  - {fileID: 3024882085132100409, guid: 60de926ddcb35504d8a740923fbf40b3, type: 3}
+  - {fileID: -8346903964888035581, guid: dca901f98e3c82f45bdb5bc8465870bf, type: 3}
+  - {fileID: -3601072560015309634, guid: 867297aff505fd046aee47cc86b85636, type: 3}
+  - {fileID: -2242316164406126159, guid: 1cb3fc44a5d9124458c032b7493317c5, type: 3}
+  - {fileID: 475228548885766897, guid: 17ddc1095a035dc45b705f33b68cb1f1, type: 3}
+  - {fileID: 8176340708956165264, guid: c93a6bb8e08dc3b41857aa5f8142ffb3, type: 3}
+  - {fileID: 176993328400334041, guid: 02aec74da6124a44e87275118d5d6596, type: 3}
+  - {fileID: 4976463059277847490, guid: 2a85a172a93b0334db96ad57c6c21fe8, type: 3}

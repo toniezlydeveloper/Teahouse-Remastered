@@ -1,0 +1,133 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54827b5235b9412e94616850a55049a0, type: 3}
+  m_Name: Beds
+  m_EditorClassIdentifier: 
+  <Category>k__BackingField: 0
+  <Set>k__BackingField:
+  - <Category>k__BackingField: 0
+    <Dimensions>k__BackingField:
+      <Height>k__BackingField: 3
+      <Width>k__BackingField: 2
+    <Prefab>k__BackingField: {fileID: 3035073585948103506, guid: c2007e7b62326f840b9777a6caed3efb, type: 3}
+    <Offset>k__BackingField: {x: 0, y: 0, z: 0}
+    <Icon>k__BackingField: {fileID: 0}
+    <Name>k__BackingField: Bed1
+    <Cost>k__BackingField: 0
+  - <Category>k__BackingField: 0
+    <Dimensions>k__BackingField:
+      <Height>k__BackingField: 3
+      <Width>k__BackingField: 2
+    <Prefab>k__BackingField: {fileID: 5149528539544176198, guid: e824866dd2aa40f4b87df9129fe2150e, type: 3}
+    <Offset>k__BackingField: {x: 0, y: 0, z: 0}
+    <Icon>k__BackingField: {fileID: 0}
+    <Name>k__BackingField: Bed2
+    <Cost>k__BackingField: 0
+  - <Category>k__BackingField: 0
+    <Dimensions>k__BackingField:
+      <Height>k__BackingField: 3
+      <Width>k__BackingField: 2
+    <Prefab>k__BackingField: {fileID: 2579999269012172747, guid: 109622545e1bc3e4695c9be34f812f94, type: 3}
+    <Offset>k__BackingField: {x: 0, y: 0, z: 0}
+    <Icon>k__BackingField: {fileID: 0}
+    <Name>k__BackingField: Bed3
+    <Cost>k__BackingField: 0
+  - <Category>k__BackingField: 0
+    <Dimensions>k__BackingField:
+      <Height>k__BackingField: 3
+      <Width>k__BackingField: 2
+    <Prefab>k__BackingField: {fileID: 4542199521351368070, guid: 478678648e5cd54408eee13ece6dbe3b, type: 3}
+    <Offset>k__BackingField: {x: 0, y: 0, z: 0}
+    <Icon>k__BackingField: {fileID: 0}
+    <Name>k__BackingField: Bed4
+    <Cost>k__BackingField: 0
+  - <Category>k__BackingField: 0
+    <Dimensions>k__BackingField:
+      <Height>k__BackingField: 3
+      <Width>k__BackingField: 2
+    <Prefab>k__BackingField: {fileID: 8377017441870797395, guid: 85256ddedd1f79848b44f1e5d305453c, type: 3}
+    <Offset>k__BackingField: {x: 0, y: 0, z: 0}
+    <Icon>k__BackingField: {fileID: 0}
+    <Name>k__BackingField: Bed5
+    <Cost>k__BackingField: 0
+  - <Category>k__BackingField: 0
+    <Dimensions>k__BackingField:
+      <Height>k__BackingField: 3
+      <Width>k__BackingField: 2
+    <Prefab>k__BackingField: {fileID: 8603734427300325595, guid: 3d4f8223e8a5e1c4e9009ba7d243e1bb, type: 3}
+    <Offset>k__BackingField: {x: 0, y: 0, z: 0}
+    <Icon>k__BackingField: {fileID: 0}
+    <Name>k__BackingField: Bed6
+    <Cost>k__BackingField: 0
+  - <Category>k__BackingField: 0
+    <Dimensions>k__BackingField:
+      <Height>k__BackingField: 3
+      <Width>k__BackingField: 2
+    <Prefab>k__BackingField: {fileID: 4956420587519017849, guid: 8093ec14068f91a409bd16552b3f2d6c, type: 3}
+    <Offset>k__BackingField: {x: 0, y: 0, z: 0}
+    <Icon>k__BackingField: {fileID: 0}
+    <Name>k__BackingField: Bed7
+    <Cost>k__BackingField: 0
+  - <Category>k__BackingField: 0
+    <Dimensions>k__BackingField:
+      <Height>k__BackingField: 3
+      <Width>k__BackingField: 2
+    <Prefab>k__BackingField: {fileID: 1056798192961030779, guid: e761ac0e4df60794cac5c1667a16a6cb, type: 3}
+    <Offset>k__BackingField: {x: 0, y: 0, z: 0}
+    <Icon>k__BackingField: {fileID: 0}
+    <Name>k__BackingField: Bed8
+    <Cost>k__BackingField: 0
+  - <Category>k__BackingField: 0
+    <Dimensions>k__BackingField:
+      <Height>k__BackingField: 3
+      <Width>k__BackingField: 2
+    <Prefab>k__BackingField: {fileID: 2631802090322389384, guid: 6a9c3bc85f4ffbf46b5d827ac454d06e, type: 3}
+    <Offset>k__BackingField: {x: 0, y: 0, z: 0}
+    <Icon>k__BackingField: {fileID: 0}
+    <Name>k__BackingField: Bed9
+    <Cost>k__BackingField: 0
+  - <Category>k__BackingField: 0
+    <Dimensions>k__BackingField:
+      <Height>k__BackingField: 3
+      <Width>k__BackingField: 2
+    <Prefab>k__BackingField: {fileID: 6632916657702125697, guid: 0621e2274af934740a5f41c5895a91ed, type: 3}
+    <Offset>k__BackingField: {x: 0, y: 0, z: 0}
+    <Icon>k__BackingField: {fileID: 0}
+    <Name>k__BackingField: Bed10
+    <Cost>k__BackingField: 0
+  - <Category>k__BackingField: 0
+    <Dimensions>k__BackingField:
+      <Height>k__BackingField: 3
+      <Width>k__BackingField: 2
+    <Prefab>k__BackingField: {fileID: 9190896852207301779, guid: 85991500918a50241aec8e732b9179f4, type: 3}
+    <Offset>k__BackingField: {x: 0, y: 0, z: 0}
+    <Icon>k__BackingField: {fileID: 0}
+    <Name>k__BackingField: Bed11
+    <Cost>k__BackingField: 0
+  - <Category>k__BackingField: 0
+    <Dimensions>k__BackingField:
+      <Height>k__BackingField: 3
+      <Width>k__BackingField: 2
+    <Prefab>k__BackingField: {fileID: 1353081150385588952, guid: c08f57fef42c26e43a2310e84a7ffab6, type: 3}
+    <Offset>k__BackingField: {x: 0, y: 0, z: 0}
+    <Icon>k__BackingField: {fileID: 0}
+    <Name>k__BackingField: Bed12
+    <Cost>k__BackingField: 0
+  - <Category>k__BackingField: 0
+    <Dimensions>k__BackingField:
+      <Height>k__BackingField: 3
+      <Width>k__BackingField: 2
+    <Prefab>k__BackingField: {fileID: 5510481203088666267, guid: 258c7e3d2d60f774ea18ba506e2c1130, type: 3}
+    <Offset>k__BackingField: {x: 0, y: 0, z: 0}
+    <Icon>k__BackingField: {fileID: 0}
+    <Name>k__BackingField: Bed13
+    <Cost>k__BackingField: 0

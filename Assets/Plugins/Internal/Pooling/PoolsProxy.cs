@@ -12,10 +12,10 @@ namespace Internal.Pooling
         GameObject Get(string key, Vector3 position, Quaternion rotation, Transform parent = null);
         void Release(string key, GameObject item);
     }
-    
+
     public class PoolsProxy : MonoBehaviour, IPoolsProxy
     {
-        [SerializeField] private PoolItem[] prefabs;
+        [SerializeField] private PoolItemsConfig[] configs;
 
         private readonly Dictionary<string, ObjectPool<PoolItem>> _poolsByKey = new();
 
@@ -37,29 +37,32 @@ namespace Internal.Pooling
 
         private void InitPools()
         {
-            foreach (PoolItem prefab in prefabs)
+            foreach (PoolItemsConfig config in configs)
             {
-                Action<PoolItem> releaseCallback = item =>
+                foreach (PoolItem prefab in config.Prefabs)
                 {
-                    if (item.TryGetComponent(out PoolItem poolItem))
-                        poolItem.ShouldRelease = false;
+                    Action<PoolItem> releaseCallback = item =>
+                    {
+                        if (item.TryGetComponent(out PoolItem poolItem))
+                            poolItem.ShouldRelease = false;
                     
-                    item.transform.SetParent(transform);
-                    item.gameObject.SetActive(false);
-                };
-                Action<PoolItem> getCallback = item =>
-                {
-                    item.ShouldRelease = true;
-                    item.gameObject.SetActive(true);
-                };
-                Func<PoolItem> createCallback = () =>
-                {
-                    PoolItem item = Instantiate(prefab);
-                    item.ShouldRelease = true;
-                    return item;
-                };
+                        item.transform.SetParent(transform);
+                        item.gameObject.SetActive(false);
+                    };
+                    Action<PoolItem> getCallback = item =>
+                    {
+                        item.ShouldRelease = true;
+                        item.gameObject.SetActive(true);
+                    };
+                    Func<PoolItem> createCallback = () =>
+                    {
+                        PoolItem item = Instantiate(prefab);
+                        item.ShouldRelease = true;
+                        return item;
+                    };
 
-                _poolsByKey.Add(prefab.name, new ObjectPool<PoolItem>(createCallback, getCallback, releaseCallback));
+                    _poolsByKey.Add(prefab.name, new ObjectPool<PoolItem>(createCallback, getCallback, releaseCallback));
+                }
             }
         }
     }
