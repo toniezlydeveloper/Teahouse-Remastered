@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using System.Linq;
 using Customers;
 using Internal.Dependencies.Core;
@@ -6,6 +8,7 @@ using Internal.Pooling;
 using Internal.Utilities;
 using Items.Holders;
 using Player;
+using Saving;
 using UI.Shared;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -13,7 +16,7 @@ using Utilities;
 
 namespace States
 {
-    public class ShopOpenedAtDayState : AState
+    public class ShopOpenedAtDayState : APauseAllowedState
     {
         private DependencyRecipe<DependencyList<IManageableItemHolder>> _itemHolders = DependencyInjector.GetRecipe<DependencyList<IManageableItemHolder>>();
         private DependencyRecipe<DependencyList<IPoolItem>> _poolItems = DependencyInjector.GetRecipe<DependencyList<IPoolItem>>();
@@ -22,7 +25,9 @@ namespace States
         private CustomerSpawner _customerSpawner;
         private Coroutine _spawnCoroutine;
 
-        public ShopOpenedAtDayState(CustomerSpawner customerSpawner)
+        protected override List<FileSaveType> TypesToSave => new();
+
+        public ShopOpenedAtDayState(CustomerSpawner customerSpawner, InputActionReference pauseInput, IPausePanel pausePanel) : base(pauseInput, pausePanel)
         {
             _customerSpawner = customerSpawner;
         }
@@ -51,6 +56,12 @@ namespace States
             }
             
             DeinitCustomerQueue();
+        }
+
+        public override Type OnUpdate()
+        {
+            HandlePause();
+            return null;
         }
 
         protected override void AddConditions() => AddCondition<ShopClosedAtNightState>(HasFinishedLevel);

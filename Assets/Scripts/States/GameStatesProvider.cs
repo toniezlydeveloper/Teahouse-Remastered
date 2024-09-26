@@ -78,7 +78,7 @@ namespace States
             
             AddState(new ShopDayBootstrapState());
             AddState(new ShopNightBootstrapState());
-            AddState(new ShopOpenedAtDayState(new CustomerSpawner(_timePanel, customerPrefab, data)));
+            AddState(new ShopOpenedAtDayState(new CustomerSpawner(_timePanel, customerPrefab, data), pause, _pausePanel));
             AddState(new ShopClosedAtDayState(pause, _pausePanel));
             AddState(new ShopClosedAtNightState(dayTime, pause, _pausePanel));
             
