@@ -32,7 +32,7 @@ namespace Editor
 
         private void OnGUI()
         {
-            _scroll = EditorGUILayout.BeginScrollView(_scroll);
+            DrawBeginScroll();
             
             DrawConversionSetupFields();
 
@@ -54,8 +54,15 @@ namespace Editor
             {
                 OverrideIcons();
             }
+
+            DrawRenameIconsFields();
+
+            if (GUILayout.Button("Rename Icons"))
+            {
+                RenameIcons();
+            }
             
-            EditorGUILayout.EndScrollView();
+            DrawEndScroll();
         }
 
         private void ConvertToPrefabs()
@@ -85,10 +92,17 @@ namespace Editor
             foreach (Sprite icon in icons)
             {
                 OverrideIcon(icon);
-                RenameIcon(icon);
             }
             
             EditorUtility.SetDirty(_config);
+        }
+
+        private void RenameIcons()
+        {
+            foreach (Sprite icon in icons)
+            {
+                RenameIcon(icon);
+            }
         }
         
         private void CreatePrefabVariant(GameObject modelPrefab)
@@ -98,6 +112,14 @@ namespace Editor
             Attach(modelInstance, originalInstance);
             SavePrefab(originalInstance);
             DestroyImmediate(originalInstance);
+        }
+
+        private void RenameIcon(Sprite icon)
+        {
+            string newName = Path.GetFileName(AssetDatabase.GetAssetPath(icon.texture)).Replace("P_", "T_");
+            string oldPath = AssetDatabase.GetAssetPath(icon.texture);
+            AssetDatabase.RenameAsset(oldPath, newName);
+            EditorUtility.SetDirty(icon.texture);
         }
 
         private GameObject GetInstance(GameObject modelPrefab)
@@ -145,13 +167,9 @@ namespace Editor
             matchingPiece.Icon = icon;
         }
 
-        private void RenameIcon(Sprite icon)
-        {
-            string newName = Path.GetFileName(AssetDatabase.GetAssetPath(icon.texture)).Replace("P_", "T_");
-            string oldPath = AssetDatabase.GetAssetPath(icon.texture);
-            AssetDatabase.RenameAsset(oldPath, newName);
-            EditorUtility.SetDirty(icon.texture);
-        }
+        private void DrawBeginScroll() => _scroll = EditorGUILayout.BeginScrollView(_scroll);
+
+        private void DrawEndScroll() => EditorGUILayout.EndScrollView();
 
         private void DrawConversionSetupFields()
         {
@@ -177,6 +195,13 @@ namespace Editor
         {
             GUILayout.Space(20);
             _config = (PurchasableItemsCategoryConfig)EditorGUILayout.ObjectField("Output Config", _config, typeof(PurchasableItemsCategoryConfig), false);
+            EditorGUILayout.PropertyField(_serializedObject.FindProperty(nameof(icons)));
+            _serializedObject.ApplyModifiedProperties();
+        }
+
+        private void DrawRenameIconsFields()
+        {
+            GUILayout.Space(20);
             EditorGUILayout.PropertyField(_serializedObject.FindProperty(nameof(icons)));
             _serializedObject.ApplyModifiedProperties();
         }
