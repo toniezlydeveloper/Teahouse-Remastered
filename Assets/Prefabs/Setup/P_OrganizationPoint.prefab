@@ -201,6 +201,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: P_HighlightOther
       objectReference: {fileID: 0}
+    - target: {fileID: 1658738233183594600, guid: 95a674a7fe68aad40aa8b33229020304, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1658738233183594601, guid: 95a674a7fe68aad40aa8b33229020304, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -211,7 +215,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1658738233183594601, guid: 95a674a7fe68aad40aa8b33229020304, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.455
+      value: -0.487
       objectReference: {fileID: 0}
     - target: {fileID: 1658738233183594601, guid: 95a674a7fe68aad40aa8b33229020304, type: 3}
       propertyPath: m_LocalPosition.z
