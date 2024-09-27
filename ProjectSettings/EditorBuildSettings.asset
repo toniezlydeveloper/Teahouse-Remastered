@@ -9,9 +9,6 @@ EditorBuildSettings:
     path: Assets/Scenes/Bootstrap.unity
     guid: be48508dda920f64fa9358e424e3ea8d
   - enabled: 1
-    path: Assets/Scenes/Shop.unity
-    guid: 1786dce55a2826142ab6c6c41803ff60
-  - enabled: 1
     path: Assets/Scenes/Bedroom.unity
     guid: cb72da4860607554ebe081ecf2222356
   - enabled: 1
@@ -27,6 +24,6 @@ EditorBuildSettings:
     path: Assets/Scenes/MainMenu.unity
     guid: 6b3daf8b73083a94998637c520d5bc83
   - enabled: 1
-    path: Assets/Scenes/NewShop.unity
+    path: Assets/Scenes/Shop.unity
     guid: 29f68817547b58747a2651230e38dd99
   m_configObjects: {}
