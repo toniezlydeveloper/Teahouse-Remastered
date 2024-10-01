@@ -2954,6 +2954,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: a01e5da842e8b3445add1609ea83bba3, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 95c8650810247d64ba7c6097b982c9aa, type: 2}
     - target: {fileID: 919132149155446097, guid: a01e5da842e8b3445add1609ea83bba3, type: 3}
       propertyPath: m_Name
       value: KitchenFloor
@@ -3694,10 +3698,10 @@ MonoBehaviour:
   - <Camera>k__BackingField: {fileID: 1585790676}
     <Mode>k__BackingField: -1
     <Time>k__BackingField: 2
-    <MinX>k__BackingField: -7.59
-    <MaxX>k__BackingField: -0.86
-    <MinZ>k__BackingField: -3.35
-    <MaxZ>k__BackingField: 3
+    <MinX>k__BackingField: -100
+    <MaxX>k__BackingField: 100
+    <MinZ>k__BackingField: -100
+    <MaxZ>k__BackingField: 100
   playerMode: {fileID: 11400000, guid: e80d591c18778ab4b9dff2ddc5d7e633, type: 2}
   dayTime: {fileID: 11400000, guid: 20504ba66115c8f49917e37fbaf3b526, type: 2}
 --- !u!4 &251551139
@@ -5359,7 +5363,7 @@ Transform:
   m_GameObject: {fileID: 364248359}
   serializedVersion: 2
   m_LocalRotation: {x: 0.30070576, y: 0, z: 0, w: 0.953717}
-  m_LocalPosition: {x: -1.21, y: 2.81, z: -4.8100004}
+  m_LocalPosition: {x: -1.21, y: 3.21, z: -5.2070036}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -22428,7 +22432,7 @@ Transform:
   m_GameObject: {fileID: 1585790676}
   serializedVersion: 2
   m_LocalRotation: {x: 0.30070576, y: 0, z: 0, w: 0.953717}
-  m_LocalPosition: {x: 0, y: 2.81, z: -2.41}
+  m_LocalPosition: {x: 0, y: 3.21, z: -2.8070033}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

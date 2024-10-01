@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Character;
 using DG.Tweening;
+using Internal.Dependencies.Core;
 using Items.Holders;
 using Items.Implementations;
 using Pathfinding;
@@ -9,14 +11,21 @@ using UnityEngine;
 
 namespace Customers
 {
+    public interface ICustomer : IDependency
+    {
+        GameObject GameObject { get; }
+        Species Species { get; }
+    }
+    
     public class CustomersQueue
     {
         public List<Customer> Customers { get; } = new();
     }
     
-    public class Customer : MonoBehaviour
+    public class Customer : ADependencyElement<ICustomer>, ICustomer
     {
         [SerializeField] private TableSet tables;
+        [SerializeField] private Species species;
 
         private CustomersQueue _customersQueue;
         private Transform _queuePoint;
@@ -25,12 +34,17 @@ namespace Customers
         private Table _table;
         private AIPath _aiPath;
 
+        public GameObject GameObject => _table?.gameObject;
+        public Species Species => species;
+
         private const float SeatRotationDuration = 1f;
         private const float PostOrderInterval = 2.5f;
 
-        private void Awake() => _aiPath = GetComponent<AIPath>();
-
-        private void Start() => StartCoroutine(C_Execute());
+        private void Start()
+        {
+            GetReferences();
+            StartCoroutine(C_Execute());
+        }
 
         public void Init(IEnvironmentSetup setup)
         {
@@ -124,5 +138,7 @@ namespace Customers
         }
 
         private void ReleaseTable() => _table.IsTaken = false;
+
+        private void GetReferences() => _aiPath = GetComponent<AIPath>();
     }
 }

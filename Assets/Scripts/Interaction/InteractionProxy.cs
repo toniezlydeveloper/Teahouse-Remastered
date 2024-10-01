@@ -99,6 +99,9 @@ namespace Interaction
             if (_highlightedElement == null)
                 return;
 
+            if (_highlightedElement.TryGetComponent(out IInteractionValidator validator) && !validator.CanModify)
+                return;
+
             _highlightedElement.Highlight(true);
             _hintsPanel.Present(_highlightedElement);
         }

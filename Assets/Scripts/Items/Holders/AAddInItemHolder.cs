@@ -16,7 +16,7 @@ namespace Items.Holders
         private List<TAddIn> _allAddIns;
         private int _selectedIndex;
 
-        public override string Name => $"{GetStorage().Name}Holder";
+        public override string Name => $"{GetStorage()?.Name}Holder";
 
         private void Start()
         {
@@ -64,7 +64,15 @@ namespace Items.Holders
 
         private AddInStorage<TAddIn> GetStorage() => Value as AddInStorage<TAddIn>;
 
-        private void Progress(AddInStorage<TAddIn> storage) => storage.ProcessingProgress += Time.deltaTime * processingSpeed;
+        private void Progress(AddInStorage<TAddIn> storage)
+        {
+            if (storage == null)
+            {
+                return;
+            }
+            
+            storage.ProcessingProgress += Time.deltaTime * processingSpeed;
+        }
 
         private TAddIn GetPrevious()
         {

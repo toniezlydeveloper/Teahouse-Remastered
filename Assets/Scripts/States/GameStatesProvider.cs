@@ -15,23 +15,6 @@ using UnityEngine.InputSystem;
 
 namespace States
 {
-    // 1. Dekoracja pokoju V
-    // 2. Wytwarzanie skladnikow ze skladnikow C
-    // 3. Inventory do przekladania rzeczy V
-    // 4. Premie / nocni klienci C
-    // 5. Splacanie wujka herbaciarza
-    // 6. Tutorial V
-    // 7. Sklep z rzeczami V
-    // 8. Dodanie skladnikow z ChatGPT
-    // 9. Dodanie systemu zamowien na podstawie rasy zwierzecia
-    // 10. Poprawienie tutorialu
-    // 11. Dodanie minimalistycznej fabuly
-    // 12. Dodanie buffow do prowadzenia sklepu za kupione przedmioty do sypialni
-    // 13. Dodanie customizacji postaci V
-    // 14. Dodanie elementow multiplayer - odwiedzania i obserwacji
-    // 15. Ewentualne dodanie wspolpracy, jesli nie bedzie zbyt czasochlonne
-    // 16. Poprawic model kubka, zeby pokazywal wszystkie dodatki
-    // 17. Dodac auto-save
     public class GameStatesProvider : AStatesProvider
     {
         [Header("General")]
@@ -49,6 +32,7 @@ namespace States
         [SerializeField] private SpawnData data;
 
         [Header("Opened At Day")]
+        [SerializeField] private InputActionReference[] inputsToDisable;
         [SerializeField] private InputActionReference controls;
         [SerializeField] private InputActionReference back;
         
@@ -60,6 +44,7 @@ namespace States
         private ISelectableFurniturePanel _selectableFurniturePanel;
         private IDialogPanel _dialogPanel;
         private IPausePanel _pausePanel;
+        private INotesPanel _notesPanel;
         private ITimePanel _timePanel;
         
         private void Awake()
@@ -78,7 +63,7 @@ namespace States
             
             AddState(new ShopDayBootstrapState());
             AddState(new ShopNightBootstrapState());
-            AddState(new ShopOpenedAtDayState(new CustomerSpawner(_timePanel, customerPrefab, data), pause, _pausePanel));
+            AddState(new ShopOpenedState(new CustomerSpawner(_timePanel, customerPrefab, data), inputsToDisable, toggle, _notesPanel, pause, _pausePanel));
             AddState(new ShopClosedAtDayState(pause, _pausePanel));
             AddState(new ShopClosedAtNightState(dayTime, pause, _pausePanel));
             
@@ -110,12 +95,14 @@ namespace States
             DependencyInjector.InjectListRecipe<IFurnishingListener>();
             DependencyInjector.InjectListRecipe<ITutorialCamera>();
             DependencyInjector.InjectListRecipe<IPoolItem>();
+            DependencyInjector.InjectListRecipe<ICustomer>();
         }
         
         private void GetReferences()
         {
             _selectableFurniturePanel = GetFromUI<ISelectableFurniturePanel>();
             _dialogPanel = GetFromUI<IDialogPanel>();
+            _notesPanel = GetFromUI<INotesPanel>();
             _pausePanel = GetFromUI<IPausePanel>();
             _timePanel = GetFromUI<ITimePanel>();
         }

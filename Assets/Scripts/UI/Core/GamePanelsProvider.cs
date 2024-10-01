@@ -7,10 +7,10 @@ namespace UI.Core
     {
         protected override void AddTranslations()
         {
-            AddTranslation<ShopOpenedAtDayState, ShopOpenedPanel>();
-            AddTranslation<ShopClosedAtDayState, ShopClosedPanel>();
+            AddTranslation<ShopClosedAtDayState, ShopClosedAtDayPanel>();
             AddTranslation<BedroomNightState, BedroomNightPanel>();
             AddTranslation<BedroomDayState, BedroomDayPanel>();
+            AddTranslation<ShopOpenedState, ShopOpenedPanel>();
             AddTranslation<CharacterState, CharacterPanel>();
             AddTranslation<TutorialState, TutorialPanel>();
             AddTranslation<MainMenuState, MainMenuPanel>();

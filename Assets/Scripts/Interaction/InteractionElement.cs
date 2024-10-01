@@ -15,7 +15,7 @@ namespace Interaction
         [field: SerializeField] public string EHint { get; set; }
         [field: SerializeField] public string QHint { get; set; }
     }
-    
+
     public class InteractionElement : MonoBehaviour
     {
         [SerializeField] private PlayerModeProxy modeProxy;

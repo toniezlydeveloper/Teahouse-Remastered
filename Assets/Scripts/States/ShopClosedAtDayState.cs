@@ -43,7 +43,7 @@ namespace States
         protected override void AddConditions()
         {
             AddCondition<CallingState>(() => Transition.ShouldToggle(TransitionType.Calling));
-            AddCondition<ShopOpenedAtDayState>(() =>
+            AddCondition<ShopOpenedState>(() =>
             {
                 if (!Transition.ShouldToggle(TransitionType.OpenShop))
                     return false;

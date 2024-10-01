@@ -15,6 +15,13 @@ namespace UI.Items
         private List<AddInIcon> _unusedIcons = new();
         private List<Enum> _presentedAddIns = new();
 
+        private static readonly List<Type> IngredientTypes = new()
+        {
+            typeof(WaterType),
+            typeof(HerbType),
+            typeof(FlowerType),
+            typeof(TeabagType)
+        };
         private static readonly List<Enum> EmptyAddIns = new();
         
         private void Update()
@@ -29,6 +36,7 @@ namespace UI.Items
             DisableUnusedIcons(requiredAddIns);
             GetMissingIcons(requiredAddIns);
             Cache(requiredAddIns);
+            SortIcons();
         }
 
         private bool TryGetRequiredAddIns(IAddInsHolder addIn, out List<Enum> requiredAddIns)
@@ -78,7 +86,6 @@ namespace UI.Items
                 {
                     Init(addIn, Instantiate(addInIconPrefab, addInIconsParent));
                 }
-                
             }
         }
 
@@ -106,5 +113,16 @@ namespace UI.Items
         }
 
         private void Cache(List<Enum> requiredAddIns) => _presentedAddIns = new List<Enum>(requiredAddIns);
+
+        private void SortIcons()
+        {
+            List<KeyValuePair<Enum, AddInIcon>> icons = _usedIcons.ToList();
+            icons.Sort((icon1, icon2) => IngredientTypes.IndexOf(icon1.Key.GetType()) - IngredientTypes.IndexOf(icon2.Key.GetType()));
+            
+            for (int i = 0; i < icons.Count; i++)
+            {
+                icons[i].Value.transform.SetSiblingIndex(i);
+            }
+        }
     }
 }

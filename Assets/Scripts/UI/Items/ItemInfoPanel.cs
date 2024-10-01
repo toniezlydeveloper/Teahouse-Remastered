@@ -14,7 +14,7 @@ namespace UI.Items
         [SerializeField] private Image itemTypeIconHolder;
         [SerializeField] private GameObject itemTypeIconWrapper;
         [SerializeField] private GameObject panel;
-        [SerializeField] private ItemIcons icons;
+        [SerializeField] private IconSet icons;
 
         private IItemHolder _presentedItemHolder;
         private object _presentedItem;
