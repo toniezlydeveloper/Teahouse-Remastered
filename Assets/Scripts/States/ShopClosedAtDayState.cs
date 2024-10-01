@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Customers;
 using Internal.Dependencies.Core;
 using Internal.Pooling;
+using Organization;
 using Player;
 using Saving;
 using Transitions;
@@ -47,6 +48,9 @@ namespace States
             {
                 if (!Transition.ShouldToggle(TransitionType.OpenShop))
                     return false;
+
+                if (DependencyInjector.GetRecipe<IOrganizer>().Value.HoldsItem)
+                    return false;
                 
                 ToggleDoorHinge(true);
                 return true;
@@ -54,6 +58,9 @@ namespace States
             AddCondition<BedroomDayBoostrapState>(() =>
             {
                 if (!Transition.ShouldToggle(TransitionType.Bedroom))
+                    return false;
+
+                if (DependencyInjector.GetRecipe<IOrganizer>().Value.HoldsItem)
                     return false;
                 
                 SavingController.Save(PersistenceType.Volatile, FileSaveType.Shop);

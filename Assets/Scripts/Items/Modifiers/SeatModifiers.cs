@@ -53,9 +53,6 @@ namespace Items.Modifiers
         
         public bool CanModify(IItemHolder player, IItemHolder place)
         {
-            if (!player.IsEmpty())
-                return false;
-
             if (!place.TryGet(out Order order))
                 return false;
 

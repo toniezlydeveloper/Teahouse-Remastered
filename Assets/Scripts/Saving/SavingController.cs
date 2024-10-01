@@ -19,6 +19,7 @@ namespace Saving
 
     public enum PersistenceType
     {
+        Initial,
         Persistent,
         Volatile
     }
@@ -69,6 +70,14 @@ namespace Saving
             File.Delete(filePath);
         }
 
+        public static void Override(PersistenceType originalType, PersistenceType overrideType)
+        {
+            foreach (FileSaveType saveType in (FileSaveType[])Enum.GetValues(typeof(FileSaveType)))
+            {
+                Override(saveType, originalType, overrideType);
+            }
+        }
+
         public static void OverrideVolatileWithPersistent()
         {
             foreach (FileSaveType saveType in (FileSaveType[])Enum.GetValues(typeof(FileSaveType)))
@@ -77,12 +86,14 @@ namespace Saving
             }
         }
 
-        public static void OverridePersistentWithVolatile()
+        private static void Override(FileSaveType saveType, PersistenceType originalType, PersistenceType overrideType)
         {
-            foreach (FileSaveType saveType in (FileSaveType[])Enum.GetValues(typeof(FileSaveType)))
+            if (!TryGetSaveExistingFilePath(overrideType, saveType, out string overrideFilePath))
             {
-                OverridePersistentWithVolatile(saveType);
+                return;
             }
+            
+            File.WriteAllText(GetSaveFilePath(originalType, saveType), File.ReadAllText(overrideFilePath));
         }
 
         private static void OverrideVolatileWithPersistent(FileSaveType saveType)
@@ -95,16 +106,6 @@ namespace Saving
             {
                 Clear(PersistenceType.Volatile, saveType);
             }
-        }
-
-        private static void OverridePersistentWithVolatile(FileSaveType saveType)
-        {
-            if (!TryGetSaveExistingFilePath(PersistenceType.Volatile, saveType, out string volatileFilePath))
-            {
-                return;
-            }
-            
-            File.WriteAllText(GetSaveFilePath(PersistenceType.Persistent, saveType), File.ReadAllText(volatileFilePath));
         }
         
         private static bool TryGetSaveExistingFilePath(PersistenceType persistenceType, FileSaveType saveType, out string filePath)

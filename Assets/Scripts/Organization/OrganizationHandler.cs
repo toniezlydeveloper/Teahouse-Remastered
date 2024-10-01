@@ -7,14 +7,27 @@ using UnityEngine;
 
 namespace Organization
 {
-    public class OrganizationHandler : AInteractionHandler
+    public interface IOrganizer : IDependency
     {
+        bool HoldsItem { get; }
+    }
+    
+    public class OrganizationHandler : AInteractionHandler, IOrganizer
+    {
+        [SerializeField] private GameObject organizationBox;
+        
         private IPoolsProxy _poolsProxy = DependencyInjector.Get<IPoolsProxy>();
         private Quaternion _organizableRotation;
         private string _organizableName;
 
         public override PlayerMode HandledModes => PlayerMode.Organization;
         public override DayTime HandledDayTime => DayTime.Day;
+
+        public bool HoldsItem => _organizableName != null;
+
+        private void OnEnable() => DependencyInjector.InjectRecipe<IOrganizer>(this);
+
+        private void OnDisable() => DependencyInjector.DejectRecipe<IOrganizer>();
 
         public override void HandleInteractionDownInput(InteractionElement element)
         {
@@ -58,6 +71,7 @@ namespace Organization
             _organizableName = point.GetComponentInChildren<Organizable>().Name;
             _organizableRotation = point.GetComponentInChildren<Organizable>().Rotation;
             _poolsProxy.Release(_organizableName, point.GetComponentInChildren<Organizable>().GameObject);
+            organizationBox.SetActive(true);
             return true;
         }
 
@@ -72,6 +86,7 @@ namespace Organization
             Organizable organizable = _poolsProxy.GetTyped<Organizable>(_organizableName, Vector3.zero, Quaternion.identity, point.transform);
             organizable.transform.localPosition = _organizableRotation * Vector3.forward * organizable.ForwardOffset;
             organizable.transform.localRotation = _organizableRotation;
+            organizationBox.SetActive(false);
             _organizableName = null;
         }
     }

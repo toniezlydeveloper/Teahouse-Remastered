@@ -45,7 +45,7 @@ namespace States
                 SavingController.Save(PersistenceType.Volatile, type);
             }
 
-            SavingController.OverridePersistentWithVolatile();
+            SavingController.Override(PersistenceType.Persistent, PersistenceType.Volatile);
         }
 
         private bool ReceivedPauseInput() => _pauseInput.action.triggered;
