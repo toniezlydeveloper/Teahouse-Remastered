@@ -28,6 +28,8 @@ namespace Saving
     {
         public static void Save(PersistenceType persistenceType, FileSaveType saveType) => File.WriteAllText(GetSaveFilePath(persistenceType, saveType), ReadJsonFromScene(saveType));
 
+        public static void Save(PersistenceType persistenceType, FileSaveType saveType, string fileContent) => File.WriteAllText(GetSaveFilePath(persistenceType, saveType), fileContent);
+
         public static void Load(PersistenceType persistenceType, FileSaveType saveType)
         {
             string filePath = GetSaveFilePath(persistenceType, saveType);
@@ -39,16 +41,8 @@ namespace Saving
             
             ReadJsonToScene(saveType, filePath);
         }
-        
-        public static bool HasFile(PersistenceType persistenceType, FileSaveType saveType) => File.Exists(GetSaveFilePath(persistenceType, saveType));
 
-        public static void ClearPersistent()
-        {
-            foreach (FileSaveType saveType in (FileSaveType[])Enum.GetValues(typeof(FileSaveType)))
-            {
-                Clear(PersistenceType.Persistent, saveType);
-            }
-        }
+        public static bool HasFile(PersistenceType persistenceType, FileSaveType saveType) => File.Exists(GetSaveFilePath(persistenceType, saveType));
 
         public static void ClearVolatile()
         {
@@ -74,38 +68,32 @@ namespace Saving
         {
             foreach (FileSaveType saveType in (FileSaveType[])Enum.GetValues(typeof(FileSaveType)))
             {
-                Override(saveType, originalType, overrideType);
+                TryOverride(saveType, originalType, overrideType);
             }
         }
 
-        public static void OverrideVolatileWithPersistent()
+        public static void OverrideSafe(PersistenceType originalType, PersistenceType overrideType)
         {
             foreach (FileSaveType saveType in (FileSaveType[])Enum.GetValues(typeof(FileSaveType)))
             {
-                OverrideVolatileWithPersistent(saveType);
+                if (TryOverride(saveType, originalType, overrideType))
+                {
+                    continue;
+                }
+                
+                Clear(originalType, saveType);
             }
         }
 
-        private static void Override(FileSaveType saveType, PersistenceType originalType, PersistenceType overrideType)
+        private static bool TryOverride(FileSaveType saveType, PersistenceType originalType, PersistenceType overrideType)
         {
             if (!TryGetSaveExistingFilePath(overrideType, saveType, out string overrideFilePath))
             {
-                return;
+                return false;
             }
             
             File.WriteAllText(GetSaveFilePath(originalType, saveType), File.ReadAllText(overrideFilePath));
-        }
-
-        private static void OverrideVolatileWithPersistent(FileSaveType saveType)
-        {
-            if (TryGetSaveExistingFilePath(PersistenceType.Persistent, saveType, out string persistentFilePath))
-            {
-                File.WriteAllText(GetSaveFilePath(PersistenceType.Volatile, saveType), File.ReadAllText(persistentFilePath));
-            }
-            else
-            {
-                Clear(PersistenceType.Volatile, saveType);
-            }
+            return true;
         }
         
         private static bool TryGetSaveExistingFilePath(PersistenceType persistenceType, FileSaveType saveType, out string filePath)
@@ -128,7 +116,14 @@ namespace Saving
 
             foreach (ASaveProxy proxy in Object.FindObjectsOfType<ASaveProxy>().Where(proxy => proxy.Type == type))
             {
-                proxy.Read(dataById.First(data => data.Key == proxy.Id).Value);
+                try
+                {
+                    proxy.Read(dataById.First(data => data.Key == proxy.Id).Value);
+                }
+                catch
+                {
+                    Debug.LogError($"Failed to read: {proxy.GetType()}");
+                }
             }
         }
     }

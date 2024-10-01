@@ -9118,6 +9118,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: P_OrganizationPoint
       objectReference: {fileID: 0}
+    - target: {fileID: 8017129072904731985, guid: ab8087f4c36671c45ad881599f2a8eff, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8017129072904731998, guid: ab8087f4c36671c45ad881599f2a8eff, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.75

@@ -22,6 +22,7 @@ namespace States
         [SerializeField] private CachedItemHolder hand;
         [SerializeField] private DayTimeProxy dayTime;
         [SerializeField] private GameObject uiParent;
+        [SerializeField] private TextAsset[] initialSaves;
         
         [Header("Tutorial")]
         [SerializeField] private InputActionReference progressDialog;
@@ -42,6 +43,7 @@ namespace States
         [SerializeField] private PlayerModeProxy playerMode;
 
         private ISelectableFurniturePanel _selectableFurniturePanel;
+        private IMainMenuPanel _mainMenuPanel;
         private IDialogPanel _dialogPanel;
         private IPausePanel _pausePanel;
         private INotesPanel _notesPanel;
@@ -53,7 +55,7 @@ namespace States
             GetReferences();
             
             AddInitialState(new MainMenuBootstrapState());
-            AddState(new MainMenuState());
+            AddState(new MainMenuState(_mainMenuPanel, initialSaves));
             
             AddState(new CharacterBoostrapState());
             AddState(new CharacterState());
@@ -79,8 +81,8 @@ namespace States
 
         private void Start()
         {
+            SavingController.OverrideSafe(PersistenceType.Volatile, PersistenceType.Persistent);
             DependencyInjector.AddRecipeElement<IManageableItemHolder>(hand);
-            SavingController.OverrideVolatileWithPersistent();
         }
 
         private void OnDestroy()
@@ -101,13 +103,13 @@ namespace States
         private void GetReferences()
         {
             _selectableFurniturePanel = GetFromUI<ISelectableFurniturePanel>();
+            _mainMenuPanel = GetFromUI<IMainMenuPanel>();
+            _dialogPanel = GetFromUI<IDialogPanel>();
             _dialogPanel = GetFromUI<IDialogPanel>();
             _notesPanel = GetFromUI<INotesPanel>();
             _pausePanel = GetFromUI<IPausePanel>();
             _timePanel = GetFromUI<ITimePanel>();
         }
-        
-        private TDependency GetFromScene<TDependency>() where TDependency : IDependency => gameObject.GetComponentInChildren<TDependency>();
 
         private TDependency GetFromUI<TDependency>() where TDependency : IDependency => uiParent.GetComponentInChildren<TDependency>();
     }

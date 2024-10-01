@@ -1384,6 +1384,10 @@ MonoBehaviour:
   hand: {fileID: 11400000, guid: d064fd1e490aeec418092251174c58b4, type: 2}
   dayTime: {fileID: 11400000, guid: 20504ba66115c8f49917e37fbaf3b526, type: 2}
   uiParent: {fileID: 1431542015}
+  initialSaves:
+  - {fileID: 4900000, guid: ed188775c6b89d94c98f37a29bee8468, type: 3}
+  - {fileID: 4900000, guid: f93ab7ee0865a28499953d22c34b332c, type: 3}
+  - {fileID: 4900000, guid: 3d55f51ead3cdc04189480d6b2a2cbd2, type: 3}
   progressDialog: {fileID: -688405445266427128, guid: 66336f1aba36c584aa036f1400048593, type: 3}
   tutorialConfig: {fileID: 11400000, guid: c8e3582e3318caa43ad21c8951f30b25, type: 2}
   customerPrefab: {fileID: 2697796917733245322, guid: 5205c294bcbab514181fc95aa74e0d9b, type: 3}
