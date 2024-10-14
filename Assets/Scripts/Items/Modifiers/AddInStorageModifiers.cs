@@ -30,7 +30,7 @@ namespace Items.Modifiers
     
     public class AddInStorageAnyEmptyModifier : IItemModifier
     {
-        private IItemSelector _itemSelector = DependencyInjector.Get<IItemSelector>();
+        private IAddInSelector _addInSelector = DependencyInjector.Get<IAddInSelector>();
         
         public ModifierType Type => ModifierType.AddInStorage;
         
@@ -44,7 +44,7 @@ namespace Items.Modifiers
             return player.IsEmpty();
         }
 
-        public void Modify(IItemHolder player, IItemHolder place) => _itemSelector.Init(new AddInSelectionData
+        public void Modify(IItemHolder player, IItemHolder place) => _addInSelector.Init(new AddInSelectionData
         {
             SelectionCallback = value => Select(player, value),
             AddInType = place.CastTo<IAddInStorage>().AddInType
@@ -52,7 +52,7 @@ namespace Items.Modifiers
 
         private void Select(IItemHolder player, Enum value)
         {
-            _itemSelector.Deinit();
+            _addInSelector.Deinit();
             
             if ((int)(object)value == 0)
             {

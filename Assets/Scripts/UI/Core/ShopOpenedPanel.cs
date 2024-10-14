@@ -49,13 +49,13 @@ namespace UI.Core
         [SerializeField] private GameObject notesPanel;
         [SerializeField] private GameObject timePanel;
         [SerializeField] private Image timeBar;
-        [SerializeField] private ItemSelectionTile tilePrefab;
+        [SerializeField] private AddInSelectionTile tilePrefab;
         [SerializeField] private Transform tilesParent;
         [SerializeField] private IconSet icons;
         [SerializeField] private CanvasGroup canvasGroup;
         [SerializeField] private RadialLayout layout;
 
-        private List<ItemSelectionTile> _selectionTiles = new();
+        private List<AddInSelectionTile> _selectionTiles = new();
         private Dictionary<PlayerMode, ModeHints> _hintsByMode;
         private List<Image> _customerMarkers = new();
         private List<GameObject> _orders = new();
@@ -154,7 +154,7 @@ namespace UI.Core
 
         private void DestroySelectionTiles()
         {
-            foreach (ItemSelectionTile selectionTile in _selectionTiles)
+            foreach (AddInSelectionTile selectionTile in _selectionTiles)
             {
                 Destroy(selectionTile.gameObject);
             }
@@ -168,7 +168,7 @@ namespace UI.Core
             order.Init(data);
         }
 
-        private void Init(Enum item, ItemSelectionTile tile)
+        private void Init(Enum item, AddInSelectionTile tile)
         {
             _selectionTiles.Add(tile);
             tile.Init(item);

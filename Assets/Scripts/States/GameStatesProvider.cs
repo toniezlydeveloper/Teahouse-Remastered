@@ -1,6 +1,5 @@
 using Bedroom;
 using Customers;
-using Furniture;
 using Internal.Dependencies.Core;
 using Internal.Flow.States;
 using Internal.Pooling;
@@ -38,11 +37,9 @@ namespace States
         [SerializeField] private InputActionReference back;
         
         [Header("Bedroom")]
-        [SerializeField] private PurchasableItemsConfig purchasableItems;
         [SerializeField] private InputActionReference toggle;
         [SerializeField] private PlayerModeProxy playerMode;
 
-        private ISelectableFurniturePanel _selectableFurniturePanel;
         private IMainMenuPanel _mainMenuPanel;
         private IDialogPanel _dialogPanel;
         private IPausePanel _pausePanel;
@@ -72,7 +69,7 @@ namespace States
             AddState(new BedroomDayBoostrapState());
             AddState(new BedroomDayState(pause, _pausePanel));
             AddState(new BedroomNightBoostrapState());
-            AddState(new BedroomNightState(toggle, back, _selectableFurniturePanel, purchasableItems, playerMode, dayTime, pause, _pausePanel));
+            AddState(new BedroomNightState(dayTime, pause, _pausePanel));
             
             AddState(new CallingState(controls, back));
             
@@ -94,7 +91,6 @@ namespace States
         private void InjectListRecipes()
         {
             DependencyInjector.InjectListRecipe<IManageableItemHolder>();
-            DependencyInjector.InjectListRecipe<IFurnishingListener>();
             DependencyInjector.InjectListRecipe<ITutorialCamera>();
             DependencyInjector.InjectListRecipe<IPoolItem>();
             DependencyInjector.InjectListRecipe<ICustomer>();
@@ -102,7 +98,6 @@ namespace States
         
         private void GetReferences()
         {
-            _selectableFurniturePanel = GetFromUI<ISelectableFurniturePanel>();
             _mainMenuPanel = GetFromUI<IMainMenuPanel>();
             _dialogPanel = GetFromUI<IDialogPanel>();
             _dialogPanel = GetFromUI<IDialogPanel>();

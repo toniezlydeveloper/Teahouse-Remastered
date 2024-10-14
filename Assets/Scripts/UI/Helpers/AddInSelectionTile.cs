@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 namespace UI.Helpers
 {
-    public class ItemSelectionTile : MonoBehaviour
+    public class AddInSelectionTile : MonoBehaviour
     {
         [SerializeField] private Color disabledColor;
         [SerializeField] private Color enabledColor;

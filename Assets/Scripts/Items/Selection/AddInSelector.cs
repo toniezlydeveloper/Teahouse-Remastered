@@ -7,13 +7,13 @@ using UnityEngine.InputSystem;
 
 namespace Items.Selection
 {
-    public interface IItemSelector : IDependency
+    public interface IAddInSelector : IDependency
     {
         void Init(AddInSelectionData data);
         void Deinit();
     }
     
-    public class ItemSelector : MonoBehaviour, IItemSelector
+    public class AddInSelector : MonoBehaviour, IAddInSelector
     {
         [SerializeField] private InputActionReference[] playerInputs;
         [SerializeField] private InputActionReference pointer;
