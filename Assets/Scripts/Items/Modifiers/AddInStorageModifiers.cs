@@ -1,5 +1,8 @@
+using System;
+using Internal.Dependencies.Core;
 using Items.Holders;
 using Items.Implementations;
+using Items.Selection;
 
 namespace Items.Modifiers
 {
@@ -9,12 +12,12 @@ namespace Items.Modifiers
         
         public bool CanModify(IItemHolder player, IItemHolder place)
         {
-            if (!player.TryGet(out AddIn<TeabagType> addIn))
+            if (!place.TryGet(out IAddInStorage storage))
             {
                 return false;
             }
             
-            if (!place.TryGet(out IAddInStorage storage))
+            if (!player.Holds<AddIn<TeabagType>>())
             {
                 return false;
             }
@@ -27,16 +30,13 @@ namespace Items.Modifiers
     
     public class AddInStorageAnyEmptyModifier : IItemModifier
     {
+        private IItemSelector _itemSelector = DependencyInjector.Get<IItemSelector>();
+        
         public ModifierType Type => ModifierType.AddInStorage;
         
         public bool CanModify(IItemHolder player, IItemHolder place)
         {
-            if (!place.TryGet(out IAddInStorage storage))
-            {
-                return false;
-            }
-
-            if (!storage.CanGet())
+            if (!place.Holds<IAddInStorage>())
             {
                 return false;
             }
@@ -44,10 +44,31 @@ namespace Items.Modifiers
             return player.IsEmpty();
         }
 
-        public void Modify(IItemHolder player, IItemHolder place)
+        public void Modify(IItemHolder player, IItemHolder place) => _itemSelector.Init(new AddInSelectionData
         {
-            player.Refresh(place.CastTo<IAddInStorage>().Get());
-            place.CastTo<IAddInStorage>().Reset();
+            SelectionCallback = value => Select(player, value),
+            AddInType = place.CastTo<IAddInStorage>().AddInType
+        });
+
+        private void Select(IItemHolder player, Enum value)
+        {
+            _itemSelector.Deinit();
+            
+            if ((int)(object)value == 0)
+            {
+                return;
+            }
+            
+            player.Refresh(GetAddIn(value));
         }
+        
+        private IItem GetAddIn (Enum value) => value switch
+        {
+            HerbType type => new AddIn<HerbType> { Type = type },
+            FlowerType type => new AddIn<FlowerType> { Type = type },
+            TeabagType type => new AddIn<TeabagType> { Type = type },
+            WaterType type => new AddIn<WaterType> { Type = type },
+            _ => null
+        };
     }
 }

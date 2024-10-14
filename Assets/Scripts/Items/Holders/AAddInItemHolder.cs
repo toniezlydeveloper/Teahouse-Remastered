@@ -31,13 +31,11 @@ namespace Items.Holders
         public override void ToggleDown()
         {
             GetStorage().Type = GetPrevious();
-            GetStorage().Reset();
         }
 
         public override void ToggleUp()
         {
             GetStorage().Type = GetNext();
-            GetStorage().Reset();
         }
 
         public override void Progress()

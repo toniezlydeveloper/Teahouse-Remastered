@@ -167,7 +167,7 @@ MonoBehaviour:
   highlight: {fileID: 2724340005325753494}
   hints:
   - <CorrespondingMode>k__BackingField: 2
-    <SpaceHint>k__BackingField: Interact (Hold)
+    <SpaceHint>k__BackingField: Interact
     <EHint>k__BackingField: Next
     <QHint>k__BackingField: Previous
   order: 0

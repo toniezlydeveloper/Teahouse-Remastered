@@ -15,6 +15,7 @@ namespace Items.Implementations
         public float NormalizedProgress => ProcessingProgress / MaxProcessing;
         public List<Enum> HeldAddIns => new List<Enum> { Type };
         public string Name => NamesByAddInType[typeof(TAddIn)];
+        public Type AddInType => typeof(TAddIn);
         public Enum GenericType => Type;
         
         public float ProcessingProgress
@@ -31,7 +32,7 @@ namespace Items.Implementations
             { typeof(HerbType), "Herb" },
             { typeof(FlowerType), "Flower" },
         };
-        
+
         public bool CanGet()
         {
             if (!RequiresProcessing)
@@ -45,11 +46,6 @@ namespace Items.Implementations
         public void Reset() => ProcessingProgress = 0f;
 
         public IItem Get() => new AddIn<TAddIn> { Type = Type };
-    }
-
-    public class Water : AddIn<WaterType>
-    {
-        
     }
     
     // ReSharper disable once StaticMemberInGenericType
@@ -71,6 +67,8 @@ namespace Items.Implementations
     
     public interface IAddInStorage : IItem
     {
+        Type AddInType { get; }
+        
         bool CanGet();
         void Reset();
         IItem Get();

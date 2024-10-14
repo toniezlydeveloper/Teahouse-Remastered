@@ -38,6 +38,26 @@ namespace UI.Items
             Cache(requiredAddIns);
             SortIcons();
         }
+        
+        private void GetMissingIcons(List<Enum> requiredAddIns)
+        {
+            foreach (Enum addIn in requiredAddIns)
+            {
+                if (IsAlreadyShowing(addIn))
+                {
+                    continue;
+                }
+
+                if (TryGetCachedIcon(out AddInIcon icon))
+                {
+                    Init(addIn, icon);
+                }
+                else
+                {
+                    Init(addIn, Instantiate(addInIconPrefab, addInIconsParent));
+                }
+            }
+        }
 
         private bool TryGetRequiredAddIns(IAddInsHolder addIn, out List<Enum> requiredAddIns)
         {
@@ -67,26 +87,6 @@ namespace UI.Items
             }
             
             _unusedIcons.AddRange(iconsToHide);
-        }
-        
-        private void GetMissingIcons(List<Enum> requiredAddIns)
-        {
-            foreach (Enum addIn in requiredAddIns)
-            {
-                if (IsAlreadyShowing(addIn))
-                {
-                    continue;
-                }
-
-                if (TryGetCachedIcon(out AddInIcon icon))
-                {
-                    Init(addIn, icon);
-                }
-                else
-                {
-                    Init(addIn, Instantiate(addInIconPrefab, addInIconsParent));
-                }
-            }
         }
 
         private bool IsAlreadyShowing(Enum addIn) => _usedIcons.ContainsKey(addIn);
