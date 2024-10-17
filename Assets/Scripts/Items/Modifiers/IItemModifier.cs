@@ -6,7 +6,7 @@ namespace Items.Modifiers
     [Flags]
     public enum ModifierType
     {
-        // Next: | 4 | 9 | 10 |
+        // Next: | 9 | 10 |
         None = 0,
         
         // Level
@@ -14,6 +14,7 @@ namespace Items.Modifiers
         Dishwasher = 1 << 1,
         Sink = 1 << 2,
         BoilingPlate = 1 << 3,
+        Processor = 1 << 4,
         Seat = 1 << 5,
         AddInStorage = 1 << 6,
         CupShelf = 1 << 7,

@@ -6,7 +6,7 @@ using Items.Selection;
 
 namespace Items.Modifiers
 {
-    public class TeabagStorageTeabagModifier : IItemModifier
+    public class AddInStorageAddInModifier : IItemModifier
     {
         public ModifierType Type => ModifierType.AddInStorage;
         
@@ -17,12 +17,12 @@ namespace Items.Modifiers
                 return false;
             }
             
-            if (!player.Holds<AddIn<TeabagType>>())
+            if (!player.TryGet(out IAddInGenericType addIn))
             {
                 return false;
             }
 
-            return storage is IAddInType<TeabagType>;
+            return storage.AddInType == addIn.GenericType.GetType();
         }
 
         public void Modify(IItemHolder player, IItemHolder place) => player.Refresh(null);
