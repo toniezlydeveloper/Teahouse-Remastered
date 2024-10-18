@@ -12,17 +12,17 @@ namespace Items.Modifiers
         
         public bool CanModify(IItemHolder player, IItemHolder place)
         {
-            if (!place.TryGet(out IAddInStorage storage))
+            if (!place.TryGet(out IAddInType storage))
             {
                 return false;
             }
             
-            if (!player.TryGet(out IAddInGenericType addIn))
+            if (!player.TryGet(out IAddInType addIn))
             {
                 return false;
             }
 
-            return storage.AddInType == addIn.GenericType.GetType();
+            return storage.AddInType == addIn.AddInType;
         }
 
         public void Modify(IItemHolder player, IItemHolder place) => player.Refresh(null);
@@ -36,7 +36,7 @@ namespace Items.Modifiers
         
         public bool CanModify(IItemHolder player, IItemHolder place)
         {
-            if (!place.Holds<IAddInStorage>())
+            if (!place.Holds<IAddInType>())
             {
                 return false;
             }
@@ -47,7 +47,7 @@ namespace Items.Modifiers
         public void Modify(IItemHolder player, IItemHolder place) => _addInSelector.Init(new AddInSelectionData
         {
             SelectionCallback = value => Select(player, value),
-            AddInType = place.CastTo<IAddInStorage>().AddInType
+            AddInType = place.CastTo<IAddInType>().AddInType
         });
 
         private void Select(IItemHolder player, Enum value)

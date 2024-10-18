@@ -5,19 +5,15 @@ using UnityEngine;
 namespace Items.Implementations
 {
     // ReSharper disable once StaticMemberInGenericType
-    public class AddInStorage<TAddIn> : IAddInStorage, IAddInProgress, IAddInType<TAddIn>, IAddInGenericType, IAddInsHolder where TAddIn : Enum
+    public class AddInProcessor<TAddIn> : IAddInsHolder, IAddInProcessor, IAddInProgress, IAddInType where TAddIn : Enum
     {
         private float _processingProgress;
-        
-        public bool RequiresProcessing { get; set; }
-        public TAddIn Type { get; set; }
 
         public float NormalizedProgress => ProcessingProgress / MaxProcessing;
-        public List<Enum> HeldAddIns => new List<Enum> { Type };
         public string Name => NamesByAddInType[typeof(TAddIn)];
         public Type AddInType => typeof(TAddIn);
-        public Enum GenericType => Type;
-        
+
+        public List<Enum> HeldAddIns { get; } = new();
         public float ProcessingProgress
         {
             get => _processingProgress;
@@ -28,34 +24,40 @@ namespace Items.Implementations
 
         private static readonly Dictionary<Type, string> NamesByAddInType = new()
         {
+            { typeof(HerbType), "Mortar" },
+            { typeof(FlowerType), "Dehydrator" },
+        };
+
+        public bool IsReady() => ProcessingProgress >= MaxProcessing;
+        
+        public void Reset() => ProcessingProgress = 0f;
+
+        public IItem Get() => new AddIn<TAddIn> { Type = (TAddIn)HeldAddIns[0] };
+    }
+    
+    // ReSharper disable once StaticMemberInGenericType
+    public class AddInStorage<TAddIn> : IAddInType where TAddIn : Enum
+    {
+        public string Name => NamesByAddInType[typeof(TAddIn)];
+        public Type AddInType => typeof(TAddIn);
+
+        private static readonly Dictionary<Type, string> NamesByAddInType = new()
+        {
             { typeof(TeabagType), "Teabag" },
             { typeof(HerbType), "Herb" },
             { typeof(FlowerType), "Flower" },
         };
-
-        public bool CanGet()
-        {
-            if (!RequiresProcessing)
-            {
-                return true;
-            }
-
-            return ProcessingProgress >= MaxProcessing;
-        }
-        
-        public void Reset() => ProcessingProgress = 0f;
-
-        public IItem Get() => new AddIn<TAddIn> { Type = Type };
     }
     
     // ReSharper disable once StaticMemberInGenericType
-    public class AddIn<TAddIn> : IAddInGenericType, IAddInsHolder, IItem where TAddIn : Enum
+    public class AddIn<TAddIn> : IAddInsHolder, IAddInGenericType, IAddInType where TAddIn : Enum
     {
-        public virtual TAddIn Type { get; set; }
-
         public List<Enum> HeldAddIns => new List<Enum> { Type };
         public string Name => NamesByAddInType[typeof(TAddIn)];
+        public Type AddInType => typeof(TAddIn);
         public Enum GenericType => Type;
+        
+        public TAddIn Type { get; set; }
 
         private static readonly Dictionary<Type, string> NamesByAddInType = new()
         {
@@ -65,11 +67,19 @@ namespace Items.Implementations
         };
     }
     
-    public interface IAddInStorage : IItem
+    public interface IAddInType : IItem
     {
         Type AddInType { get; }
-        
-        bool CanGet();
+    }
+
+    public interface IAddInGenericType
+    {
+        Enum GenericType { get; }
+    }
+
+    public interface IAddInProcessor : IItem
+    {
+        bool IsReady();
         void Reset();
         IItem Get();
     }
@@ -82,11 +92,6 @@ namespace Items.Implementations
     public interface IAddInType<out TAddIn> where TAddIn : Enum
     {
         TAddIn Type { get; }
-    }
-
-    public interface IAddInGenericType
-    {
-        Enum GenericType { get; }
     }
 
     public interface IAddInsHolder

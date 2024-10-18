@@ -120,9 +120,9 @@ namespace Saving
                 {
                     proxy.Read(dataById.First(data => data.Key == proxy.Id).Value);
                 }
-                catch
+                catch (Exception caughtException)
                 {
-                    Debug.LogError($"Failed to read: {proxy.GetType()}");
+                    Debug.LogError($"[{proxy.GetType()}] Failed to read: {caughtException.Message}");
                 }
             }
         }

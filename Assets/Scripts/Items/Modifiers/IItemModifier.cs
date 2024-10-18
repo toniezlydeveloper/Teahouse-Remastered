@@ -14,7 +14,7 @@ namespace Items.Modifiers
         Dishwasher = 1 << 1,
         Sink = 1 << 2,
         BoilingPlate = 1 << 3,
-        Processor = 1 << 4,
+        AddInProcessor = 1 << 4,
         Seat = 1 << 5,
         AddInStorage = 1 << 6,
         CupShelf = 1 << 7,
